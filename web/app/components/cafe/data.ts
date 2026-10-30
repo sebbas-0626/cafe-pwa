@@ -1,14 +1,3 @@
-import type { OfferCardProps } from '~/types'
-
-export interface VarietyPrice {
-  name: string
-  badge: string
-  description: string
-  price: string
-  arroba: string
-  highlight: boolean
-}
-
 export interface FilterChip {
   label: string
   active: boolean
@@ -27,13 +16,6 @@ export const varietyFilters: FilterChip[] = [
   { label: 'Caturra', active: false },
   { label: 'Bourbon Rosado', active: false },
   { label: 'Geisha', active: false }
-]
-
-export const sampleVarietyPrices: VarietyPrice[] = [
-  { name: 'Castillo', badge: 'Base 88', description: 'Pergamino Seco estándar de recibo', price: '$ 15.200', arroba: '$190.000 / @', highlight: false },
-  { name: 'Caturra / Colombia', badge: 'Tradicional', description: 'Lotes seleccionados secados al sol', price: '$ 15.150', arroba: '$189.375 / @', highlight: false },
-  { name: 'Bourbon Rosado / Especiales', badge: '+ Calidad', description: 'Taza limpia calificada >84 puntos SCA', price: '$ 17.500', arroba: '$218.750 / @', highlight: true },
-  { name: 'Pasilla / Bajos Factores', badge: 'Despasillado', description: 'Compra directa sin penalidad extra', price: '$ 6.800', arroba: '$85.000 / @', highlight: false }
 ]
 
 export interface LabSample {
