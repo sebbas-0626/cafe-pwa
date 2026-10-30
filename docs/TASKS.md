@@ -44,8 +44,9 @@
 - Tabla: `coffee_farms`
 - FK: user_id → users
 
-### T0.7 - Alter users
-- Añadir: role, phone, is_verified, buyer_id (nullable FK → buyers)
+### T0.7 - Ampliar tabla users (alter users)
+- Agregar columnas a la tabla `users` existente de Laravel:
+- role (default 'farmer'), phone (nullable), is_verified (default false), buyer_id (nullable FK → buyers)
 
 ---
 
