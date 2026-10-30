@@ -13,7 +13,7 @@
 - [x] Modelos
 - [x] Repositorios
 - [x] API
-- [ ] Filament
+- [x] Filament
 
 ---
 
@@ -159,16 +159,16 @@
 
 ## FASE 4: Filament (después de validar API)
 
-### T4.1 - Instalar Filament (autorización requerida)
+### T4.1 - [x] Instalar Filament (autorización requerida)
 - Comando: composer require filament/filament
 - Solo instalar. NO crear panel todavía.
 
-### T4.2 - Crear panel admin
+### T4.2 - [x] Crear panel admin
 - Comando: php artisan filament:install --panel
 - Configurar provider y ruta base.
 - NO crear Resources todavía.
 
-### T4.3 - Resource Buyer
-### T4.4 - Resource PriceOffer
-### T4.5 - Resource CoffeeVariety (usa T2.5/T2.6)
-### T4.6 - Dashboard widgets
+### T4.3 - [x] Resource Buyer
+### T4.4 - [x] Resource PriceOffer
+### T4.5 - [x] Resource CoffeeVariety (usa T2.5/T2.6)
+### T4.6 - [x] Dashboard widgets (3 stats: compradores activos, ofertas aprobadas vigentes, variedades activas)
