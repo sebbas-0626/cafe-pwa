@@ -10,8 +10,8 @@
 ## Estado actual
 - [x] Laravel instalado
 - [x] Migraciones
-- [ ] Modelos
-- [ ] Repositorios
+- [x] Modelos
+- [x] Repositorios
 - [ ] API
 - [ ] Filament
 
@@ -96,35 +96,35 @@
 
 ## FASE 2: Repositorios (una tarea por repositorio)
 
-### T2.1 - Interface BuyerRepositoryInterface
+### T2.1 - [x] Interface BuyerRepositoryInterface
 - Archivo: `app/Repositories/Contracts/BuyerRepositoryInterface.php`
 - Métodos: findActiveWithApprovedOffers(), findById(int), create(array), update(int, array)
 - Solo la interface. Sin implementación.
 
-### T2.2 - Implementación BuyerRepository
+### T2.2 - [x] Implementación BuyerRepository
 - Archivo: `app/Repositories/Eloquent/BuyerRepository.php`
 - Implementa BuyerRepositoryInterface
 - Usa Eloquent directamente, sin paquetes externos.
 
-### T2.3 - Interface PriceOfferRepositoryInterface
+### T2.3 - [x] Interface PriceOfferRepositoryInterface
 - Archivo: `app/Repositories/Contracts/PriceOfferRepositoryInterface.php`
 - Métodos: findApprovedByVariety(int $varietyId), findPending(), approve(int), reject(int), expireOld()
 - Solo la interface.
 
-### T2.4 - Implementación PriceOfferRepository
+### T2.4 - [x] Implementación PriceOfferRepository
 - Archivo: `app/Repositories/Eloquent/PriceOfferRepository.php`
 - Implementa PriceOfferRepositoryInterface
 
-### T2.5 - Interface CoffeeVarietyRepositoryInterface
+### T2.5 - [x] Interface CoffeeVarietyRepositoryInterface
 - Archivo: `app/Repositories/Contracts/CoffeeVarietyRepositoryInterface.php`
 - Métodos: findActive(), findById(int)
 - Solo la interface.
 
-### T2.6 - Implementación CoffeeVarietyRepository
+### T2.6 - [x] Implementación CoffeeVarietyRepository
 - Archivo: `app/Repositories/Eloquent/CoffeeVarietyRepository.php`
 - Implementa CoffeeVarietyRepositoryInterface
 
-### T2.7 - RepositoryServiceProvider
+### T2.7 - [x] RepositoryServiceProvider
 - Archivo: `app/Providers/RepositoryServiceProvider.php`
 - Binding de las interfaces a implementaciones
 - Registrar en bootstrap/providers.php
