@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const route = useRoute()
+const isMenuOpen = ref(false)
 
 const links = [
   { label: 'Mapa', to: '/' },
@@ -53,8 +54,32 @@ const links = [
           >
             <span class="material-symbols-outlined text-headline-md">account_circle</span>
           </button>
+          <button
+            class="md:hidden min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full text-on-surface hover:bg-surface-container transition-colors"
+            type="button"
+            :aria-expanded="isMenuOpen"
+            aria-label="Abrir menú"
+            @click="isMenuOpen = !isMenuOpen"
+          >
+            <span class="material-symbols-outlined text-headline-md">{{ isMenuOpen ? 'close' : 'menu' }}</span>
+          </button>
         </div>
       </div>
+
+      <nav v-if="isMenuOpen" class="md:hidden border-t border-outline-variant/40 bg-surface px-margin py-space-sm flex flex-col gap-1">
+        <NuxtLink
+          v-for="link in links"
+          :key="link.to"
+          class="px-3 py-3 rounded-lg font-label-lg text-label-lg"
+          :class="route.path === link.to
+            ? 'bg-surface-container text-primary font-bold'
+            : 'text-on-surface-variant font-semibold'"
+          :to="link.to"
+          @click="isMenuOpen = false"
+        >
+          {{ link.label }}
+        </NuxtLink>
+      </nav>
     </header>
 
     <slot />
