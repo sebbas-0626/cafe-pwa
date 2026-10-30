@@ -7,13 +7,6 @@ const { buyers, loading, error, fetchBuyers } = useBuyers()
 
 await fetchBuyers()
 
-const dateFormatter = new Intl.DateTimeFormat('es-CO', {
-  day: '2-digit',
-  month: 'short',
-  hour: '2-digit',
-  minute: '2-digit'
-})
-
 const offers = computed<OfferCardProps[]>(() =>
   buyers.value.flatMap((buyer) => {
     const offer = buyer.price_offers?.[0]
@@ -24,9 +17,10 @@ const offers = computed<OfferCardProps[]>(() =>
 
     return [{
       buyerName: buyer.name,
-      price: `$ ${Number(offer.price_per_kg).toLocaleString('es-CO')}`,
+      price: offer.price_per_kg,
+      unit: offer.unit,
       variety: offer.coffee_variety?.name ?? 'Sin variedad',
-      updatedAt: dateFormatter.format(new Date(offer.updated_at))
+      updatedAt: offer.updated_at
     }]
   })
 )
@@ -134,10 +128,7 @@ const offers = computed<OfferCardProps[]>(() =>
         <OfferCard
           v-for="offer in offers"
           :key="offer.buyerName"
-          :buyer-name="offer.buyerName"
-          :price="offer.price"
-          :variety="offer.variety"
-          :updated-at="offer.updatedAt"
+          v-bind="offer"
         />
 
         <div class="rounded-2xl p-space-md bg-surface-container shadow-md flex flex-col gap-space-sm md:col-span-2 lg:col-span-3">
