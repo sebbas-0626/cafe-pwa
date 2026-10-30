@@ -18,7 +18,7 @@ Setup → Tipos → Componentes → Páginas → Composables API → Conexión A
 - [x] Tailwind + tokens Stitch configurados
 - [x] Fuentes Stitch cargadas
 - [x] PWA configurada
-- [ ] Cliente API (`useApi`) listo
+- [x] Cliente API (`useApi`) listo
 - [ ] Tipos TypeScript
 - [ ] Componentes Stitch adaptados
 - [ ] Páginas y navegación
@@ -66,8 +66,9 @@ Setup → Tipos → Componentes → Páginas → Composables API → Conexión A
 - Configurar `nuxt.config.ts` (`runtimeConfig.public.apiBase`) para leerla.
 
 ### T0.8 - Cliente API `useApi`
-- Crear `app/composables/useApi.ts` con un wrapper de `$fetch` que use `runtimeConfig.public.apiBase`.
-- Manejo de error uniforme (mensaje + status).
+- Instalar `axios`.
+- Crear `app/composables/useApi.ts` con una instancia de axios que use `runtimeConfig.public.apiBase`.
+- Manejo de error uniforme (mensaje + status) con `toApiError`.
 - NO usarlo en componentes todavía.
 
 ---
