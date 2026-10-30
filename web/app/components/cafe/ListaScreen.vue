@@ -16,6 +16,7 @@ const offers = computed<OfferCardProps[]>(() =>
     }
 
     return [{
+      buyerId: buyer.id,
       buyerName: buyer.name,
       price: offer.price_per_kg,
       unit: offer.unit,
@@ -187,7 +188,7 @@ const offers = computed<OfferCardProps[]>(() =>
         </div>
         <span class="font-label-md text-label-md">Precios</span>
       </a>
-      <a class="flex flex-col items-center justify-center gap-space-xs min-h-[48px] min-w-[64px] rounded-xl text-on-surface-variant hover:text-on-surface transition-all" href="/cooperativa/1">
+      <a class="flex flex-col items-center justify-center gap-space-xs min-h-[48px] min-w-[64px] rounded-xl text-on-surface-variant hover:text-on-surface transition-all" href="/lista">
         <span class="material-symbols-outlined text-headline-md">store</span>
         <span class="font-label-md text-label-md">Cooperativas</span>
       </a>

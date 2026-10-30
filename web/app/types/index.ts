@@ -44,6 +44,7 @@ export interface PriceOffer {
 }
 
 export interface OfferCardProps {
+  buyerId: number
   buyerName: string
   price: string
   unit: PriceUnit
