@@ -12,7 +12,7 @@
 - [x] Migraciones
 - [x] Modelos
 - [x] Repositorios
-- [ ] API
+- [x] API
 - [ ] Filament
 
 ---
@@ -133,21 +133,21 @@
 
 ## FASE 3: API (una tarea por endpoint)
 
-### T3.1 - BuyerController@index
+### T3.1 - [x] BuyerController@index
 - Archivo: `app/Domains/Buyer/Http/Controllers/BuyerController.php`
 - GET /api/buyers
 - Devuelve compradores activos con ofertas aprobadas vigentes
 - Inyecta BuyerRepositoryInterface
 - Sin validación compleja, sin paginación aún.
 
-### T3.2 - PriceOfferController@byVariety
+### T3.2 - [x] PriceOfferController@byVariety
 - Archivo: `app/Domains/PriceOffer/Http/Controllers/PriceOfferController.php`
 - GET /api/price-offers/variety/{id}
 - Devuelve ofertas aprobadas vigentes de una variedad, ordenadas por precio
 - Inyecta PriceOfferRepositoryInterface
 
-### T3.3 - Rutas API
-- Archivo: `routes/api.php`
+### T3.3 - [x] Rutas API
+- Archivo: `routes/api.php` (+ habilitado `api:` en `bootstrap/app.php`)
 - Registrar los dos endpoints anteriores
 - Sin middleware extra por ahora.
 
