@@ -52,27 +52,27 @@
 
 ## FASE 1: Modelos (una tarea por modelo)
 
-### T1.1 - Modelo Buyer
+### T1.1 - [x] Modelo Buyer
 - Archivo: `app/Models/Buyer.php`
 - Campos: fillable según ER (name, type, description, latitude, longitude, address, phone, is_active)
 - Relaciones: hasMany PriceOffer, hasMany User (cooperative_admin)
 - Casts: is_active => boolean, latitude/longitude => decimal:7
 - NO migraciones, NO tests.
 
-### T1.2 - Modelo CoffeeVariety
+### T1.2 - [x] Modelo CoffeeVariety
 - Archivo: `app/Models/CoffeeVariety.php`
 - Campos: fillable (name, is_active)
 - Relaciones: hasMany PriceOffer
 - Casts: is_active => boolean
 
-### T1.3 - Modelo PriceOffer
+### T1.3 - [x] Modelo PriceOffer
 - Archivo: `app/Models/PriceOffer.php`
 - Campos: fillable (buyer_id, coffee_variety_id, price_per_kg, unit, valid_from, valid_until, status, notes)
 - Relaciones: belongsTo Buyer, belongsTo CoffeeVariety
 - Casts: valid_from/valid_until => datetime, price_per_kg => decimal:2
 - Scope: scopeApprovedAndValid() → status=approved, valid_until > now()
 
-### T1.4 - Modelo User (ajustar existente)
+### T1.4 - [x] Modelo User (ajustar existente)
 - Archivo: `app/Models/User.php`
 - Añadir: role, phone, is_verified, buyer_id al fillable
 - Relaciones: belongsTo Buyer (buyer_id, nullable)
