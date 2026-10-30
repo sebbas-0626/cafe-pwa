@@ -15,13 +15,6 @@ export interface FilterChip {
   icon?: string
 }
 
-export const sampleOffers: OfferCardProps[] = [
-  { buyerName: 'Cadefihuila', price: '$ 15.200', variety: 'Castillo', updatedAt: 'Hoy 7:30 AM' },
-  { buyerName: 'Café Andino & Exportadores', price: '$ 14.950', variety: 'Caturra', updatedAt: 'Hoy 6:50 AM' },
-  { buyerName: 'Cooperativa Coocentral', price: '$ 14.800', variety: 'Bourbon Rosado', updatedAt: 'Hoy 6:15 AM' },
-  { buyerName: 'Expocafé Huila', price: '$ 14.550', variety: 'Geisha', updatedAt: 'Ayer 5:00 PM' }
-]
-
 export const sortFilters: FilterChip[] = [
   { label: 'Mejor precio', active: true, icon: 'star' },
   { label: 'Más cercano', active: false },
