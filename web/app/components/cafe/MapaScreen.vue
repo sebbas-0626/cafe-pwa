@@ -1,12 +1,17 @@
 <script setup lang="ts">
 import { mapFilters, mapSheetPreview } from './data'
+import MapaBase from '~/components/map/MapaBase.vue'
+
+const { buyers, fetchBuyers } = useBuyers()
+
+await fetchBuyers()
 </script>
 
 <template>
   <main class="flex flex-col relative w-full pt-16 pb-28 bg-background min-h-screen">
     <div class="flex flex-col w-full relative select-none lg:grid lg:grid-cols-3 lg:gap-space-md lg:max-w-7xl lg:mx-auto lg:items-start">
       <div class="relative w-full h-[742px] overflow-hidden bg-[#e8ded1] flex items-center justify-center lg:col-span-2 lg:rounded-2xl">
-        <span class="font-label-lg text-label-lg text-on-surface-variant">Mapa de precios</span>
+        <MapaBase :buyers="buyers" />
 
         <div class="absolute top-3 left-0 right-0 px-margin z-20 flex flex-col gap-space-xs pointer-events-auto">
           <div class="bg-surface/95 backdrop-blur-md rounded-xl p-space-xs shadow-[0_8px_20px_-4px_rgba(68,21,10,0.12)] flex items-center justify-between gap-space-xs">
