@@ -63,3 +63,20 @@ export const liquidationTotals = {
   perArroba: '$193.119',
   perKilo: '$15.450'
 }
+
+export const mapSheetPreview = {
+  name: 'Cadefihuila - Pitalito',
+  distance: 'A 6.8 km del centro',
+  badge: 'Mejor precio hoy',
+  price: '$ 15.200',
+  unit: '/ kg',
+  varieties: ['Castillo', 'Caturra', 'Bourbon Rosado'],
+  updated: 'Actualizado hace 5 min'
+}
+
+export const mapFilters: FilterChip[] = [
+  { label: 'Mejor precio', active: true, icon: 'star' },
+  { label: 'Menos de 10 km', active: false },
+  { label: 'Paga hoy', active: false },
+  { label: 'Factor flexible', active: false }
+]
