@@ -1,4 +1,4 @@
-# Frontend Tasks - Cafe PWA (Nuxt 3)
+# Frontend Tasks - Cafe PWA (Nuxt 4)
 
 ## Reglas de trabajo con IA
 - Una tarea por sesión. No mezclar tareas.
@@ -14,7 +14,7 @@
 Setup → Tipos → Componentes → Páginas → Composables API → Conexión API → Mapa → PWA.
 
 ## Estado actual
-- [ ] Proyecto Nuxt creado
+- [x] Proyecto Nuxt creado
 - [ ] Tailwind + tokens Stitch configurados
 - [ ] PWA configurada
 - [ ] Cliente API (`useApi`) listo
@@ -30,7 +30,7 @@ Setup → Tipos → Componentes → Páginas → Composables API → Conexión A
 ## FASE 0: Setup del proyecto (una tarea por sesión)
 
 ### T0.1 - Crear proyecto Nuxt
-- En la raíz del monorepo, crear `web/` con Nuxt 3.
+- En la raíz del monorepo, crear `web/` con Nuxt 4.
 - Configurar TypeScript.
 - NO instalar módulos extra todavía.
 - Verificar que `npm run dev` funciona.
