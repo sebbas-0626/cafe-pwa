@@ -19,7 +19,7 @@ Setup → Tipos → Componentes → Páginas → Composables API → Conexión A
 - [x] Fuentes Stitch cargadas
 - [x] PWA configurada
 - [x] Cliente API (`useApi`) listo
-- [ ] Tipos TypeScript
+- [x] Tipos TypeScript
 - [ ] Componentes Stitch adaptados
 - [ ] Páginas y navegación
 - [ ] Conexión a API
