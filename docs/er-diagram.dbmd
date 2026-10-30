@@ -1,0 +1,172 @@
+// ============================================================
+// PWA CAFETERA - Modelo ER
+// Multi-tenant: múltiples cooperativas/compradores
+// ============================================================
+//
+// RESUMEN
+// Modelo de datos de una PWA cafetera multi-tenant que conecta
+// caficultores con cooperativas/compradores que publican ofertas
+// de precio por variedad de café.
+//
+// RELACIONES (cardinalidad)
+//   buyers        1:N users (cooperative_admin)  → 1 cooperativa tiene N admins
+//   users         1:N coffee_farms               → 1 farmer tiene N fincas
+//   buyers        1:N price_offers               → 1 comprador publica N ofertas
+//   varieties     1:N price_offers               → 1 variedad aparece en N ofertas
+//   users         N:M buyers (favorite_buyers)   → favoritos muchos a muchos
+//   users         1:N audit_logs                 → 1 usuario genera N logs
+//
+
+// ---------- USUARIOS Y ROLES ----------
+// Multi-tenant mediante buyer_id: solo los usuarios con rol
+// cooperative_admin tienen una cooperativa asignada. Los demás roles
+// (super_admin, operator, farmer) lo dejan en NULL.
+// role como varchar (no tabla extensible): para agregar un rol hay
+// que alterar la tabla.
+// is_verified sugiere flujo de confirmación por email/SMS antes de acceder.
+Table users {
+  id bigint [pk, increment]
+  name varchar(255) [not null]
+  email varchar(255) [not null, unique]
+  password varchar(255) [not null]
+  role varchar(30) [not null, note: 'super_admin | cooperative_admin | operator | farmer']
+  phone varchar(30)
+  is_verified boolean [default: false]
+  buyer_id bigint [note: 'Solo para cooperative_admin: cooperativa a la que pertenece']
+  created_at timestamp
+  updated_at timestamp
+}
+
+// ---------- COOPERATIVAS / COMPRADORES ----------
+// Entidad central del multi-tenant: todo (ofertas, favoritos) cuelga de aquí.
+// type distingue cooperativa, comprador privado o exportador → puede
+// afectar reglas de negocio (comisiones, impuestos, etc.).
+// Tiene lat/long → la app permite buscar compradores cercanos (búsqueda geoespacial).
+Table buyers {
+  id bigint [pk, increment]
+  name varchar(255) [not null]
+  type varchar(30) [not null, note: 'cooperative | private_buyer | exporter']
+  description text
+  latitude decimal(10,7) [not null]
+  longitude decimal(10,7) [not null]
+  address varchar(255]
+  phone varchar(30)
+  is_active boolean [default: true]
+  created_at timestamp
+  updated_at timestamp
+}
+
+// ---------- VARIEDADES DE CAFÉ ----------
+// Tabla normalizada: evita repetir "Castillo", "Caturra" en cada oferta.
+// is_active permite ocultar una variedad sin borrar ofertas históricas.
+Table coffee_varieties {
+  id bigint [pk, increment]
+  name varchar(100) [not null, unique, note: 'Castillo, Caturra, Bourbon, Geisha...']
+  is_active boolean [default: true]
+  created_at timestamp
+  updated_at timestamp
+}
+
+// ---------- OFERTAS DE PRECIO ----------
+// Corazón del negocio.
+// Granularidad: una fila = una variedad + una cooperativa. Si una
+// cooperativa compra 3 variedades a distinto precio, son 3 filas.
+// Esto simplifica consultas y comparaciones de precios.
+// status con flujo pending → approved/rejected → las ofertas pasan por
+// aprobación (probablemente por super_admin u operator).
+// valid_from / valid_until → las ofertas expiran automáticamente;
+// el índice en valid_until optimiza la consulta "ofertas vigentes".
+// Índice compuesto (buyer_id, coffee_variety_id, status) → ideal para
+// "ofertas activas de esta cooperativa para esta variedad".
+// unit (kg | arroba | carga) → refleja la realidad del campo colombiana;
+// para comparar precios entre cooperativas hay que normalizar a una unidad común.
+Table price_offers {
+  id bigint [pk, increment]
+  buyer_id bigint [not null, ref: > buyers.id]
+  coffee_variety_id bigint [not null, ref: > coffee_varieties.id]
+  price_per_kg decimal(10,2) [not null]
+  unit varchar(20) [not null, default: 'kg', note: 'kg | arroba | carga']
+  valid_from datetime [not null]
+  valid_until datetime [not null]
+  status varchar(20) [not null, default: 'pending', note: 'pending | approved | rejected | expired']
+  notes text
+  created_at timestamp
+  updated_at timestamp
+
+  indexes {
+    (buyer_id, coffee_variety_id, status)
+    (valid_until)
+  }
+}
+
+// ---------- Fincas de caficultores (opcional) ----------
+// Cada caficultor puede registrar 1..N fincas con altitud → la altitud
+// es clave para justificar diferencias de precio/calidad.
+// Es opcional: la app debe funcionar aunque un farmer no tenga fincas.
+Table coffee_farms {
+  id bigint [pk, increment]
+  user_id bigint [not null, ref: > users.id]
+  name varchar(255) [not null]
+  latitude decimal(10,7)
+  longitude decimal(10,7)
+  altitude integer [note: 'Altitud en msnm, afecta calidad']
+  created_at timestamp
+  updated_at timestamp
+}
+
+// ---------- FAVORITOS (opcional, para caficultores) ----------
+// Tabla pivote simple usuario↔comprador (relación N:M).
+// unique (user_id, buyer_id) → evita duplicados.
+// Sin updated_at porque es una relación pura, sin campos editables.
+Table favorite_buyers {
+  id bigint [pk, increment]
+  user_id bigint [not null, ref: > users.id]
+  buyer_id bigint [not null, ref: > buyers.id]
+  created_at timestamp
+
+  indexes {
+    (user_id, buyer_id) [unique]
+  }
+}
+
+// ---------- LOG DE AUDITORÍA ----------
+// Patrón EAV ligero (entity_type + entity_id) → sirve para auditar
+// cualquier modelo sin crear una tabla por entidad.
+// metadata en JSON → guarda contexto extra (valores antes/después, IP, etc.).
+// user_id debe ser nullable para auditar acciones del sistema o de
+// usuarios eliminados.
+Table audit_logs {
+  id bigint [pk, increment]
+  user_id bigint [ref: > users.id, note: 'Quién hizo la acción']
+  action varchar(100) [not null, note: 'approve_offer | reject_offer | suspend_buyer...']
+  entity_type varchar(100) [note: 'Modelo afectado']
+  entity_id bigint [note: 'ID del registro afectado']
+  metadata json
+  created_at timestamp
+}
+
+// ============================================================
+// RELACIONES EXPLÍCITAS
+// ============================================================
+//Ref: buyers.id < users.buyer_id
+//Ref: users.id < coffee_farms.user_id
+//Ref: buyers.id < price_offers.buyer_id
+//Ref: coffee_varieties.id < price_offers.coffee_variety_id
+//Ref: users.id < favorite_buyers.user_id
+//Ref: buyers.id < favorite_buyers.buyer_id
+//Ref: users.id < audit_logs.user_id
+
+// ============================================================
+// OBSERVACIONES / POSIBLES MEJORAS
+// ============================================================
+// 1. price_offers sin unique constraint: nada impide que una cooperativa
+//    publique 2 ofertas "approved" para la misma variedad en fechas
+//    superpuestas. Valdría la pena un índice único o validación en aplicación.
+// 2. Historial de precios: como cada oferta es una fila con fechas, el
+//    histórico se construye solo. Muy bueno para gráficas de evolución.
+// 3. Falta deleted_at (soft delete) en buyers y price_offers: en un
+//    sistema con auditoría casi nunca se borra físico.
+// 4. audit_logs.user_id debería ser nullable explícitamente en la migración.
+// 5. created_at/updated_at presentes en casi todas las tablas (buena
+//    práctica de Laravel). En audit_logs y favorite_buyers solo
+//    created_at, que es lo correcto.
