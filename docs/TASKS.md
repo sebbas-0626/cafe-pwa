@@ -9,7 +9,7 @@
 
 ## Estado actual
 - [x] Laravel instalado
-- [ ] Migraciones
+- [x] Migraciones
 - [ ] Modelos
 - [ ] Repositorios
 - [ ] API
@@ -19,32 +19,32 @@
 
 ## FASE 0: Migraciones (antes que modelos)
 
-### T0.1 - Migración buyers
+### T0.1 - [x] Migración buyers
 - Tabla: `buyers` (ER)
 - Campos: name, type, description, latitude, longitude, address, phone, is_active, timestamps
 
-### T0.2 - Migración coffee_varieties
+### T0.2 - [x] Migración coffee_varieties
 - Tabla: `coffee_varieties`
 - Campos: name (unique), is_active, timestamps
 
-### T0.3 - Migración price_offers
+### T0.3 - [x] Migración price_offers
 - Tabla: `price_offers`
 - FKs: buyer_id → buyers, coffee_variety_id → coffee_varieties
 - Índices: (buyer_id, coffee_variety_id, status), (valid_until)
 
-### T0.4 - Migración favorite_buyers
+### T0.4 - [x] Migración favorite_buyers
 - Tabla: `favorite_buyers`
 - Unique: (user_id, buyer_id)
 
-### T0.5 - Migración audit_logs
+### T0.5 - [x] Migración audit_logs
 - Tabla: `audit_logs`
 - user_id nullable (audita acciones del sistema)
 
-### T0.6 - Migración coffee_farms
+### T0.6 - [x] Migración coffee_farms
 - Tabla: `coffee_farms`
 - FK: user_id → users
 
-### T0.7 - Ampliar tabla users (alter users)
+### T0.7 - [x] Ampliar tabla users (alter users)
 - Agregar columnas a la tabla `users` existente de Laravel:
 - role (default 'farmer'), phone (nullable), is_verified (default false), buyer_id (nullable FK → buyers)
 
