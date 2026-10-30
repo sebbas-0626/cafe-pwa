@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Repositories\Eloquent;
+namespace App\Domains\CoffeeVariety\Repositories\Eloquent;
 
-use App\Models\CoffeeVariety;
-use App\Repositories\Contracts\CoffeeVarietyRepositoryInterface;
+use App\Domains\CoffeeVariety\Models\CoffeeVariety;
+use App\Domains\CoffeeVariety\Repositories\Contracts\CoffeeVarietyRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 
 class CoffeeVarietyRepository implements CoffeeVarietyRepositoryInterface

@@ -53,20 +53,20 @@
 ## FASE 1: Modelos (una tarea por modelo)
 
 ### T1.1 - [x] Modelo Buyer
-- Archivo: `app/Models/Buyer.php`
+- Archivo: `app/Domains/Buyer/Models/Buyer.php`
 - Campos: fillable según ER (name, type, description, latitude, longitude, address, phone, is_active)
 - Relaciones: hasMany PriceOffer, hasMany User (cooperative_admin)
 - Casts: is_active => boolean, latitude/longitude => decimal:7
 - NO migraciones, NO tests.
 
 ### T1.2 - [x] Modelo CoffeeVariety
-- Archivo: `app/Models/CoffeeVariety.php`
+- Archivo: `app/Domains/CoffeeVariety/Models/CoffeeVariety.php`
 - Campos: fillable (name, is_active)
 - Relaciones: hasMany PriceOffer
 - Casts: is_active => boolean
 
 ### T1.3 - [x] Modelo PriceOffer
-- Archivo: `app/Models/PriceOffer.php`
+- Archivo: `app/Domains/PriceOffer/Models/PriceOffer.php`
 - Campos: fillable (buyer_id, coffee_variety_id, price_per_kg, unit, valid_from, valid_until, status, notes)
 - Relaciones: belongsTo Buyer, belongsTo CoffeeVariety
 - Casts: valid_from/valid_until => datetime, price_per_kg => decimal:2
@@ -97,31 +97,31 @@
 ## FASE 2: Repositorios (una tarea por repositorio)
 
 ### T2.1 - [x] Interface BuyerRepositoryInterface
-- Archivo: `app/Repositories/Contracts/BuyerRepositoryInterface.php`
+- Archivo: `app/Domains/Buyer/Repositories/Contracts/BuyerRepositoryInterface.php`
 - Métodos: findActiveWithApprovedOffers(), findById(int), create(array), update(int, array)
 - Solo la interface. Sin implementación.
 
 ### T2.2 - [x] Implementación BuyerRepository
-- Archivo: `app/Repositories/Eloquent/BuyerRepository.php`
+- Archivo: `app/Domains/Buyer/Repositories/Eloquent/BuyerRepository.php`
 - Implementa BuyerRepositoryInterface
 - Usa Eloquent directamente, sin paquetes externos.
 
 ### T2.3 - [x] Interface PriceOfferRepositoryInterface
-- Archivo: `app/Repositories/Contracts/PriceOfferRepositoryInterface.php`
+- Archivo: `app/Domains/PriceOffer/Repositories/Contracts/PriceOfferRepositoryInterface.php`
 - Métodos: findApprovedByVariety(int $varietyId), findPending(), approve(int), reject(int), expireOld()
 - Solo la interface.
 
 ### T2.4 - [x] Implementación PriceOfferRepository
-- Archivo: `app/Repositories/Eloquent/PriceOfferRepository.php`
+- Archivo: `app/Domains/PriceOffer/Repositories/Eloquent/PriceOfferRepository.php`
 - Implementa PriceOfferRepositoryInterface
 
 ### T2.5 - [x] Interface CoffeeVarietyRepositoryInterface
-- Archivo: `app/Repositories/Contracts/CoffeeVarietyRepositoryInterface.php`
+- Archivo: `app/Domains/CoffeeVariety/Repositories/Contracts/CoffeeVarietyRepositoryInterface.php`
 - Métodos: findActive(), findById(int)
 - Solo la interface.
 
 ### T2.6 - [x] Implementación CoffeeVarietyRepository
-- Archivo: `app/Repositories/Eloquent/CoffeeVarietyRepository.php`
+- Archivo: `app/Domains/CoffeeVariety/Repositories/Eloquent/CoffeeVarietyRepository.php`
 - Implementa CoffeeVarietyRepositoryInterface
 
 ### T2.7 - [x] RepositoryServiceProvider
@@ -134,12 +134,14 @@
 ## FASE 3: API (una tarea por endpoint)
 
 ### T3.1 - BuyerController@index
+- Archivo: `app/Domains/Buyer/Http/Controllers/BuyerController.php`
 - GET /api/buyers
 - Devuelve compradores activos con ofertas aprobadas vigentes
 - Inyecta BuyerRepositoryInterface
 - Sin validación compleja, sin paginación aún.
 
 ### T3.2 - PriceOfferController@byVariety
+- Archivo: `app/Domains/PriceOffer/Http/Controllers/PriceOfferController.php`
 - GET /api/price-offers/variety/{id}
 - Devuelve ofertas aprobadas vigentes de una variedad, ordenadas por precio
 - Inyecta PriceOfferRepositoryInterface

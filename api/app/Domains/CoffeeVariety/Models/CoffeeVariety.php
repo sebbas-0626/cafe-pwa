@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace App\Domains\CoffeeVariety\Models;
 
+use App\Domains\PriceOffer\Models\PriceOffer;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;

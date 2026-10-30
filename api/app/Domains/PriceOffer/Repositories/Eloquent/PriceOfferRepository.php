@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Repositories\Eloquent;
+namespace App\Domains\PriceOffer\Repositories\Eloquent;
 
-use App\Models\PriceOffer;
-use App\Repositories\Contracts\PriceOfferRepositoryInterface;
+use App\Domains\PriceOffer\Models\PriceOffer;
+use App\Domains\PriceOffer\Repositories\Contracts\PriceOfferRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 
 class PriceOfferRepository implements PriceOfferRepositoryInterface
