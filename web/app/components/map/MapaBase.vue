@@ -13,6 +13,8 @@ const props = withDefaults(defineProps<{
   zoom: 6
 })
 
+const emit = defineEmits<{ select: [buyer: Buyer] }>()
+
 const container = ref<HTMLDivElement | null>(null)
 const map = shallowRef<Map | null>(null)
 const markers = shallowRef<Marker[]>([])
@@ -46,6 +48,7 @@ async function renderMarkers(): Promise<void> {
 
     element.addEventListener('click', () => {
       map.value?.flyTo({ center: [Number(buyer.longitude), Number(buyer.latitude)], zoom: 12 })
+      emit('select', buyer)
     })
 
     const marker = new Marker({ element, anchor: 'bottom' })

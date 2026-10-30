@@ -21,10 +21,10 @@ Setup → Tipos → Componentes → Páginas → Composables API → Conexión A
 - [x] PWA configurada
 - [x] Cliente API (`useApi`) listo
 - [x] Tipos TypeScript
-- [ ] Componentes Stitch adaptados
-- [ ] Páginas y navegación
-- [ ] Conexión a API
-- [ ] Mapa MapLibre
+- [x] Componentes Stitch adaptados
+- [x] Páginas y navegación
+- [x] Conexión a API
+- [x] Mapa MapLibre
 - [ ] Offline
 
 ---
