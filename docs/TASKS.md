@@ -10,9 +10,9 @@
 ## Estado actual
 - [x] Laravel instalado
 - [x] Migraciones
-- [ ] Modelos
-- [ ] Repositorios
-- [ ] API
+- [x] Modelos
+- [x] Repositorios
+- [x] API
 - [ ] Filament
 
 ---
@@ -52,27 +52,27 @@
 
 ## FASE 1: Modelos (una tarea por modelo)
 
-### T1.1 - Modelo Buyer
-- Archivo: `app/Models/Buyer.php`
+### T1.1 - [x] Modelo Buyer
+- Archivo: `app/Domains/Buyer/Models/Buyer.php`
 - Campos: fillable según ER (name, type, description, latitude, longitude, address, phone, is_active)
 - Relaciones: hasMany PriceOffer, hasMany User (cooperative_admin)
 - Casts: is_active => boolean, latitude/longitude => decimal:7
 - NO migraciones, NO tests.
 
-### T1.2 - Modelo CoffeeVariety
-- Archivo: `app/Models/CoffeeVariety.php`
+### T1.2 - [x] Modelo CoffeeVariety
+- Archivo: `app/Domains/CoffeeVariety/Models/CoffeeVariety.php`
 - Campos: fillable (name, is_active)
 - Relaciones: hasMany PriceOffer
 - Casts: is_active => boolean
 
-### T1.3 - Modelo PriceOffer
-- Archivo: `app/Models/PriceOffer.php`
+### T1.3 - [x] Modelo PriceOffer
+- Archivo: `app/Domains/PriceOffer/Models/PriceOffer.php`
 - Campos: fillable (buyer_id, coffee_variety_id, price_per_kg, unit, valid_from, valid_until, status, notes)
 - Relaciones: belongsTo Buyer, belongsTo CoffeeVariety
 - Casts: valid_from/valid_until => datetime, price_per_kg => decimal:2
 - Scope: scopeApprovedAndValid() → status=approved, valid_until > now()
 
-### T1.4 - Modelo User (ajustar existente)
+### T1.4 - [x] Modelo User (ajustar existente)
 - Archivo: `app/Models/User.php`
 - Añadir: role, phone, is_verified, buyer_id al fillable
 - Relaciones: belongsTo Buyer (buyer_id, nullable)
@@ -96,35 +96,35 @@
 
 ## FASE 2: Repositorios (una tarea por repositorio)
 
-### T2.1 - Interface BuyerRepositoryInterface
-- Archivo: `app/Repositories/Contracts/BuyerRepositoryInterface.php`
+### T2.1 - [x] Interface BuyerRepositoryInterface
+- Archivo: `app/Domains/Buyer/Repositories/Contracts/BuyerRepositoryInterface.php`
 - Métodos: findActiveWithApprovedOffers(), findById(int), create(array), update(int, array)
 - Solo la interface. Sin implementación.
 
-### T2.2 - Implementación BuyerRepository
-- Archivo: `app/Repositories/Eloquent/BuyerRepository.php`
+### T2.2 - [x] Implementación BuyerRepository
+- Archivo: `app/Domains/Buyer/Repositories/Eloquent/BuyerRepository.php`
 - Implementa BuyerRepositoryInterface
 - Usa Eloquent directamente, sin paquetes externos.
 
-### T2.3 - Interface PriceOfferRepositoryInterface
-- Archivo: `app/Repositories/Contracts/PriceOfferRepositoryInterface.php`
+### T2.3 - [x] Interface PriceOfferRepositoryInterface
+- Archivo: `app/Domains/PriceOffer/Repositories/Contracts/PriceOfferRepositoryInterface.php`
 - Métodos: findApprovedByVariety(int $varietyId), findPending(), approve(int), reject(int), expireOld()
 - Solo la interface.
 
-### T2.4 - Implementación PriceOfferRepository
-- Archivo: `app/Repositories/Eloquent/PriceOfferRepository.php`
+### T2.4 - [x] Implementación PriceOfferRepository
+- Archivo: `app/Domains/PriceOffer/Repositories/Eloquent/PriceOfferRepository.php`
 - Implementa PriceOfferRepositoryInterface
 
-### T2.5 - Interface CoffeeVarietyRepositoryInterface
-- Archivo: `app/Repositories/Contracts/CoffeeVarietyRepositoryInterface.php`
+### T2.5 - [x] Interface CoffeeVarietyRepositoryInterface
+- Archivo: `app/Domains/CoffeeVariety/Repositories/Contracts/CoffeeVarietyRepositoryInterface.php`
 - Métodos: findActive(), findById(int)
 - Solo la interface.
 
-### T2.6 - Implementación CoffeeVarietyRepository
-- Archivo: `app/Repositories/Eloquent/CoffeeVarietyRepository.php`
+### T2.6 - [x] Implementación CoffeeVarietyRepository
+- Archivo: `app/Domains/CoffeeVariety/Repositories/Eloquent/CoffeeVarietyRepository.php`
 - Implementa CoffeeVarietyRepositoryInterface
 
-### T2.7 - RepositoryServiceProvider
+### T2.7 - [x] RepositoryServiceProvider
 - Archivo: `app/Providers/RepositoryServiceProvider.php`
 - Binding de las interfaces a implementaciones
 - Registrar en bootstrap/providers.php
@@ -133,19 +133,21 @@
 
 ## FASE 3: API (una tarea por endpoint)
 
-### T3.1 - BuyerController@index
+### T3.1 - [x] BuyerController@index
+- Archivo: `app/Domains/Buyer/Http/Controllers/BuyerController.php`
 - GET /api/buyers
 - Devuelve compradores activos con ofertas aprobadas vigentes
 - Inyecta BuyerRepositoryInterface
 - Sin validación compleja, sin paginación aún.
 
-### T3.2 - PriceOfferController@byVariety
+### T3.2 - [x] PriceOfferController@byVariety
+- Archivo: `app/Domains/PriceOffer/Http/Controllers/PriceOfferController.php`
 - GET /api/price-offers/variety/{id}
 - Devuelve ofertas aprobadas vigentes de una variedad, ordenadas por precio
 - Inyecta PriceOfferRepositoryInterface
 
-### T3.3 - Rutas API
-- Archivo: `routes/api.php`
+### T3.3 - [x] Rutas API
+- Archivo: `routes/api.php` (+ habilitado `api:` en `bootstrap/app.php`)
 - Registrar los dos endpoints anteriores
 - Sin middleware extra por ahora.
 

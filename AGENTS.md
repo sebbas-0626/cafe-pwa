@@ -45,3 +45,9 @@ Backend expone API REST JSON. Admin usa Filament (se instalará después).
 - Prohibido commitear directamente a main o develop.
 - Antes de empezar una tarea, indicar en qué rama estás trabajando.
 - No crear ramas release/hotfix todavía (etapa temprana del proyecto).
+## Estructura por dominio
+- El código vive en `app/Domains/{DomainName}/` (Buyer, PriceOffer, CoffeeVariety).
+- Cada dominio tiene: Models/, Repositories/Contracts/, Repositories/Eloquent/, Http/Controllers/.
+- Namespace base: `App\Domains\{DomainName}\...`
+- NO crear archivos en `app/Models/` ni `app/Repositories/` globales.
+- El RepositoryServiceProvider global en `app/Providers/` sigue siendo el punto de binding.
