@@ -1,6 +1,35 @@
 <script setup lang="ts">
-import { sampleOffers, sortFilters, varietyFilters } from './data'
+import type { OfferCardProps } from '~/types'
+import { sortFilters, varietyFilters } from './data'
 import OfferCard from './OfferCard.vue'
+
+const { buyers, loading, error, fetchBuyers } = useBuyers()
+
+await fetchBuyers()
+
+const dateFormatter = new Intl.DateTimeFormat('es-CO', {
+  day: '2-digit',
+  month: 'short',
+  hour: '2-digit',
+  minute: '2-digit'
+})
+
+const offers = computed<OfferCardProps[]>(() =>
+  buyers.value.flatMap((buyer) => {
+    const offer = buyer.price_offers?.[0]
+
+    if (!offer) {
+      return []
+    }
+
+    return [{
+      buyerName: buyer.name,
+      price: `$ ${Number(offer.price_per_kg).toLocaleString('es-CO')}`,
+      variety: offer.coffee_variety?.name ?? 'Sin variedad',
+      updatedAt: dateFormatter.format(new Date(offer.updated_at))
+    }]
+  })
+)
 </script>
 
 <template>
@@ -81,8 +110,29 @@ import OfferCard from './OfferCard.vue'
       </div>
 
       <div class="px-margin flex flex-col gap-space-md pb-space-xl grid-cols-1 md:grid md:grid-cols-2 lg:grid-cols-3">
+        <div v-if="loading" class="flex items-center justify-center gap-2 py-space-xl text-on-surface-variant font-label-lg text-label-lg">
+          <span class="material-symbols-outlined animate-spin">progress_activity</span>
+          Cargando precios…
+        </div>
+
+        <div v-else-if="error" class="rounded-xl bg-error-container text-on-error-container p-space-md flex flex-col gap-space-sm md:col-span-2 lg:col-span-3">
+          <p class="font-label-lg text-label-lg font-bold">No pudimos cargar los precios</p>
+          <p class="font-label-md text-label-md">{{ error.message }}</p>
+          <button
+            class="self-start min-h-[44px] px-space-md rounded-lg bg-primary text-on-primary font-label-lg text-label-lg font-bold active:scale-95 transition-all"
+            type="button"
+            @click="fetchBuyers()"
+          >
+            Reintentar
+          </button>
+        </div>
+
+        <p v-else-if="offers.length === 0" class="font-label-lg text-label-lg text-on-surface-variant py-space-xl md:col-span-2 lg:col-span-3">
+          No hay ofertas vigentes por ahora.
+        </p>
+
         <OfferCard
-          v-for="offer in sampleOffers"
+          v-for="offer in offers"
           :key="offer.buyerName"
           :buyer-name="offer.buyerName"
           :price="offer.price"
