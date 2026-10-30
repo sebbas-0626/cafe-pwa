@@ -13,7 +13,7 @@ const varietyPrices = [
 
 <template>
   <main class="flex flex-col relative w-full pt-16 pb-safe bg-background min-h-screen">
-    <div class="flex flex-col w-full pb-12">
+    <div class="flex flex-col w-full pb-12 max-w-7xl mx-auto lg:px-8">
       <div class="px-margin pt-space-sm pb-space-xs flex items-center justify-between">
         <button class="flex items-center gap-space-xs py-space-xs px-space-sm rounded-full bg-surface-container text-on-surface font-label-lg text-label-lg active:scale-95 transition-transform" type="button">
           <span class="material-symbols-outlined text-headline-md">arrow_back</span>
@@ -121,7 +121,7 @@ const varietyPrices = [
           <span class="material-symbols-outlined text-primary text-[24px]">coffee</span>
         </div>
 
-        <div class="flex flex-col gap-space-xs">
+        <div class="flex flex-col gap-space-xs md:grid md:grid-cols-2 lg:grid-cols-4">
           <div
             v-for="variety in varietyPrices"
             :key="variety.name"
