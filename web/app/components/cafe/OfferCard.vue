@@ -22,7 +22,10 @@ const formattedDate = computed(() =>
 </script>
 
 <template>
-  <div class="rounded-2xl p-space-md bg-surface-container-lowest shadow-sm flex flex-col gap-space-sm">
+  <NuxtLink
+    class="rounded-2xl p-space-md bg-surface-container-lowest shadow-sm flex flex-col gap-space-sm hover:shadow-md transition-shadow"
+    :to="`/cooperativa/${buyerId}`"
+  >
     <div class="flex items-start justify-between gap-space-sm">
       <span class="font-headline-md text-headline-md font-bold text-on-surface truncate">{{ buyerName }}</span>
       <span class="font-label-md text-label-md text-on-surface-variant shrink-0">{{ formattedDate }}</span>
@@ -39,12 +42,9 @@ const formattedDate = computed(() =>
       <span class="px-2.5 py-0.5 rounded-full bg-surface-container-high text-on-surface font-label-md text-label-md font-bold">{{ variety }}</span>
     </div>
 
-    <button
-      class="min-h-[48px] w-full rounded-xl bg-primary text-on-primary font-label-lg text-label-lg font-bold flex items-center justify-center gap-1 active:scale-95 transition-all shadow-sm"
-      type="button"
-    >
+    <span class="min-h-[48px] w-full rounded-xl bg-primary text-on-primary font-label-lg text-label-lg font-bold flex items-center justify-center gap-1 shadow-sm">
       <span>Ver detalle</span>
       <span class="material-symbols-outlined text-body-md">arrow_forward</span>
-    </button>
-  </div>
+    </span>
+  </NuxtLink>
 </template>

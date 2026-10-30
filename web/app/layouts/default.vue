@@ -6,7 +6,7 @@ const links = [
   { label: 'Mapa', to: '/' },
   { label: 'Precios', to: '/lista' },
   { label: 'Calculadora', to: '/calculadora' },
-  { label: 'Cooperativas', to: '/cooperativa/1' }
+  { label: 'Cooperativas', to: '/lista' }
 ]
 </script>
 
