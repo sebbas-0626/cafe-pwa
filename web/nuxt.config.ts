@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-  modules: ['@nuxtjs/tailwindcss'],
+  modules: ['@nuxtjs/tailwindcss', '@vite-pwa/nuxt'],
   typescript: {
     strict: true
   },
@@ -14,6 +14,28 @@ export default defineNuxtConfig({
         {
           rel: 'stylesheet',
           href: 'https://fonts.googleapis.com/css2?family=Epilogue:wght@600;700&family=Quicksand:wght@500;600;700&display=swap'
+        },
+        { rel: 'manifest', href: '/manifest.webmanifest' }
+      ],
+      meta: [{ name: 'theme-color', content: '#702506' }]
+    }
+  },
+  pwa: {
+    registerType: 'autoUpdate',
+    manifest: {
+      name: 'Café Precios',
+      short_name: 'CaféPrecios',
+      description: 'Precios del café en Colombia para caficultores',
+      lang: 'es-CO',
+      theme_color: '#702506',
+      background_color: '#fff8f6',
+      display: 'standalone',
+      start_url: '/',
+      icons: [
+        {
+          src: '/favicon.ico',
+          sizes: '48x48',
+          type: 'image/x-icon'
         }
       ]
     }

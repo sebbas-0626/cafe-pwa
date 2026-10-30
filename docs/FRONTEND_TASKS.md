@@ -17,7 +17,7 @@ Setup → Tipos → Componentes → Páginas → Composables API → Conexión A
 - [x] Proyecto Nuxt creado
 - [x] Tailwind + tokens Stitch configurados
 - [x] Fuentes Stitch cargadas
-- [ ] PWA configurada
+- [x] PWA configurada
 - [ ] Cliente API (`useApi`) listo
 - [ ] Tipos TypeScript
 - [ ] Componentes Stitch adaptados
