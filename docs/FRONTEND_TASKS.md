@@ -59,7 +59,7 @@ Setup → Tipos → Componentes → Páginas → Composables API → Conexión A
 - NO crear Service Worker custom todavía (eso es T7.2).
 
 ### T0.6 - Estructura de carpetas
-- Crear `app/components/stitch/`, `app/components/map/`, `app/layouts/`, `app/pages/`, `app/composables/`, `app/types/`.
+- Crear `app/components/cafe/`, `app/components/map/`, `app/layouts/`, `app/pages/`, `app/composables/`, `app/types/`.
 - Solo carpetas vacías. NO crear archivos.
 
 ### T0.7 - Variables de entorno
@@ -87,13 +87,13 @@ Setup → Tipos → Componentes → Páginas → Composables API → Conexión A
 
 ### T2.1 - OfferCard (reutilizable)
 - Leer la tarjeta de oferta de `template/comparaci_n_de_precios_de_caf/code.html`.
-- Crear `app/components/stitch/OfferCard.vue`.
+- Crear `app/components/cafe/OfferCard.vue`.
 - Props (`OfferCardProps`): `buyerName`, `price`, `variety`, `updatedAt`.
 - NO conectar API.
 
 ### T2.2 - ListaScreen: estructura
 - Leer `template/comparaci_n_de_precios_de_caf/code.html`.
-- Crear `app/components/stitch/ListaScreen.vue` usando `OfferCard.vue`. Datos hardcodeados.
+- Crear `app/components/cafe/ListaScreen.vue` usando `OfferCard.vue`. Datos hardcodeados.
 - NO aplicar responsive todavía (eso es T2.3).
 
 ### T2.3 - ListaScreen: responsive
@@ -102,7 +102,7 @@ Setup → Tipos → Componentes → Páginas → Composables API → Conexión A
 
 ### T2.4 - PerfilScreen: estructura
 - Leer `template/perfil_cooperativa_cadefihuila/code.html`.
-- Crear `app/components/stitch/PerfilScreen.vue`.
+- Crear `app/components/cafe/PerfilScreen.vue`.
 - Props: `cooperativeId` (string). Datos hardcodeados.
 - NO aplicar responsive todavía (eso es T2.5).
 
@@ -112,7 +112,7 @@ Setup → Tipos → Componentes → Páginas → Composables API → Conexión A
 
 ### T2.6 - CalculadoraScreen: estructura
 - Leer `template/calculadora_de_factor_de_rendimiento_y_merma/code.html`.
-- Crear `app/components/stitch/CalculadoraScreen.vue`.
+- Crear `app/components/cafe/CalculadoraScreen.vue`.
 - Datos hardcodeados, sin lógica de cálculo.
 - NO aplicar responsive todavía (eso es T2.7).
 
@@ -194,7 +194,7 @@ Setup → Tipos → Componentes → Páginas → Composables API → Conexión A
 
 ### T6.2 - MapaScreen: estructura
 - Leer `template/mapa_de_precios_cafeteros/code.html`.
-- Crear `app/components/stitch/MapaScreen.vue` con el `<body>` envuelto en `<template>`.
+- Crear `app/components/cafe/MapaScreen.vue` con el `<body>` envuelto en `<template>`.
 - Zona de mapa como placeholder. Datos hardcodeados.
 - NO aplicar responsive todavía (eso es T6.3). NO conectar API.
 

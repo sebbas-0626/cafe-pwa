@@ -10,7 +10,7 @@
 1. **Prohibido** crear archivos nuevos de estilos globales. Usa las clases de Tailwind que ya vienen en el HTML de Stitch.
 2. **Prohibido** cambiar colores, tipografía o radios definidos en el HTML original.
 3. Si un componente de Stitch no existe en Nuxt UI, usa HTML + Tailwind tal cual, no lo reemplaces.
-4. Cada pantalla de Stitch se convierte en un componente Vue en `app/components/stitch/`.
+4. Cada pantalla de Stitch se convierte en un componente Vue en `app/components/cafe/`.
 5. No tocar `api/` ni el backend. Solo frontend.
 
 ## Estrategia de adaptación (móvil → web)
@@ -32,7 +32,7 @@ Para cada pantalla de `template/`:
 
 1. OpenCode lee el archivo HTML de `template/`.
 2. Extrae el `<body>` (sin `<head>`, sin `<script>` de Tailwind config).
-3. Envuelve en un componente Vue: `app/components/stitch/{Nombre}.vue`.
+3. Envuelve en un componente Vue: `app/components/cafe/{Nombre}.vue`.
 4. Aplica los ajustes responsive de la tabla de arriba.
 5. Reporta qué clases añadió y qué archivo creó. Máximo 5 líneas.
 
