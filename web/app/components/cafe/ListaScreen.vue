@@ -12,11 +12,11 @@ const offers: OfferCardProps[] = [
 
 <template>
   <main class="flex flex-col relative w-full pt-16 pb-28 bg-background min-h-screen">
-    <div class="flex flex-col w-full">
+    <div class="flex flex-col w-full max-w-7xl mx-auto lg:px-8">
       <div class="px-margin pt-space-sm pb-space-xs flex items-center justify-between">
         <div class="flex items-center gap-space-xs">
           <span class="inline-flex w-2.5 h-2.5 rounded-full bg-secondary animate-pulse" />
-          <span class="font-headline-md text-headline-md text-on-surface">Mercado Huila Sur</span>
+          <span class="font-headline-md text-headline-md text-on-surface lg:text-display-lg-mobile">Mercado Huila Sur</span>
         </div>
         <div class="flex items-center gap-space-xs px-2.5 py-1 rounded-full bg-surface-container shadow-sm">
           <span class="material-symbols-outlined text-label-md text-secondary" style="font-variation-settings: 'FILL' 1">verified</span>
@@ -84,7 +84,7 @@ const offers: OfferCardProps[] = [
         </div>
       </div>
 
-      <div class="px-margin flex flex-col gap-space-md pb-space-xl">
+      <div class="px-margin flex flex-col gap-space-md pb-space-xl grid-cols-1 md:grid md:grid-cols-2 lg:grid-cols-3">
         <OfferCard
           v-for="offer in offers"
           :key="offer.buyerName"
@@ -94,7 +94,7 @@ const offers: OfferCardProps[] = [
           :updated-at="offer.updatedAt"
         />
 
-        <div class="rounded-2xl p-space-md bg-surface-container shadow-md flex flex-col gap-space-sm">
+        <div class="rounded-2xl p-space-md bg-surface-container shadow-md flex flex-col gap-space-sm md:col-span-2 lg:col-span-3">
           <div class="flex items-center gap-space-sm">
             <div class="w-12 h-12 rounded-xl bg-primary text-on-primary flex items-center justify-center shrink-0 shadow-sm">
               <span class="material-symbols-outlined text-2xl">calculate</span>
@@ -127,7 +127,7 @@ const offers: OfferCardProps[] = [
         </div>
       </div>
 
-      <div class="mx-margin mb-space-lg p-space-sm rounded-xl bg-primary text-on-primary flex items-center justify-between shadow-sm">
+      <div class="mx-margin mb-space-lg p-space-sm rounded-xl bg-primary text-on-primary flex items-center justify-between shadow-sm md:col-span-2 lg:col-span-3">
         <div class="flex items-center gap-space-xs min-w-0">
           <span class="w-2.5 h-2.5 rounded-full bg-secondary-fixed shrink-0" />
           <span class="font-label-md text-label-md truncate">Precios locales actualizados · Modo offline sincronizado</span>
