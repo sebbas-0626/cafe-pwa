@@ -73,7 +73,7 @@ const toneClass = {
             <span class="font-label-md text-label-md text-on-surface-variant bg-surface-container-high px-2 py-0.5 rounded-full">Muestra de prueba</span>
           </div>
 
-          <div class="space-y-space-md">
+          <div class="space-y-space-md lg:grid lg:grid-cols-3 lg:gap-space-md lg:space-y-0">
             <div v-for="sample in labSamples" :key="sample.id" class="bg-surface-container-lowest rounded-lg p-space-sm">
               <div class="flex items-center justify-between mb-1">
                 <label class="font-body-md text-body-md text-on-surface font-bold flex items-center gap-1.5" :for="`input-${sample.id}`">
@@ -177,7 +177,7 @@ const toneClass = {
             </p>
           </div>
 
-          <div class="grid grid-cols-2 gap-space-sm mt-space-sm pt-space-xs">
+          <div class="grid grid-cols-2 gap-space-sm mt-space-sm pt-space-xs lg:grid-cols-4">
             <div class="p-2.5 bg-surface-container-lowest rounded-lg">
               <span class="font-label-md text-label-md text-on-surface-variant block">Almendra Sana</span>
               <span class="font-headline-md text-headline-md font-bold text-on-surface block mt-0.5">{{ factorResult.almendraSana }}</span>
