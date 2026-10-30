@@ -16,6 +16,7 @@ Setup → Tipos → Componentes → Páginas → Composables API → Conexión A
 ## Estado actual
 - [x] Proyecto Nuxt creado
 - [x] Tailwind + tokens Stitch configurados
+- [x] Fuentes Stitch cargadas
 - [ ] PWA configurada
 - [ ] Cliente API (`useApi`) listo
 - [ ] Tipos TypeScript
@@ -46,20 +47,25 @@ Setup → Tipos → Componentes → Páginas → Composables API → Conexión A
 - Extraer colores, familias tipográficas y radios al `tailwind.config`.
 - NO crear componentes. NO inventar valores que no estén en el template.
 
-### T0.4 - Configurar PWA
+### T0.4 - Cargar fuentes Epilogue y Quicksand
+- Registrar ambas familias en `app.head` de `nuxt.config.ts` con `<link>` a Google Fonts.
+- Pesos: Epilogue 600/700, Quicksand 500/600/700.
+- NO instalar paquetes. NO crear archivos de estilos globales.
+
+### T0.5 - Configurar PWA
 - Instalar `@vite-pwa/nuxt`.
 - Configurar manifest mínimo (nombre, icono, theme_color).
 - NO crear Service Worker custom todavía (eso es T7.2).
 
-### T0.5 - Estructura de carpetas
+### T0.6 - Estructura de carpetas
 - Crear `app/components/stitch/`, `app/components/map/`, `app/layouts/`, `app/pages/`, `app/composables/`, `app/types/`.
 - Solo carpetas vacías. NO crear archivos.
 
-### T0.6 - Variables de entorno
+### T0.7 - Variables de entorno
 - Crear `web/.env` con `NUXT_PUBLIC_API_BASE=http://localhost:8000/api`.
 - Configurar `nuxt.config.ts` (`runtimeConfig.public.apiBase`) para leerla.
 
-### T0.7 - Cliente API `useApi`
+### T0.8 - Cliente API `useApi`
 - Crear `app/composables/useApi.ts` con un wrapper de `$fetch` que use `runtimeConfig.public.apiBase`.
 - Manejo de error uniforme (mensaje + status).
 - NO usarlo en componentes todavía.
@@ -216,7 +222,7 @@ Setup → Tipos → Componentes → Páginas → Composables API → Conexión A
 ## FASE 7: PWA y offline (una tarea por sesión)
 
 ### T7.1 - Manifest completo
-- Iconos, colores, nombre, short_name en el manifest de T0.4.
+- Iconos, colores, nombre, short_name en el manifest de T0.5.
 
 ### T7.2 - Service Worker: precache del shell
 - Precachar HTML/JS/CSS de la app.
