@@ -49,7 +49,7 @@ import { mapFilters, mapSheetPreview } from './data'
         </div>
       </div>
 
-      <div class="w-full -mt-20 z-30 px-margin pb-6 flex flex-col">
+      <div class="w-full -mt-20 z-30 px-margin pb-6 flex flex-col lg:col-span-1 lg:mt-0 lg:px-0 lg:sticky lg:top-20">
         <div class="w-full bg-surface rounded-3xl shadow-[0_-8px_32px_rgba(68,21,10,0.16)] p-space-md flex flex-col gap-space-md">
           <div class="flex flex-col items-center w-full gap-space-xs">
             <div class="w-12 h-1.5 bg-outline-variant/60 rounded-full" />
