@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+
+<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><title>CaféPrecios Colombia</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@600;700&amp;family=Quicksand:wght@500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-tertiary-fixed": "#2c1600", "on-background": "#380c04", "surface-container-low": "#fff0ed", "tertiary-container": "#734d25", "primary": "#702506", "secondary-fixed-dim": "#7fd9a6", "inverse-on-surface": "#ffede9", "outline-variant": "#dcc1b8", "primary-container": "#8f3b1c", "on-error-container": "#93000a", "secondary": "#006d44", "on-error": "#ffffff", "surface-container-high": "#ffe2db", "on-secondary-fixed": "#002111", "tertiary": "#583610", "surface-container-lowest": "#ffffff", "error-container": "#ffdad6", "inverse-surface": "#542115", "on-surface-variant": "#55423c", "on-primary-fixed-variant": "#7c2d0f", "primary-fixed-dim": "#ffb59c", "on-secondary-container": "#037147", "surface-tint": "#9b4424", "outline": "#89726b", "surface-bright": "#fff8f6", "primary-fixed": "#ffdbcf", "on-secondary-fixed-variant": "#005232", "on-tertiary-fixed-variant": "#623f18", "secondary-fixed": "#9af5c0", "surface-variant": "#ffdad2", "on-primary-fixed": "#390c00", "on-primary-container": "#ffbaa3", "surface-container-highest": "#ffdad2", "inverse-primary": "#ffb59c", "on-tertiary-container": "#f4c08e", "on-surface": "#380c04", "surface": "#fff8f6", "tertiary-fixed-dim": "#f0bd8b", "on-primary": "#ffffff", "secondary-container": "#98f3be", "surface-container": "#ffe9e4", "on-secondary": "#ffffff", "background": "#fff8f6", "surface-dim": "#ffcfc4", "tertiary-fixed": "#ffdcbd", "on-tertiary": "#ffffff", "error": "#ba1a1a" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "margin": "1rem", "space-sm": "0.5rem", "space-xs": "0.25rem", "gutter-desktop": "1.5rem", "space-lg": "1.5rem", "margin-tablet": "2rem", "space-md": "1rem", "space-xl": "2.25rem", "margin-desktop": "3rem", "gutter": "1rem" }, "fontFamily": { "price-hero-mobile": ["Quicksand"], "display-lg": ["Epilogue"], "body-lg": ["Quicksand"], "display-lg-mobile": ["Epilogue"], "body-md": ["Quicksand"], "price-hero": ["Quicksand"], "headline-lg-mobile": ["Epilogue"], "headline-md": ["Epilogue"], "label-md": ["Quicksand"], "headline-lg": ["Epilogue"], "label-lg": ["Quicksand"] }, "fontSize": { "price-hero-mobile": ["30px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "body-lg": ["17px", { "lineHeight": "26px", "fontWeight": "600" }], "display-lg-mobile": ["32px", { "lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "700" }], "body-md": ["15px", { "lineHeight": "22px", "fontWeight": "500" }], "price-hero": ["36px", { "lineHeight": "40px", "letterSpacing": "-0.03em", "fontWeight": "700" }], "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "700" }], "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "600" }], "headline-lg": ["28px", { "lineHeight": "36px", "fontWeight": "700" }], "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.02em", "fontWeight": "700" }] } } } }</script><style>@layer base{html,body{width:100%;margin:0;padding:0;min-height:100%;}body{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-background font-body-md text-body-md text-on-surface antialiased flex flex-col min-h-screen selection:bg-primary-fixed"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(68,21,10,0.04)]"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><img alt="CaféPrecios Logo" class="h-8 w-auto object-contain shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1URjACq9bsknZfhk3nycblzspYWBUFpPVQy4x4xWOP_uMeTSkCRHmXs9I2jN_YV1hCt7wXGsC7EUx0iggvKrEdwrxWHZ_wHyEYR3RX2IbqSGTVtxgFXqehHHI-p44lh5bKtBBwQd3Jnmbb3l0wweJe-pmWLfjNbqj3PU06TJ6QnFiv1elJh4RJ00zqNmIeDgIh0q6l94lmnffGYKfxJNTUC0qX9gQp_I9m1dyttFu76"/><div class="flex flex-col min-w-0"><div class="flex items-center gap-space-xs"><span class="font-headline-md text-headline-md text-primary font-bold tracking-tight truncate">CaféPrecios</span></div><div class="flex items-center gap-space-xs text-on-surface-variant"><span class="material-symbols-outlined text-label-md text-secondary">location_on</span><span class="font-label-md text-label-md truncate">Eje Cafetero / Huila</span></div></div></div><div class="flex items-center gap-space-xs shrink-0"><button aria-label="Estado de conexión" class="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full bg-secondary-container/40 text-secondary hover:bg-secondary-container transition-colors" type="button"><span class="material-symbols-outlined text-body-lg">cloud_done</span></button><button aria-label="Perfil caficultor" class="min-h-[44px] min-w-[44px] p-space-xs flex items-center justify-center rounded-full hover:bg-surface-container transition-colors" type="button"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWkzmHQAYIm5xUt-367KLhZuHQvuZ7I3ZWDOktShtCDrfccuqR1gg9a-irnuExsE4ignhi1t5ETUQHLmpVjWSsMoarl_g7qoWaH40HWL0YOamaNqdXaybMg8edXxORUizmPOzeZN00nCv-ElGsDj3WItwQE3LbqtUcUslqNo7y6LanCgIDJOhPqJmr39OgR0ABITii39mDbqtwvvJI_6KsoyyO2fB_3QTZ7zXk3Cs"/></button></div></div></header><main class="flex flex-col relative w-full pt-16 pb-28 bg-background min-h-screen"><div class="flex flex-col w-full relative select-none">
+<!-- Topographic Coffee Map Visual Layer -->
+<div class="relative w-full h-[742px] overflow-hidden bg-[#e8ded1] flex items-center justify-center">
+<!-- Stylized Topographic Contours & River SVG Backing -->
+<svg class="absolute inset-0 w-full h-full opacity-65 pointer-events-none" preserveaspectratio="xMidYMid slice" viewbox="0 0 400 800" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient id="riverGrad" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#9ac5ba" stop-opacity="0.9"></stop>
+<stop offset="100%" stop-color="#72a599" stop-opacity="0.8"></stop>
+</lineargradient>
+</defs>
+<!-- Shaded Terrain Hills -->
+<path d="M-50,200 Q80,140 180,240 T380,210 T460,320 L450,850 L-50,850 Z" fill="#dfd4c4" opacity="0.5"></path>
+<path d="M-20,420 Q120,380 220,490 T430,460 L450,850 L-50,850 Z" fill="#d5c8b5" opacity="0.45"></path>
+<!-- Topographic Elevation Lines (Cotas de nivel) -->
+<path d="M-40,90 Q90,30 210,110 T420,70" fill="none" opacity="0.6" stroke="#baaa93" stroke-dasharray="3,3" stroke-width="1.2"></path>
+<path d="M-30,140 Q110,95 230,175 T440,135" fill="none" opacity="0.7" stroke="#baaa93" stroke-width="1"></path>
+<path d="M-20,190 Q130,160 250,230 T450,195" fill="none" opacity="0.75" stroke="#baaa93" stroke-width="1.2"></path>
+<path d="M-40,250 Q80,220 200,310 T420,260" fill="none" opacity="0.8" stroke="#baaa93" stroke-width="1"></path>
+<path d="M-30,310 Q140,280 270,370 T440,330" fill="none" opacity="0.85" stroke="#baaa93" stroke-width="1.5"></path>
+<path d="M-20,370 Q100,340 220,430 T450,400" fill="none" opacity="0.75" stroke="#baaa93" stroke-width="1"></path>
+<path d="M-40,440 Q120,410 240,500 T440,470" fill="none" opacity="0.8" stroke="#baaa93" stroke-width="1.3"></path>
+<path d="M-30,520 Q90,490 210,580 T430,550" fill="none" opacity="0.75" stroke="#baaa93" stroke-width="1.1"></path>
+<path d="M-40,610 Q140,580 260,670 T450,630" fill="none" opacity="0.7" stroke="#baaa93" stroke-width="1.4"></path>
+<!-- Micro Elevation Ripples / Cordillera contours -->
+<path d="M70,260 Q140,220 180,260 T220,320" fill="none" opacity="0.6" stroke="#af9d85" stroke-width="0.9"></path>
+<path d="M110,480 Q190,430 260,490 T320,530" fill="none" opacity="0.6" stroke="#af9d85" stroke-width="0.9"></path>
+<!-- Río Guarapas / Rio Magdalena Fluvial Path -->
+<path d="M120,-30 C90,140 180,220 140,360 C100,480 260,580 210,830" fill="none" stroke="url(#riverGrad)" stroke-linecap="round" stroke-width="5"></path>
+<path d="M140,360 Q210,390 290,340" fill="none" stroke="url(#riverGrad)" stroke-linecap="round" stroke-width="2.5"></path>
+<text fill="#4d776e" font-family="Quicksand" font-size="9" font-weight="700" letter-spacing="1" transform="rotate(62 145 270)" x="145" y="270">RÍO GUARAPAS</text>
+<!-- Vereda Names in Landscape -->
+<text fill="#75624e" font-family="Quicksand" font-size="10" font-weight="700" letter-spacing="0.5" x="35" y="195">Vda. El Higuerón</text>
+<text fill="#75624e" font-family="Quicksand" font-size="10" font-weight="700" letter-spacing="0.5" x="240" y="210">Vda. Cálamo</text>
+<text fill="#75624e" font-family="Quicksand" font-size="10" font-weight="700" letter-spacing="0.5" x="270" y="440">Vda. Charguayaco</text>
+<text fill="#75624e" font-family="Quicksand" font-size="10" font-weight="700" letter-spacing="0.5" x="45" y="475">Vda. Guacacallo</text>
+</svg>
+<!-- Floating Top Search & Filter Bar -->
+<div class="absolute top-3 left-0 right-0 px-margin z-20 flex flex-col gap-space-xs pointer-events-auto">
+<div class="bg-surface/95 backdrop-blur-md rounded-xl p-space-xs shadow-[0_8px_20px_-4px_rgba(68,21,10,0.12)] flex items-center justify-between gap-space-xs">
+<button aria-label="Cambiar municipio o vereda" class="flex items-center gap-space-xs min-h-[44px] px-space-sm rounded-lg hover:bg-surface-container transition-colors text-left flex-1 min-w-0" type="button">
+<span class="material-symbols-outlined text-primary text-headline-md shrink-0" style="font-variation-settings: 'FILL' 1;">pin_drop</span>
+<div class="flex flex-col min-w-0">
+<span class="font-headline-md text-headline-md text-on-surface font-bold truncate">Pitalito, Huila</span>
+<span class="font-label-md text-label-md text-on-surface-variant truncate">Radio 25 km · 14 puntos de compra</span>
+</div>
+</button>
+<button aria-label="Filtro de variedades" class="min-h-[44px] min-w-[44px] px-space-xs flex items-center justify-center rounded-lg bg-surface-container-high text-on-surface hover:bg-primary hover:text-on-primary transition-all shrink-0" id="filterBtn" type="button">
+<span class="material-symbols-outlined text-body-lg">tune</span>
+</button>
+</div>
+<!-- Quick Variety Filter Pills -->
+<div class="flex items-center gap-space-xs overflow-x-auto pb-1 no-scrollbar">
+<button class="px-3 py-1 rounded-full bg-primary text-on-primary font-label-md text-label-md shadow-sm shrink-0 flex items-center gap-1">
+<span class="material-symbols-outlined text-label-md">check</span>
+<span>Todas</span>
+</button>
+<button class="px-3 py-1 rounded-full bg-surface/90 text-on-surface font-label-md text-label-md shadow-sm shrink-0 hover:bg-surface-container transition-colors">
+          Castillo
+        </button>
+<button class="px-3 py-1 rounded-full bg-surface/90 text-on-surface font-label-md text-label-md shadow-sm shrink-0 hover:bg-surface-container transition-colors">
+          Caturra
+        </button>
+<button class="px-3 py-1 rounded-full bg-surface/90 text-on-surface font-label-md text-label-md shadow-sm shrink-0 hover:bg-surface-container transition-colors">
+          Borbón Rosado
+        </button>
+<button class="px-3 py-1 rounded-full bg-surface/90 text-on-surface font-label-md text-label-md shadow-sm shrink-0 hover:bg-surface-container transition-colors">
+          Geisha
+        </button>
+</div>
+</div>
+<!-- Floating Map Control Buttons (Right Side) -->
+<div class="absolute right-margin top-28 z-20 flex flex-col gap-space-sm pointer-events-auto">
+<!-- Centrar mi finca -->
+<button class="min-h-[48px] min-w-[48px] rounded-xl bg-surface/95 text-primary shadow-[0_4px_16px_rgba(68,21,10,0.14)] backdrop-blur-md flex items-center justify-center hover:bg-primary hover:text-on-primary active:scale-95 transition-all" id="centerFarmBtn" title="Centrar mi finca" type="button">
+<span class="material-symbols-outlined text-headline-md" style="font-variation-settings: 'FILL' 1;">my_location</span>
+</button>
+<!-- Toggle to list view -->
+<button class="min-h-[48px] min-w-[48px] rounded-xl bg-surface/95 text-on-surface shadow-[0_4px_16px_rgba(68,21,10,0.14)] backdrop-blur-md flex items-center justify-center hover:bg-surface-container active:scale-95 transition-all" title="Ver en lista" type="button">
+<span class="material-symbols-outlined text-headline-md">view_list</span>
+</button>
+<!-- Layers / Cota topographic switch -->
+<button class="min-h-[48px] min-w-[48px] rounded-xl bg-surface/95 text-on-surface-variant shadow-[0_4px_16px_rgba(68,21,10,0.14)] backdrop-blur-md flex items-center justify-center hover:bg-surface-container active:scale-95 transition-all" title="Capas de altitud y microclima" type="button">
+<span class="material-symbols-outlined text-headline-md">layers</span>
+</button>
+</div>
+<!-- User Farm Indicator on Map -->
+<div class="absolute top-[22%] left-[28%] z-10 flex flex-col items-center pointer-events-none transform -translate-x-1/2 -translate-y-1/2">
+<div class="relative flex items-center justify-center">
+<span class="w-8 h-8 rounded-full bg-secondary/20 animate-ping absolute"></span>
+<div class="w-6 h-6 rounded-full bg-secondary text-on-secondary shadow-md flex items-center justify-center">
+<span class="material-symbols-outlined text-label-md">home</span>
+</div>
+</div>
+<span class="mt-1 px-2 py-0.5 rounded-full bg-on-surface/85 text-surface-bright font-label-md text-[10px] shadow">Mi Finca (1.680 msnm)</span>
+</div>
+<!-- Interactive Map Pin 1 (Inactive - Cafisur) -->
+<button class="group absolute top-[28%] right-[16%] z-10 flex flex-col items-center cursor-pointer transform hover:scale-105 transition-all text-left" onclick="selectPin('cafisur', '$14.850', 'Asociación Cafisur - Bodega La Laguna', 'A 11.2 km · ~28 min')" type="button">
+<div class="px-2.5 py-1 rounded-full bg-surface text-on-surface font-price-hero-mobile text-label-lg shadow-[0_4px_12px_rgba(68,21,10,0.12)] flex items-center gap-1 group-hover:bg-primary-container group-hover:text-on-primary">
+<span class="font-bold">$14.850</span>
+<span class="text-[10px] text-on-surface-variant group-hover:text-surface-container-high font-semibold">/kg</span>
+</div>
+<div class="w-7 h-7 -mt-1 rounded-full bg-primary-container text-on-primary shadow-md flex items-center justify-center">
+<span class="material-symbols-outlined text-[15px]" style="font-variation-settings: 'FILL' 1;">coffee</span>
+</div>
+<div class="w-1.5 h-1.5 rounded-full bg-primary mt-0.5 opacity-60"></div>
+</button>
+<!-- Interactive Map Pin 2 (ACTIVE SELECTED - Cadefihuila Pitalito) -->
+<button class="group absolute top-[44%] left-[48%] z-10 flex flex-col items-center cursor-pointer transform -translate-x-1/2 -translate-y-1/2 scale-110 transition-all text-left" onclick="selectPin('cadefihuila', '$15.200', 'Cooperativa de Caficultores del Huila (Cadefihuila) - Sede Pitalito', 'A 6.8 km · ~18 min')" type="button">
+<!-- Pulsing Aura for Best Selected Price -->
+<span class="absolute -top-3 w-28 h-12 rounded-full bg-secondary/30 animate-pulse pointer-events-none"></span>
+<div class="relative px-3 py-1.5 rounded-full bg-secondary text-on-secondary font-price-hero-mobile text-label-lg shadow-[0_6px_16px_rgba(0,109,68,0.35)] flex items-center gap-1.5">
+<span class="material-symbols-outlined text-label-md text-secondary-container" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+<span class="font-bold tracking-tight text-white">$15.200</span>
+<span class="text-[10px] text-secondary-container font-semibold">/kg</span>
+</div>
+<div class="relative w-8 h-8 -mt-1 rounded-full bg-secondary text-on-secondary shadow-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">nutrition</span>
+</div>
+<div class="w-2 h-2 rounded-full bg-secondary mt-0.5"></div>
+<span class="mt-1 px-1.5 py-0.5 rounded bg-surface/90 text-secondary font-label-md text-[10px] font-bold shadow-sm whitespace-nowrap">Mejor Precio</span>
+</button>
+<!-- Interactive Map Pin 3 (Inactive - Trilladora San Agustín) -->
+<button class="group absolute bottom-[38%] left-[18%] z-10 flex flex-col items-center cursor-pointer transform hover:scale-105 transition-all text-left" onclick="selectPin('agustin', '$14.600', 'Compra Directa San Agustín &amp; Timaná', 'A 14.5 km · ~34 min')" type="button">
+<div class="px-2.5 py-1 rounded-full bg-surface text-on-surface font-price-hero-mobile text-label-lg shadow-[0_4px_12px_rgba(68,21,10,0.12)] flex items-center gap-1 group-hover:bg-primary-container group-hover:text-on-primary">
+<span class="font-bold">$14.600</span>
+<span class="text-[10px] text-on-surface-variant group-hover:text-surface-container-high font-semibold">/kg</span>
+</div>
+<div class="w-7 h-7 -mt-1 rounded-full bg-tertiary text-on-tertiary shadow-md flex items-center justify-center">
+<span class="material-symbols-outlined text-[15px]" style="font-variation-settings: 'FILL' 1;">warehouse</span>
+</div>
+<div class="w-1.5 h-1.5 rounded-full bg-tertiary mt-0.5 opacity-60"></div>
+</button>
+<!-- Interactive Map Pin 4 (Inactive - Andes / Garzón Exportadores) -->
+<button class="group absolute bottom-[34%] right-[22%] z-10 flex flex-col items-center cursor-pointer transform hover:scale-105 transition-all text-left" onclick="selectPin('andes', '$15.050', 'Exportadora Andina de Café - Punto Timaná', 'A 19.1 km · ~42 min')" type="button">
+<div class="px-2.5 py-1 rounded-full bg-surface text-on-surface font-price-hero-mobile text-label-lg shadow-[0_4px_12px_rgba(68,21,10,0.12)] flex items-center gap-1 group-hover:bg-primary-container group-hover:text-on-primary">
+<span class="font-bold">$15.050</span>
+<span class="text-[10px] text-on-surface-variant group-hover:text-surface-container-high font-semibold">/kg</span>
+</div>
+<div class="w-7 h-7 -mt-1 rounded-full bg-primary text-on-primary shadow-md flex items-center justify-center">
+<span class="material-symbols-outlined text-[15px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<div class="w-1.5 h-1.5 rounded-full bg-primary mt-0.5 opacity-60"></div>
+</button>
+</div>
+<!-- PERSISTENT BOTTOM SHEET (COOPERATIVA SELECCIONADA) -->
+<div class="w-full -mt-20 z-30 px-margin pb-6 flex flex-col" id="coopBottomSheet">
+<div class="w-full bg-surface rounded-3xl shadow-[0_-8px_32px_rgba(68,21,10,0.16)] p-space-md flex flex-col gap-space-md">
+<!-- Grab Handle & Header Meta -->
+<div class="flex flex-col items-center w-full gap-space-xs">
+<div class="w-12 h-1.5 bg-outline-variant/60 rounded-full cursor-grab"></div>
+<div class="w-full flex items-center justify-between mt-1">
+<div class="flex items-center gap-1.5">
+<span class="px-2.5 py-0.5 rounded-full bg-secondary/10 text-secondary font-label-md text-label-md font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+              Punto Oficial FNC
+            </span>
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-md text-label-md">
+              Cód. 41551
+            </span>
+</div>
+<div class="flex items-center gap-1 text-secondary font-label-md text-label-md font-semibold">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+            Abierto hoy hasta 5:00 PM
+          </div>
+</div>
+</div>
+<!-- Cooperative Name & Location details -->
+<div class="flex flex-col">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-bold leading-tight" id="coopTitle">
+          Cooperativa de Caficultores del Huila (Cadefihuila) · Sede Pitalito
+        </h2>
+<div class="flex items-center gap-2 mt-1 text-on-surface-variant font-body-md text-body-md">
+<span class="material-symbols-outlined text-primary text-base">directions_car</span>
+<span id="coopDistance">A 6.8 km · ~18 min por carretera pavimentada (Vía San Agustín)</span>
+</div>
+</div>
+<!-- Price Hero Showcase Module -->
+<div class="bg-surface-container rounded-2xl p-space-md flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md uppercase tracking-wider text-primary font-bold">
+            Precio de compra actual hoy
+          </span>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-md text-[11px] font-bold">
+            Mejor precio de la zona
+          </span>
+</div>
+<!-- Big Price Display -->
+<div class="flex items-baseline gap-space-xs flex-wrap">
+<span class="font-price-hero-mobile text-price-hero-mobile text-primary font-bold tracking-tight" id="coopPriceHero">
+            $ 15.200
+          </span>
+<span class="font-body-md text-body-md text-on-surface-variant font-semibold">
+            / kg pergamino seco
+          </span>
+</div>
+<!-- Secondary Arroba Unit & Spread Tag -->
+<div class="flex items-center justify-between pt-1 flex-wrap gap-1">
+<div class="flex items-center gap-1 font-headline-md text-headline-md text-on-surface font-bold">
+<span>$ 190.000</span>
+<span class="font-body-md text-body-md text-on-surface-variant font-normal">/ @ arroba (12.5 kg)</span>
+</div>
+<div class="flex items-center gap-1 text-secondary font-label-md text-label-md font-bold bg-secondary/10 px-2 py-0.5 rounded-lg">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+<span>+ $450 vs. promedio nacional</span>
+</div>
+</div>
+</div>
+<!-- Coffee Quality & Varietals Accepted -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface-variant font-bold uppercase tracking-wide">
+            Variedades recibidas (Factor Base 88)
+          </span>
+<span class="font-label-md text-label-md text-primary font-bold">Humedad max 11.5%</span>
+</div>
+<div class="flex items-center gap-2 flex-wrap">
+<span class="px-3 py-1 rounded-xl bg-surface-container-high text-on-surface font-label-md text-label-md font-semibold flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+            Castillo
+          </span>
+<span class="px-3 py-1 rounded-xl bg-surface-container-high text-on-surface font-label-md text-label-md font-semibold flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+            Caturra
+          </span>
+<span class="px-3 py-1 rounded-xl bg-surface-container-high text-on-surface font-label-md text-label-md font-semibold flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+            Colombia
+          </span>
+<span class="px-3 py-1 rounded-xl bg-surface-container-low text-on-surface-variant font-label-md text-label-md font-semibold">
+            Borbón (+ $600 bonif.)
+          </span>
+</div>
+</div>
+<!-- Action Contact Buttons Row -->
+<div class="grid grid-cols-12 gap-space-xs pt-1">
+<!-- Call Dispatch (Prominent Primary Action) -->
+<a class="col-span-5 min-h-[48px] px-3 rounded-2xl bg-primary text-on-primary font-headline-md text-headline-md flex items-center justify-center gap-2 shadow-[0_4px_16px_rgba(112,37,6,0.25)] active:scale-95 transition-all text-center" href="tel:+573108892400">
+<span class="material-symbols-outlined text-headline-md" style="font-variation-settings: 'FILL' 1;">call</span>
+<span class="truncate">Llamar</span>
+</a>
+<!-- WhatsApp Direct -->
+<a class="col-span-4 min-h-[48px] px-2 rounded-2xl bg-secondary text-on-secondary font-headline-md text-headline-md flex items-center justify-center gap-1.5 shadow-[0_4px_14px_rgba(0,109,68,0.2)] active:scale-95 transition-all text-center" href="https://wa.me/573108892400?text=Hola%20Cadefihuila,%20tengo%20un%20lote%20de%20caf%C3%A9%20para%20entregar%20hoy." rel="noopener noreferrer" target="_blank">
+<span class="material-symbols-outlined text-headline-md">chat</span>
+<span class="truncate">WhatsApp</span>
+</a>
+<!-- GPS Route Navigation -->
+<button aria-label="Cómo llegar en mapa GPS" class="col-span-3 min-h-[48px] px-2 rounded-2xl bg-surface-container-high text-on-surface font-headline-md text-headline-md flex items-center justify-center gap-1 hover:bg-surface-container-highest active:scale-95 transition-all text-center" onclick="launchNavigation()" type="button">
+<span class="material-symbols-outlined text-headline-md text-primary">near_me</span>
+<span class="truncate font-semibold">Ruta</span>
+</button>
+</div>
+<!-- Micro Toast / Field Tip Note -->
+<div class="flex items-center gap-2 text-on-surface-variant text-label-md font-label-md px-1">
+<span class="material-symbols-outlined text-base text-secondary shrink-0">offline_bolt</span>
+<p class="truncate">Precios sincronizados offline con el Sistema FNC (hace 14 min).</p>
+</div>
+</div>
+</div>
+<!-- Notification Banner Micro-interaction for GPS centering -->
+<div class="fixed bottom-24 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface px-4 py-2 rounded-full font-label-md text-label-md shadow-xl flex items-center gap-2 pointer-events-none opacity-0 transition-opacity duration-300 z-50" id="toastNotification">
+<span class="material-symbols-outlined text-secondary-fixed text-base">my_location</span>
+<span>Ubicación centrada en Finca La Primavera</span>
+</div>
+</div>
+<script>
+  function selectPin(id, price, name, distance) {
+    const titleEl = document.getElementById('coopTitle');
+    const priceEl = document.getElementById('coopPriceHero');
+    const distEl = document.getElementById('coopDistance');
+    const sheetEl = document.getElementById('coopBottomSheet');
+    
+    if (titleEl && priceEl && distEl) {
+      titleEl.innerText = name;
+      priceEl.innerText = price;
+      distEl.innerText = distance;
+    }
+
+    if (sheetEl) {
+      sheetEl.classList.remove('opacity-90');
+      sheetEl.classList.add('opacity-100');
+      // Subtle tactile bounce simulation
+      sheetEl.animate([
+        { transform: 'translateY(12px)' },
+        { transform: 'translateY(0px)' }
+      ], {
+        duration: 250,
+        easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)'
+      });
+    }
+  }
+
+  function launchNavigation() {
+    const toast = document.getElementById('toastNotification');
+    if (toast) {
+      toast.innerHTML = '<span class="material-symbols-outlined text-secondary-fixed text-base">navigation</span><span>Iniciando ruta hacia Cadefihuila Pitalito (6.8 km)...</span>';
+      toast.classList.remove('opacity-0');
+      toast.classList.add('opacity-100');
+      setTimeout(() => {
+        toast.classList.remove('opacity-100');
+        toast.classList.add('opacity-0');
+      }, 2600);
+    }
+  }
+
+  document.getElementById('centerFarmBtn')?.addEventListener('click', () => {
+    const toast = document.getElementById('toastNotification');
+    if (toast) {
+      toast.innerHTML = '<span class="material-symbols-outlined text-secondary-fixed text-base">my_location</span><span>Centrado en tu finca (1.680 msnm)</span>';
+      toast.classList.remove('opacity-0');
+      toast.classList.add('opacity-100');
+      setTimeout(() => {
+        toast.classList.remove('opacity-100');
+        toast.classList.add('opacity-0');
+      }, 2200);
+    }
+  });
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/90 backdrop-blur-xl shadow-[0_-4px_16px_rgba(68,21,10,0.06)]" data-active-classes="text-primary font-bold"><div class="flex justify-around items-center h-20 px-space-sm max-w-md mx-auto"><a aria-current="page" class="flex flex-col items-center justify-center gap-space-xs min-h-[48px] min-w-[64px] rounded-xl transition-all text-primary font-bold" data-path="mapa-cafetero" href="#"><span class="material-symbols-outlined text-headline-md">explore</span><span class="font-label-md text-label-md">Mapa</span></a><a class="flex flex-col items-center justify-center gap-space-xs min-h-[48px] min-w-[64px] rounded-xl text-on-surface-variant hover:text-on-surface transition-all relative" data-path="precios-en-vivo" href="#"><div class="relative flex items-center justify-center"><span class="material-symbols-outlined text-headline-md">trending_up</span><span class="absolute -top-1 -right-3 px-1.5 py-0.2 rounded-full bg-secondary text-on-secondary font-label-md text-[10px] leading-tight font-bold tracking-tight uppercase">En vivo</span></div><span class="font-label-md text-label-md">Precios</span></a><a class="flex flex-col items-center justify-center gap-space-xs min-h-[48px] min-w-[64px] rounded-xl text-on-surface-variant hover:text-on-surface transition-all" data-path="cooperativas" href="#"><span class="material-symbols-outlined text-headline-md">store</span><span class="font-label-md text-label-md">Cooperativas</span></a></div></nav></body></html>

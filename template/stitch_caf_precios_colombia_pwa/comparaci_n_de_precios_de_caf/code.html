@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+
+<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><title>CaféPrecios Colombia</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@600;700&amp;family=Quicksand:wght@500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-tertiary-fixed": "#2c1600", "on-background": "#380c04", "surface-container-low": "#fff0ed", "tertiary-container": "#734d25", "primary": "#702506", "secondary-fixed-dim": "#7fd9a6", "inverse-on-surface": "#ffede9", "outline-variant": "#dcc1b8", "primary-container": "#8f3b1c", "on-error-container": "#93000a", "secondary": "#006d44", "on-error": "#ffffff", "surface-container-high": "#ffe2db", "on-secondary-fixed": "#002111", "tertiary": "#583610", "surface-container-lowest": "#ffffff", "error-container": "#ffdad6", "inverse-surface": "#542115", "on-surface-variant": "#55423c", "on-primary-fixed-variant": "#7c2d0f", "primary-fixed-dim": "#ffb59c", "on-secondary-container": "#037147", "surface-tint": "#9b4424", "outline": "#89726b", "surface-bright": "#fff8f6", "primary-fixed": "#ffdbcf", "on-secondary-fixed-variant": "#005232", "on-tertiary-fixed-variant": "#623f18", "secondary-fixed": "#9af5c0", "surface-variant": "#ffdad2", "on-primary-fixed": "#390c00", "on-primary-container": "#ffbaa3", "surface-container-highest": "#ffdad2", "inverse-primary": "#ffb59c", "on-tertiary-container": "#f4c08e", "on-surface": "#380c04", "surface": "#fff8f6", "tertiary-fixed-dim": "#f0bd8b", "on-primary": "#ffffff", "secondary-container": "#98f3be", "surface-container": "#ffe9e4", "on-secondary": "#ffffff", "background": "#fff8f6", "surface-dim": "#ffcfc4", "tertiary-fixed": "#ffdcbd", "on-tertiary": "#ffffff", "error": "#ba1a1a" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "margin": "1rem", "space-sm": "0.5rem", "space-xs": "0.25rem", "gutter-desktop": "1.5rem", "space-lg": "1.5rem", "margin-tablet": "2rem", "space-md": "1rem", "space-xl": "2.25rem", "margin-desktop": "3rem", "gutter": "1rem" }, "fontFamily": { "price-hero-mobile": ["Quicksand"], "display-lg": ["Epilogue"], "body-lg": ["Quicksand"], "display-lg-mobile": ["Epilogue"], "body-md": ["Quicksand"], "price-hero": ["Quicksand"], "headline-lg-mobile": ["Epilogue"], "headline-md": ["Epilogue"], "label-md": ["Quicksand"], "headline-lg": ["Epilogue"], "label-lg": ["Quicksand"] }, "fontSize": { "price-hero-mobile": ["30px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "body-lg": ["17px", { "lineHeight": "26px", "fontWeight": "600" }], "display-lg-mobile": ["32px", { "lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "700" }], "body-md": ["15px", { "lineHeight": "22px", "fontWeight": "500" }], "price-hero": ["36px", { "lineHeight": "40px", "letterSpacing": "-0.03em", "fontWeight": "700" }], "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "700" }], "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "600" }], "headline-lg": ["28px", { "lineHeight": "36px", "fontWeight": "700" }], "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.02em", "fontWeight": "700" }] } } } }</script><style>@layer base{html,body{width:100%;margin:0;padding:0;min-height:100%;}body{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-background font-body-md text-body-md text-on-surface antialiased flex flex-col min-h-screen selection:bg-primary-fixed"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(68,21,10,0.04)]"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><img alt="CaféPrecios Logo" class="h-8 w-auto object-contain shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1URjACq9bsknZfhk3nycblzspYWBUFpPVQy4x4xWOP_uMeTSkCRHmXs9I2jN_YV1hCt7wXGsC7EUx0iggvKrEdwrxWHZ_wHyEYR3RX2IbqSGTVtxgFXqehHHI-p44lh5bKtBBwQd3Jnmbb3l0wweJe-pmWLfjNbqj3PU06TJ6QnFiv1elJh4RJ00zqNmIeDgIh0q6l94lmnffGYKfxJNTUC0qX9gQp_I9m1dyttFu76"/><div class="flex flex-col min-w-0"><div class="flex items-center gap-space-xs"><span class="font-headline-md text-headline-md text-primary font-bold tracking-tight truncate">CaféPrecios</span></div><div class="flex items-center gap-space-xs text-on-surface-variant"><span class="material-symbols-outlined text-label-md text-secondary">location_on</span><span class="font-label-md text-label-md truncate">Eje Cafetero / Huila</span></div></div></div><div class="flex items-center gap-space-xs shrink-0"><button aria-label="Estado de conexión" class="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full bg-secondary-container/40 text-secondary hover:bg-secondary-container transition-colors" type="button"><span class="material-symbols-outlined text-body-lg">cloud_done</span></button><button aria-label="Perfil caficultor" class="min-h-[44px] min-w-[44px] p-space-xs flex items-center justify-center rounded-full hover:bg-surface-container transition-colors" type="button"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWkzmHQAYIm5xUt-367KLhZuHQvuZ7I3ZWDOktShtCDrfccuqR1gg9a-irnuExsE4ignhi1t5ETUQHLmpVjWSsMoarl_g7qoWaH40HWL0YOamaNqdXaybMg8edXxORUizmPOzeZN00nCv-ElGsDj3WItwQE3LbqtUcUslqNo7y6LanCgIDJOhPqJmr39OgR0ABITii39mDbqtwvvJI_6KsoyyO2fB_3QTZ7zXk3Cs"/></button></div></div></header><main class="flex flex-col relative w-full pt-16 pb-28 bg-background min-h-screen"><div class="flex flex-col w-full">
+<div class="px-margin pt-space-sm pb-space-xs flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="inline-flex w-2.5 h-2.5 rounded-full bg-secondary animate-pulse"></span>
+<span class="font-headline-md text-headline-md text-on-surface">Mercado Huila Sur</span>
+</div>
+<div class="flex items-center gap-space-xs px-2.5 py-1 rounded-full bg-surface-container shadow-sm">
+<span class="material-symbols-outlined text-label-md text-secondary" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="font-label-md text-label-md text-on-surface-variant font-bold">4 Puntos activos</span>
+</div>
+</div>
+<div class="mx-margin mb-space-md p-space-sm rounded-xl bg-surface-container-high shadow-sm flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-body-md text-primary">analytics</span>
+<span class="font-label-md text-label-md font-bold uppercase tracking-wider text-primary">Indicadores FNC Hoy</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-secondary text-on-secondary font-label-md text-label-md font-bold flex items-center gap-0.5">
+<span class="material-symbols-outlined text-xs">arrow_upward</span> +2.4% NY
+      </span>
+</div>
+<div class="flex flex-wrap items-baseline gap-x-space-sm gap-y-0.5">
+<span class="font-body-md text-body-md font-bold text-on-surface">Base FNC Carga (125kg): <span class="text-primary">$1.885.000</span></span>
+<span class="font-label-md text-label-md text-on-surface-variant">· TRM: $4.180 COP</span>
+</div>
+</div>
+<div class="px-margin flex flex-col gap-space-sm mb-space-md">
+<div class="flex items-center justify-between bg-surface-container p-1 rounded-xl shadow-sm">
+<span class="font-label-md text-label-md text-on-surface-variant pl-space-xs font-bold">Unidad visualizada:</span>
+<div class="flex items-center gap-1 bg-surface-container-lowest p-0.5 rounded-lg shadow-sm" id="unit-toggle-group">
+<button class="px-3 py-1.5 rounded-md font-label-lg text-label-lg transition-all bg-primary text-on-primary font-bold shadow-sm" id="btn-kg" type="button">
+          $ / Kilo (kg)
+        </button>
+<button class="px-3 py-1.5 rounded-md font-label-lg text-label-lg transition-all text-on-surface-variant hover:text-on-surface font-semibold" id="btn-arroba" type="button">
+          $ / Arroba (@)
+        </button>
+</div>
+</div>
+<div class="flex items-center gap-space-xs overflow-x-auto no-scrollbar py-0.5" id="sort-filter-group">
+<button class="filter-sort-btn shrink-0 px-3.5 py-1.5 rounded-full font-label-md text-label-md font-bold transition-all bg-secondary text-on-secondary shadow-sm flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span> Mejor precio
+      </button>
+<button class="filter-sort-btn shrink-0 px-3.5 py-1.5 rounded-full font-label-md text-label-md font-semibold transition-all bg-surface-container text-on-surface hover:bg-surface-container-high" type="button">
+        Más cercano
+      </button>
+<button class="filter-sort-btn shrink-0 px-3.5 py-1.5 rounded-full font-label-md text-label-md font-semibold transition-all bg-surface-container text-on-surface hover:bg-surface-container-high" type="button">
+        Mejor factor
+      </button>
+</div>
+<div class="flex items-center gap-space-xs overflow-x-auto no-scrollbar py-0.5" id="variety-filter-group">
+<button class="variety-btn shrink-0 px-3 py-1 rounded-full font-label-md text-label-md font-bold bg-primary text-on-primary" type="button">
+        Todas las variedades
+      </button>
+<button class="variety-btn shrink-0 px-3 py-1 rounded-full font-label-md text-label-md font-medium bg-surface-container text-on-surface hover:bg-surface-container-high" type="button">
+        Castillo
+      </button>
+<button class="variety-btn shrink-0 px-3 py-1 rounded-full font-label-md text-label-md font-medium bg-surface-container text-on-surface hover:bg-surface-container-high" type="button">
+        Caturra
+      </button>
+<button class="variety-btn shrink-0 px-3 py-1 rounded-full font-label-md text-label-md font-medium bg-surface-container text-on-surface hover:bg-surface-container-high" type="button">
+        Borbón Rosado
+      </button>
+<button class="variety-btn shrink-0 px-3 py-1 rounded-full font-label-md text-label-md font-medium bg-surface-container text-on-surface hover:bg-surface-container-high" type="button">
+        Geisha
+      </button>
+</div>
+</div>
+<div class="px-margin flex flex-col gap-space-md pb-space-xl">
+<div class="rounded-2xl p-space-md bg-surface-container-lowest shadow-md flex flex-col gap-space-sm relative overflow-hidden">
+<div class="absolute top-0 right-0 px-3 py-1 rounded-bl-xl bg-secondary text-on-secondary font-label-md text-label-md font-bold flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">military_tech</span> TOP PRECIO
+      </div>
+<div class="flex items-start justify-between pr-24">
+<div class="flex flex-col min-w-0">
+<span class="font-headline-md text-headline-md font-bold text-on-surface truncate">Cadefihuila</span>
+<span class="font-label-md text-label-md text-on-surface-variant flex items-center gap-0.5">
+<span class="material-symbols-outlined text-sm text-secondary">location_on</span> Pitalito · Huila
+          </span>
+</div>
+</div>
+<div class="flex items-baseline justify-between py-space-xs rounded-xl px-space-sm bg-surface-container-low">
+<div class="flex flex-col">
+<div class="flex items-baseline gap-1">
+<span class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary price-main" data-arr="190.000" data-kg="15.200">$ 15.200</span>
+<span class="font-label-lg text-label-lg font-bold text-on-surface-variant unit-label">/ kg</span>
+</div>
+<span class="font-label-md text-label-md text-secondary font-bold secondary-price">Equiv. $190.000 / @</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-md text-label-md font-bold flex items-center gap-0.5">
+<span class="material-symbols-outlined text-xs">near_me</span> A 6.8 km
+          </span>
+<span class="font-label-md text-label-md text-on-surface-variant mt-1">Hoy 7:30 AM</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container-high text-on-surface font-label-md text-label-md font-bold">Castillo</span>
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container-high text-on-surface font-label-md text-label-md font-bold">Caturra</span>
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-md text-label-md">Factor 88-90 · Hum. 10-12%</span>
+</div>
+<div class="flex items-center justify-between pt-space-xs gap-space-sm">
+<a class="min-h-[48px] px-4 rounded-xl bg-surface-container text-secondary flex items-center justify-center gap-1.5 font-label-lg text-label-lg font-bold active:scale-95 transition-all shadow-sm" href="https://wa.me/573100000000?text=Hola%20Cadefihuila,%20tengo%20un%20lote%20de%20cafe%20para%20entregar" target="_blank">
+<span class="material-symbols-outlined text-body-lg">chat</span> WhatsApp
+        </a>
+<button class="min-h-[48px] flex-1 rounded-xl bg-primary text-on-primary font-label-lg text-label-lg font-bold flex items-center justify-center gap-1 active:scale-95 transition-all shadow-sm" type="button">
+<span>Ver detalle</span>
+<span class="material-symbols-outlined text-body-md">arrow_forward</span>
+</button>
+</div>
+</div>
+<div class="rounded-2xl p-space-md bg-surface-container-lowest shadow-sm flex flex-col gap-space-sm relative">
+<div class="flex items-start justify-between">
+<div class="flex flex-col min-w-0">
+<span class="font-headline-md text-headline-md font-bold text-on-surface truncate">Café Andino &amp; Exportadores</span>
+<span class="font-label-md text-label-md text-on-surface-variant flex items-center gap-0.5">
+<span class="material-symbols-outlined text-sm text-secondary">location_on</span> San Agustín · Huila
+          </span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-md text-label-md flex items-center gap-0.5">
+<span class="material-symbols-outlined text-xs">near_me</span> A 14.2 km
+        </span>
+</div>
+<div class="flex items-baseline justify-between py-space-xs rounded-xl px-space-sm bg-surface-container-low">
+<div class="flex flex-col">
+<div class="flex items-baseline gap-1">
+<span class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary price-main" data-arr="186.875" data-kg="14.950">$ 14.950</span>
+<span class="font-label-lg text-label-lg font-bold text-on-surface-variant unit-label">/ kg</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant secondary-price">Equiv. $186.875 / @</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-label-md text-label-md text-on-surface-variant">Hoy 8:00 AM</span>
+<span class="font-label-md text-label-md text-secondary font-bold">+ Bono micro-lote</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container-high text-on-surface font-label-md text-label-md font-bold">Caturra</span>
+<span class="px-2.5 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-md text-label-md font-bold">Borbón Rosado (+$1.200/kg)</span>
+</div>
+<div class="flex items-center justify-between pt-space-xs gap-space-sm">
+<a class="min-h-[48px] px-3.5 rounded-xl bg-surface-container text-secondary flex items-center justify-center gap-1 font-label-lg text-label-lg font-bold active:scale-95 transition-all" href="https://wa.me/573100000000" target="_blank">
+<span class="material-symbols-outlined text-body-lg">chat</span>
+</a>
+<button class="min-h-[48px] flex-1 rounded-xl bg-surface-container text-on-surface font-label-lg text-label-lg font-bold flex items-center justify-center gap-1 hover:bg-surface-container-high active:scale-95 transition-all" type="button">
+<span>Ver detalle de compra</span>
+<span class="material-symbols-outlined text-body-md">chevron_right</span>
+</button>
+</div>
+</div>
+<div class="rounded-2xl p-space-md bg-surface-container-lowest shadow-sm flex flex-col gap-space-sm relative">
+<div class="flex items-start justify-between">
+<div class="flex flex-col min-w-0">
+<span class="font-headline-md text-headline-md font-bold text-on-surface truncate">Coop. Caficultores de Occidente</span>
+<span class="font-label-md text-label-md text-on-surface-variant flex items-center gap-0.5">
+<span class="material-symbols-outlined text-sm text-secondary">location_on</span> Garzón · Huila
+          </span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-md text-label-md flex items-center gap-0.5">
+<span class="material-symbols-outlined text-xs">near_me</span> A 28.0 km
+        </span>
+</div>
+<div class="flex items-baseline justify-between py-space-xs rounded-xl px-space-sm bg-surface-container-low">
+<div class="flex flex-col">
+<div class="flex items-baseline gap-1">
+<span class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary price-main" data-arr="183.750" data-kg="14.700">$ 14.700</span>
+<span class="font-label-lg text-label-lg font-bold text-on-surface-variant unit-label">/ kg</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant secondary-price">Equiv. $183.750 / @</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Hoy 6:45 AM</span>
+</div>
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container-high text-on-surface font-label-md text-label-md font-bold">Castillo</span>
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container-high text-on-surface font-label-md text-label-md font-bold">Variedad Colombia</span>
+</div>
+<div class="flex items-center justify-between pt-space-xs gap-space-sm">
+<a class="min-h-[48px] px-3.5 rounded-xl bg-surface-container text-secondary flex items-center justify-center gap-1 font-label-lg text-label-lg font-bold active:scale-95 transition-all" href="https://wa.me/573100000000" target="_blank">
+<span class="material-symbols-outlined text-body-lg">chat</span>
+</a>
+<button class="min-h-[48px] flex-1 rounded-xl bg-surface-container text-on-surface font-label-lg text-label-lg font-bold flex items-center justify-center gap-1 hover:bg-surface-container-high active:scale-95 transition-all" type="button">
+<span>Ver detalle de compra</span>
+<span class="material-symbols-outlined text-body-md">chevron_right</span>
+</button>
+</div>
+</div>
+<div class="rounded-2xl p-space-md bg-surface-container-lowest shadow-sm flex flex-col gap-space-sm relative opacity-95">
+<div class="flex items-start justify-between">
+<div class="flex flex-col min-w-0">
+<span class="font-headline-md text-headline-md font-bold text-on-surface truncate">Trilladora y Acopio La Cabaña</span>
+<span class="font-label-md text-label-md text-on-surface-variant flex items-center gap-0.5">
+<span class="material-symbols-outlined text-sm text-secondary">location_on</span> Acevedo · Huila
+          </span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-md text-label-md flex items-center gap-0.5">
+<span class="material-symbols-outlined text-xs">near_me</span> A 32.5 km
+        </span>
+</div>
+<div class="flex items-baseline justify-between py-space-xs rounded-xl px-space-sm bg-surface-container-low">
+<div class="flex flex-col">
+<div class="flex items-baseline gap-1">
+<span class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary price-main" data-arr="181.875" data-kg="14.550">$ 14.550</span>
+<span class="font-label-lg text-label-lg font-bold text-on-surface-variant unit-label">/ kg</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant secondary-price">Equiv. $181.875 / @</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Ayer 5:00 PM</span>
+</div>
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-md text-label-md font-medium">Todas las variedades pergamino</span>
+</div>
+<div class="flex items-center justify-between pt-space-xs gap-space-sm">
+<a class="min-h-[48px] px-3.5 rounded-xl bg-surface-container text-secondary flex items-center justify-center gap-1 font-label-lg text-label-lg font-bold active:scale-95 transition-all" href="https://wa.me/573100000000" target="_blank">
+<span class="material-symbols-outlined text-body-lg">chat</span>
+</a>
+<button class="min-h-[48px] flex-1 rounded-xl bg-surface-container text-on-surface font-label-lg text-label-lg font-bold flex items-center justify-center gap-1 hover:bg-surface-container-high active:scale-95 transition-all" type="button">
+<span>Ver detalle de compra</span>
+<span class="material-symbols-outlined text-body-md">chevron_right</span>
+</button>
+</div>
+</div>
+<div class="rounded-2xl p-space-md bg-surface-container shadow-md flex flex-col gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-12 h-12 rounded-xl bg-primary text-on-primary flex items-center justify-center shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-2xl">calculate</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md font-bold text-on-surface">Calculadora de Lote</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Liquida arrobas o kilos con el mejor precio</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-space-sm pt-space-xs">
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface-variant font-bold" for="input-kilos">Tus Arrobas (@)</label>
+<div class="flex items-center bg-surface-container-lowest rounded-xl p-1 shadow-sm">
+<button class="w-10 h-10 rounded-lg flex items-center justify-center bg-surface-container hover:bg-surface-container-high text-on-surface font-bold text-lg active:scale-90 transition-all" id="btn-minus" type="button">-</button>
+<input class="w-full text-center bg-transparent font-headline-md text-headline-md font-bold text-on-surface focus:outline-none" id="input-kilos" type="number" value="20"/>
+<button class="w-10 h-10 rounded-lg flex items-center justify-center bg-surface-container hover:bg-surface-container-high text-on-surface font-bold text-lg active:scale-90 transition-all" id="btn-plus" type="button">+</button>
+</div>
+</div>
+<div class="flex flex-col gap-1 justify-end">
+<label class="font-label-md text-label-md text-secondary font-bold">Valor Estimado</label>
+<div class="h-12 bg-secondary-container rounded-xl px-space-sm flex items-center justify-center shadow-sm">
+<span class="font-headline-md text-headline-md font-bold text-on-secondary-container truncate" id="calc-total">$ 3.800.000</span>
+</div>
+</div>
+</div>
+<button class="w-full mt-1 min-h-[48px] rounded-xl bg-primary text-on-primary font-label-lg text-label-lg font-bold flex items-center justify-center gap-space-xs shadow-sm active:scale-98 transition-all" type="button">
+<span class="material-symbols-outlined text-body-lg">receipt_long</span>
+<span>Simular con factor de rendimiento</span>
+</button>
+</div>
+</div>
+<div class="mx-margin mb-space-lg p-space-sm rounded-xl bg-primary text-on-primary flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-space-xs min-w-0">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary-fixed shrink-0"></span>
+<span class="font-label-md text-label-md truncate">Precios locales actualizados · Modo offline sincronizado</span>
+</div>
+<span class="material-symbols-outlined text-body-md shrink-0">wifi_off</span>
+</div>
+</div>
+<script>
+  (function() {
+    const btnKg = document.getElementById('btn-kg');
+    const btnArroba = document.getElementById('btn-arroba');
+    const priceMains = document.querySelectorAll('.price-main');
+    const unitLabels = document.querySelectorAll('.unit-label');
+    const secondaryPrices = document.querySelectorAll('.secondary-price');
+
+    let currentUnit = 'kg';
+
+    function setUnit(unit) {
+      currentUnit = unit;
+      if (unit === 'kg') {
+        btnKg.className = 'px-3 py-1.5 rounded-md font-label-lg text-label-lg transition-all bg-primary text-on-primary font-bold shadow-sm';
+        btnArroba.className = 'px-3 py-1.5 rounded-md font-label-lg text-label-lg transition-all text-on-surface-variant hover:text-on-surface font-semibold';
+        
+        priceMains.forEach(el => {
+          el.textContent = '$ ' + el.getAttribute('data-kg');
+        });
+        unitLabels.forEach(el => {
+          el.textContent = '/ kg';
+        });
+        secondaryPrices.forEach(el => {
+          const card = el.closest('.rounded-2xl');
+          const arrVal = card.querySelector('.price-main').getAttribute('data-arr');
+          el.textContent = 'Equiv. $' + arrVal + ' / @';
+        });
+      } else {
+        btnArroba.className = 'px-3 py-1.5 rounded-md font-label-lg text-label-lg transition-all bg-primary text-on-primary font-bold shadow-sm';
+        btnKg.className = 'px-3 py-1.5 rounded-md font-label-lg text-label-lg transition-all text-on-surface-variant hover:text-on-surface font-semibold';
+        
+        priceMains.forEach(el => {
+          el.textContent = '$ ' + el.getAttribute('data-arr');
+        });
+        unitLabels.forEach(el => {
+          el.textContent = '/ @';
+        });
+        secondaryPrices.forEach(el => {
+          const card = el.closest('.rounded-2xl');
+          const kgVal = card.querySelector('.price-main').getAttribute('data-kg');
+          el.textContent = 'Equiv. $' + kgVal + ' / kg';
+        });
+      }
+    }
+
+    if (btnKg && btnArroba) {
+      btnKg.addEventListener('click', () => setUnit('kg'));
+      btnArroba.addEventListener('click', () => setUnit('arroba'));
+    }
+
+    const sortBtns = document.querySelectorAll('.filter-sort-btn');
+    sortBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        sortBtns.forEach(b => {
+          b.className = 'filter-sort-btn shrink-0 px-3.5 py-1.5 rounded-full font-label-md text-label-md font-semibold transition-all bg-surface-container text-on-surface hover:bg-surface-container-high';
+        });
+        btn.className = 'filter-sort-btn shrink-0 px-3.5 py-1.5 rounded-full font-label-md text-label-md font-bold transition-all bg-secondary text-on-secondary shadow-sm flex items-center gap-1';
+      });
+    });
+
+    const varietyBtns = document.querySelectorAll('.variety-btn');
+    varietyBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        varietyBtns.forEach(b => {
+          b.className = 'variety-btn shrink-0 px-3 py-1 rounded-full font-label-md text-label-md font-medium bg-surface-container text-on-surface hover:bg-surface-container-high';
+        });
+        btn.className = 'variety-btn shrink-0 px-3 py-1 rounded-full font-label-md text-label-md font-bold bg-primary text-on-primary';
+      });
+    });
+
+    const inputKilos = document.getElementById('input-kilos');
+    const calcTotal = document.getElementById('calc-total');
+    const btnMinus = document.getElementById('btn-minus');
+    const btnPlus = document.getElementById('btn-plus');
+    const arrobaPrice = 190000;
+
+    function updateCalc() {
+      let qty = parseInt(inputKilos.value, 10);
+      if (isNaN(qty) || qty < 1) qty = 1;
+      inputKilos.value = qty;
+      const total = qty * arrobaPrice;
+      calcTotal.textContent = '$ ' + total.toLocaleString('es-CO');
+    }
+
+    if (btnMinus && btnPlus && inputKilos) {
+      btnMinus.addEventListener('click', () => {
+        let val = parseInt(inputKilos.value, 10) || 1;
+        if (val > 1) {
+          inputKilos.value = val - 1;
+          updateCalc();
+        }
+      });
+      btnPlus.addEventListener('click', () => {
+        let val = parseInt(inputKilos.value, 10) || 0;
+        inputKilos.value = val + 1;
+        updateCalc();
+      });
+      inputKilos.addEventListener('input', updateCalc);
+    }
+  })();
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/90 backdrop-blur-xl shadow-[0_-4px_16px_rgba(68,21,10,0.06)]" data-active-classes="text-primary font-bold"><div class="flex justify-around items-center h-20 px-space-sm max-w-md mx-auto"><a class="flex flex-col items-center justify-center gap-space-xs min-h-[48px] min-w-[64px] rounded-xl text-on-surface-variant hover:text-on-surface transition-all" data-path="mapa-cafetero" href="#"><span class="material-symbols-outlined text-headline-md">explore</span><span class="font-label-md text-label-md">Mapa</span></a><a aria-current="page" class="flex flex-col items-center justify-center gap-space-xs min-h-[48px] min-w-[64px] rounded-xl transition-all relative text-primary font-bold" data-path="precios-en-vivo" href="#"><div class="relative flex items-center justify-center"><span class="material-symbols-outlined text-headline-md">trending_up</span><span class="absolute -top-1 -right-3 px-1.5 py-0.2 rounded-full bg-secondary text-on-secondary font-label-md text-[10px] leading-tight font-bold tracking-tight uppercase">En vivo</span></div><span class="font-label-md text-label-md">Precios</span></a><a class="flex flex-col items-center justify-center gap-space-xs min-h-[48px] min-w-[64px] rounded-xl text-on-surface-variant hover:text-on-surface transition-all" data-path="cooperativas" href="#"><span class="material-symbols-outlined text-headline-md">store</span><span class="font-label-md text-label-md">Cooperativas</span></a></div></nav></body></html>
