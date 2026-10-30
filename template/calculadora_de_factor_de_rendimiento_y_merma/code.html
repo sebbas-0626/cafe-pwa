@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+
+<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><title>Calculadora De Factor De Rendimiento Y Merma | CaféPrecios Colombia</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@600;700&amp;family=Quicksand:wght@500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-tertiary-fixed": "#2c1600", "on-background": "#380c04", "surface-container-low": "#fff0ed", "tertiary-container": "#734d25", "primary": "#702506", "secondary-fixed-dim": "#7fd9a6", "inverse-on-surface": "#ffede9", "outline-variant": "#dcc1b8", "primary-container": "#8f3b1c", "on-error-container": "#93000a", "secondary": "#006d44", "on-error": "#ffffff", "surface-container-high": "#ffe2db", "on-secondary-fixed": "#002111", "tertiary": "#583610", "surface-container-lowest": "#ffffff", "error-container": "#ffdad6", "inverse-surface": "#542115", "on-surface-variant": "#55423c", "on-primary-fixed-variant": "#7c2d0f", "primary-fixed-dim": "#ffb59c", "on-secondary-container": "#037147", "surface-tint": "#9b4424", "outline": "#89726b", "surface-bright": "#fff8f6", "primary-fixed": "#ffdbcf", "on-secondary-fixed-variant": "#005232", "on-tertiary-fixed-variant": "#623f18", "secondary-fixed": "#9af5c0", "surface-variant": "#ffdad2", "on-primary-fixed": "#390c00", "on-primary-container": "#ffbaa3", "surface-container-highest": "#ffdad2", "inverse-primary": "#ffb59c", "on-tertiary-container": "#f4c08e", "on-surface": "#380c04", "surface": "#fff8f6", "tertiary-fixed-dim": "#f0bd8b", "on-primary": "#ffffff", "secondary-container": "#98f3be", "surface-container": "#ffe9e4", "on-secondary": "#ffffff", "background": "#fff8f6", "surface-dim": "#ffcfc4", "tertiary-fixed": "#ffdcbd", "on-tertiary": "#ffffff", "error": "#ba1a1a" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "margin": "1rem", "space-sm": "0.5rem", "space-xs": "0.25rem", "gutter-desktop": "1.5rem", "space-lg": "1.5rem", "margin-tablet": "2rem", "space-md": "1rem", "space-xl": "2.25rem", "margin-desktop": "3rem", "gutter": "1rem" }, "fontFamily": { "price-hero-mobile": ["Quicksand"], "display-lg": ["Epilogue"], "body-lg": ["Quicksand"], "display-lg-mobile": ["Epilogue"], "body-md": ["Quicksand"], "price-hero": ["Quicksand"], "headline-lg-mobile": ["Epilogue"], "headline-md": ["Epilogue"], "label-md": ["Quicksand"], "headline-lg": ["Epilogue"], "label-lg": ["Quicksand"] }, "fontSize": { "price-hero-mobile": ["30px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "body-lg": ["17px", { "lineHeight": "26px", "fontWeight": "600" }], "display-lg-mobile": ["32px", { "lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "700" }], "body-md": ["15px", { "lineHeight": "22px", "fontWeight": "500" }], "price-hero": ["36px", { "lineHeight": "40px", "letterSpacing": "-0.03em", "fontWeight": "700" }], "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "700" }], "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "600" }], "headline-lg": ["28px", { "lineHeight": "36px", "fontWeight": "700" }], "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.02em", "fontWeight": "700" }] } } } }</script><style>@layer base{html,body{width:100%;margin:0;padding:0;min-height:100%;}body{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-background font-body-md text-body-md text-on-surface antialiased flex flex-col min-h-screen selection:bg-primary-fixed"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(68,21,10,0.04)]"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-xs min-w-0"><button aria-label="Volver" class="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full text-on-surface hover:bg-surface-container active:scale-95 transition-all" onclick="history.back()" type="button"><span class="material-symbols-outlined text-headline-md">arrow_back_ios_new</span></button><img alt="CaféPrecios Logo" class="h-7 w-auto object-contain shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1URjACq9bsknZfhk3nycblzspYWBUFpPVQy4x4xWOP_uMeTSkCRHmXs9I2jN_YV1hCt7wXGsC7EUx0iggvKrEdwrxWHZ_wHyEYR3RX2IbqSGTVtxgFXqehHHI-p44lh5bKtBBwQd3Jnmbb3l0wweJe-pmWLfjNbqj3PU06TJ6QnFiv1elJh4RJ00zqNmIeDgIh0q6l94lmnffGYKfxJNTUC0qX9gQp_I9m1dyttFu76"/><h1 class="font-headline-md text-headline-md text-on-surface font-bold tracking-tight truncate ml-space-xs">Calculadora De Factor De Rendimiento Y Merma</h1></div><div class="flex items-center gap-space-xs shrink-0"><button aria-label="Estado de conexión offline" class="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full bg-secondary-container/40 text-secondary hover:bg-secondary-container transition-colors" type="button"><span class="material-symbols-outlined text-body-lg">cloud_done</span></button><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWkzmHQAYIm5xUt-367KLhZuHQvuZ7I3ZWDOktShtCDrfccuqR1gg9a-irnuExsE4ignhi1t5ETUQHLmpVjWSsMoarl_g7qoWaH40HWL0YOamaNqdXaybMg8edXxORUizmPOzeZN00nCv-ElGsDj3WItwQE3LbqtUcUslqNo7y6LanCgIDJOhPqJmr39OgR0ABITii39mDbqtwvvJI_6KsoyyO2fB_3QTZ7zXk3Cs"/></div></div></header><main class="flex flex-col relative w-full pt-16 pb-safe bg-background min-h-screen"><div class="flex flex-col w-full pb-10">
+<!-- ENCABEZADO DE HERRAMIENTA & REGRESO TÁCTIL -->
+<section class="px-margin pt-space-sm pb-space-xs flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<button class="inline-flex items-center gap-space-xs text-primary font-body-md text-body-md font-bold py-space-xs pr-space-sm active:scale-95 transition-transform" onclick="history.back()" type="button">
+<span class="material-symbols-outlined text-body-lg">arrow_back</span>
+<span>Volver a precios</span>
+</button>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-md text-label-md font-bold">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+        Al día · En línea
+      </span>
+</div>
+<div class="flex flex-wrap items-center gap-space-xs mt-space-xs">
+<span class="bg-primary-fixed text-on-primary-fixed font-label-md text-label-md px-2.5 py-1 rounded-full font-bold">
+        Fórmula Oficial FNC (Base 88-94)
+      </span>
+<span class="bg-surface-container-high text-on-surface-variant font-label-md text-label-md px-2.5 py-1 rounded-full">
+        Calculadora de Trilla y Merma
+      </span>
+</div>
+</section>
+<!-- TARJETA: PARÁMETROS DEL DÍA EN COOPERATIVA -->
+<section class="px-margin mt-space-sm">
+<div class="bg-surface-container-low rounded-xl p-space-md shadow-sm">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-primary-container text-on-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-headline-md">storefront</span>
+</div>
+<div>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider block">Punto de Referencia</span>
+<h2 class="font-headline-md text-headline-md text-on-surface font-bold leading-tight">Cadefihuila · Pitalito</h2>
+<p class="font-label-md text-label-md text-primary font-semibold">Huila, Colombia · Hoy 06:00 AM</p>
+</div>
+</div>
+<button aria-label="Cambiar cooperativa" class="p-2 text-on-surface-variant hover:text-primary active:scale-90 transition-transform" type="button">
+<span class="material-symbols-outlined">tune</span>
+</button>
+</div>
+<!-- Métricas Clave Base -->
+<div class="grid grid-cols-2 gap-space-sm mt-space-md pt-space-sm bg-surface-container-lowest/80 rounded-lg p-3">
+<div>
+<span class="font-label-md text-label-md text-on-surface-variant block">Precio Carga Base (125kg)</span>
+<span class="font-price-hero-mobile text-price-hero-mobile text-primary font-bold block leading-none mt-1">$1.885.000</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Base 88 kg pergamino</span>
+</div>
+<div class="pl-space-sm">
+<span class="font-label-md text-label-md text-on-surface-variant block">Precio Kilo Base</span>
+<span class="font-headline-md text-headline-md text-on-surface font-bold block leading-none mt-2">$15.080</span>
+<span class="font-label-md text-label-md text-secondary font-semibold mt-1 inline-flex items-center gap-0.5">
+<span class="material-symbols-outlined text-xs">trending_up</span> Premio factor &lt; 88
+          </span>
+</div>
+</div>
+</div>
+</section>
+<!-- FORMULARIO TÁCTIL DE LABORATORIO Y MUESTRA -->
+<section class="px-margin mt-space-md">
+<div class="bg-surface-container rounded-xl p-space-md shadow-sm">
+<div class="flex items-center justify-between mb-space-sm">
+<h3 class="font-headline-md text-headline-md text-on-surface font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">biotech</span>
+          Datos de Laboratorio
+        </h3>
+<span class="font-label-md text-label-md text-on-surface-variant bg-surface-container-high px-2 py-0.5 rounded-full">
+          Muestra de prueba
+        </span>
+</div>
+<div class="space-y-space-md">
+<!-- 1. Muestra Pergamino Seco -->
+<div class="bg-surface-container-lowest rounded-lg p-space-sm">
+<div class="flex items-center justify-between mb-1">
+<label class="font-body-md text-body-md text-on-surface font-bold flex items-center gap-1.5">
+<span>Muestra Pergamino Seco (g)</span>
+<span class="material-symbols-outlined text-sm text-outline" title="Estándar oficial FNC">help</span>
+</label>
+<span class="font-label-md text-label-md text-secondary font-semibold">Estándar FNC</span>
+</div>
+<div class="flex items-center gap-space-sm mt-1">
+<button class="w-12 h-12 rounded-lg bg-surface-container text-on-surface flex items-center justify-center text-xl font-bold active:bg-surface-container-high select-none" onclick="adjustValue('muestra', -10)" type="button">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<div class="flex-1 text-center relative">
+<input class="w-full text-center font-headline-md text-headline-md font-bold text-on-surface bg-transparent focus:outline-none" id="input-muestra" oninput="recalculate()" type="number" value="250"/>
+<span class="text-xs text-on-surface-variant absolute -bottom-1 left-0 right-0">gramos</span>
+</div>
+<button class="w-12 h-12 rounded-lg bg-surface-container text-on-surface flex items-center justify-center text-xl font-bold active:bg-surface-container-high select-none" onclick="adjustValue('muestra', 10)" type="button">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+<!-- 2. Almendra Total Obtenida -->
+<div class="bg-surface-container-lowest rounded-lg p-space-sm">
+<div class="flex items-center justify-between mb-1">
+<label class="font-body-md text-body-md text-on-surface font-bold">
+              Almendra Total Trillada (g)
+            </label>
+<span class="font-label-md text-label-md text-on-surface-variant">Sano + Pasilla</span>
+</div>
+<div class="flex items-center gap-space-sm mt-1">
+<button class="w-12 h-12 rounded-lg bg-surface-container text-on-surface flex items-center justify-center text-xl font-bold active:bg-surface-container-high select-none" onclick="adjustValue('almendra', -1)" type="button">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<div class="flex-1 text-center relative">
+<input class="w-full text-center font-headline-md text-headline-md font-bold text-primary bg-transparent focus:outline-none" id="input-almendra" oninput="recalculate()" type="number" value="198"/>
+<span class="text-xs text-on-surface-variant absolute -bottom-1 left-0 right-0">gramos almendra</span>
+</div>
+<button class="w-12 h-12 rounded-lg bg-surface-container text-on-surface flex items-center justify-center text-xl font-bold active:bg-surface-container-high select-none" onclick="adjustValue('almendra', 1)" type="button">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+<!-- 3. Pasilla de Finca / Defectos -->
+<div class="bg-surface-container-lowest rounded-lg p-space-sm">
+<div class="flex items-center justify-between mb-1">
+<label class="font-body-md text-body-md text-on-surface font-bold">
+              Pasilla y Granos Defectuosos (g)
+            </label>
+<span class="font-label-md text-label-md text-outline">Broca, negros, vinagres</span>
+</div>
+<div class="flex items-center gap-space-sm mt-1">
+<button class="w-12 h-12 rounded-lg bg-surface-container text-on-surface flex items-center justify-center text-xl font-bold active:bg-surface-container-high select-none" onclick="adjustValue('pasilla', -1)" type="button">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<div class="flex-1 text-center relative">
+<input class="w-full text-center font-headline-md text-headline-md font-bold text-on-surface bg-transparent focus:outline-none" id="input-pasilla" oninput="recalculate()" type="number" value="12"/>
+<span class="text-xs text-on-surface-variant absolute -bottom-1 left-0 right-0">gramos defecto</span>
+</div>
+<button class="w-12 h-12 rounded-lg bg-surface-container text-on-surface flex items-center justify-center text-xl font-bold active:bg-surface-container-high select-none" onclick="adjustValue('pasilla', 1)" type="button">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+<!-- 4. Humedad del Grano (%) -->
+<div class="bg-surface-container-lowest rounded-lg p-space-sm">
+<div class="flex items-center justify-between mb-2">
+<div>
+<span class="font-body-md text-body-md text-on-surface font-bold block">Porcentaje de Humedad</span>
+<span class="font-label-md text-label-md text-secondary font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">water_drop</span> Ideal FNC: 10.0% a 12.0%
+              </span>
+</div>
+<div class="text-right">
+<span class="font-headline-md text-headline-md text-secondary font-bold" id="badge-humedad">11.2%</span>
+</div>
+</div>
+<!-- Slider táctil de humedad -->
+<input class="w-full h-2 rounded-lg bg-surface-container-high accent-primary cursor-pointer" id="range-humedad" max="15.0" min="9.0" oninput="updateHumedad(this.value)" step="0.1" type="range" value="11.2"/>
+<div class="flex justify-between items-center text-xs text-on-surface-variant mt-2 px-1">
+<span>9.0% (Muy seco)</span>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-bold text-[11px]">Rango Óptimo</span>
+<span>15.0% (Mojado)</span>
+</div>
+</div>
+<!-- 5. Volumen total a liquidar -->
+<div class="bg-surface-container-lowest rounded-lg p-space-sm">
+<div class="flex items-center justify-between mb-2">
+<label class="font-body-md text-body-md text-on-surface font-bold">
+              Volumen Total del Lote
+            </label>
+<span class="font-label-md text-label-md text-primary font-bold" id="label-peso-kilos">= 500 kg neto</span>
+</div>
+<!-- Selector de Unidad en Pastillas -->
+<div class="grid grid-cols-3 gap-1 bg-surface-container p-1 rounded-xl mb-3">
+<button class="py-2 rounded-lg text-center font-label-lg text-label-lg font-bold bg-primary text-on-primary shadow-sm transition-all" id="unit-arroba" onclick="setUnit('arroba')" type="button">
+              Arrobas (@)
+            </button>
+<button class="py-2 rounded-lg text-center font-label-lg text-label-lg font-bold text-on-surface-variant hover:text-on-surface transition-all" id="unit-kilos" onclick="setUnit('kilos')" type="button">
+              Kilos (kg)
+            </button>
+<button class="py-2 rounded-lg text-center font-label-lg text-label-lg font-bold text-on-surface-variant hover:text-on-surface transition-all" id="unit-cargas" onclick="setUnit('cargas')" type="button">
+              Cargas (125k)
+            </button>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="w-12 h-12 rounded-lg bg-surface-container text-on-surface flex items-center justify-center text-xl font-bold active:bg-surface-container-high select-none" onclick="adjustVolumen(-5)" type="button">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<div class="flex-1 text-center">
+<input class="w-full text-center font-price-hero-mobile text-price-hero-mobile text-on-surface font-bold bg-transparent focus:outline-none" id="input-volumen" oninput="recalculate()" type="number" value="40"/>
+</div>
+<button class="w-12 h-12 rounded-lg bg-surface-container text-on-surface flex items-center justify-center text-xl font-bold active:bg-surface-container-high select-none" onclick="adjustVolumen(5)" type="button">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- TARJETA DE RESULTADOS EN TIEMPO REAL: CALIDAD & FACTOR -->
+<section class="px-margin mt-space-md">
+<div class="bg-gradient-to-br from-surface-container-lowest to-surface-container-low rounded-xl p-space-md shadow-md">
+<div class="flex items-start justify-between">
+<div>
+<span class="font-label-md text-label-md text-secondary font-bold uppercase tracking-wide flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">verified</span> Resultado de Calidad
+          </span>
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-bold mt-1">
+            Factor de Rendimiento
+          </h3>
+</div>
+<div class="bg-secondary-container px-3 py-1.5 rounded-full flex items-center gap-1 text-on-secondary-container">
+<span class="material-symbols-outlined text-sm">stars</span>
+<span class="font-label-md text-label-md font-bold">¡Premio FNC!</span>
+</div>
+</div>
+<!-- Número Destacado del Factor -->
+<div class="flex items-baseline gap-space-sm my-space-sm">
+<span class="font-price-hero text-price-hero text-secondary font-bold leading-none" id="res-factor">
+          86.4
+        </span>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md font-bold text-on-surface">kg pergamino / saco 70kg</span>
+<span class="font-label-md text-label-md text-secondary font-semibold">Base óptima: &lt; 88.0</span>
+</div>
+</div>
+<!-- Explicación Didáctica -->
+<div class="bg-surface-container rounded-lg p-space-sm text-on-surface-variant font-body-md text-body-md">
+<p class="leading-relaxed">
+<strong class="text-on-surface">Excelente Grano:</strong> Solo requieres 
+          <span class="text-secondary font-bold" id="res-factor-text">86.4 kg</span> de pergamino seco para lograr un saco exportable de 70 kg. Tu lote recibe una bonificación de <strong class="text-secondary">+$42.500 COP</strong> por carga.
+        </p>
+</div>
+<!-- Medidores Rápidos de Merma y Almendra Sana -->
+<div class="grid grid-cols-2 gap-space-sm mt-space-sm pt-space-xs">
+<div class="p-2.5 bg-surface-container-lowest rounded-lg">
+<span class="font-label-md text-label-md text-on-surface-variant block">Almendra Sana</span>
+<span class="font-headline-md text-headline-md font-bold text-on-surface block mt-0.5" id="res-almendra-sana">186.0 g</span>
+<span class="font-label-md text-label-md text-secondary font-semibold">74.4% del total</span>
+</div>
+<div class="p-2.5 bg-surface-container-lowest rounded-lg">
+<span class="font-label-md text-label-md text-on-surface-variant block">Merma / Pasilla</span>
+<span class="font-headline-md text-headline-md font-bold text-tertiary block mt-0.5" id="res-merma-pct">4.8%</span>
+<span class="font-label-md text-label-md text-secondary font-semibold">En norma (&lt; 6%)</span>
+</div>
+</div>
+</div>
+</section>
+<!-- DESGLOSE DETALLADO DE LIQUIDACIÓN FINANCIERA -->
+<section class="px-margin mt-space-md">
+<div class="bg-surface-container-low rounded-xl p-space-md shadow-sm">
+<div class="flex items-center justify-between pb-space-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">receipt_long</span>
+<h3 class="font-headline-md text-headline-md text-on-surface font-bold">Liquidación Estimada</h3>
+</div>
+<span class="font-label-md text-label-md text-outline font-semibold">Transparencia FNC</span>
+</div>
+<!-- Filas de Desglose -->
+<div class="space-y-2.5 pt-space-xs font-body-md text-body-md">
+<!-- Fila Base -->
+<div class="flex justify-between items-center text-on-surface-variant">
+<span>Valor base comercial (500 kg)</span>
+<span class="font-bold text-on-surface" id="val-base">$7.540.000 COP</span>
+</div>
+<!-- Bonificación Factor -->
+<div class="flex justify-between items-center text-secondary">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">add_circle</span>
+            Premio factor rendimiento (86.4)
+          </span>
+<span class="font-bold" id="val-bonif-factor">+$170.000 COP</span>
+</div>
+<!-- Bonificación Microlote / Altura -->
+<div class="flex justify-between items-center text-secondary">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">add_circle</span>
+            Incentivo Origen Huila / Tasa limpia
+          </span>
+<span class="font-bold" id="val-bonif-origen">+$60.000 COP</span>
+</div>
+<!-- Ajuste por Humedad -->
+<div class="flex justify-between items-center text-on-surface-variant">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+            Ajuste de humedad (11.2% en norma)
+          </span>
+<span class="font-semibold text-on-surface" id="val-humedad">$0 COP</span>
+</div>
+<!-- Retención / Fondo Cafetero -->
+<div class="flex justify-between items-center text-error pt-1">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">remove_circle_outline</span>
+            Contribución Cafetera Obligatoria FNC
+          </span>
+<span class="font-bold" id="val-retencion">-$45.240 COP</span>
+</div>
+</div>
+<!-- TOTAL DESTACADO A RECIBIR (VERDE ESMERALDA CÁLIDO) -->
+<div class="mt-space-md bg-secondary text-on-secondary rounded-xl p-space-md shadow-md">
+<div class="flex justify-between items-center">
+<span class="font-label-lg text-label-lg font-bold tracking-wide uppercase text-secondary-fixed">
+            Total Neto a Recibir
+          </span>
+<span class="material-symbols-outlined text-secondary-fixed">payments</span>
+</div>
+<div class="my-space-xs">
+<span class="font-price-hero text-price-hero font-bold tracking-tight block" id="val-total-final">
+            $7.724.760 COP
+          </span>
+</div>
+<div class="grid grid-cols-2 gap-space-sm pt-space-xs text-sm border-t border-secondary-fixed/20">
+<div>
+<span class="text-secondary-fixed text-xs block">Por Arroba (@ neta)</span>
+<span class="font-headline-md text-headline-md font-bold text-on-secondary" id="val-por-arroba">$193.119</span>
+</div>
+<div>
+<span class="text-secondary-fixed text-xs block">Por Kilo (kg neto)</span>
+<span class="font-headline-md text-headline-md font-bold text-on-secondary" id="val-por-kilo">$15.450</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ACCIONES RÁPIDAS Y COMPARTIR -->
+<section class="px-margin mt-space-md flex flex-col gap-space-sm">
+<!-- Botón Primario: Guardar -->
+<button class="w-full min-h-[48px] py-3.5 px-space-md rounded-xl bg-primary text-on-primary font-label-lg text-label-lg font-bold flex items-center justify-center gap-2 active:scale-98 shadow-sm transition-all" onclick="guardarLiquidacion()" type="button">
+<span class="material-symbols-outlined">save</span>
+<span>Guardar en Historial de Finca</span>
+</button>
+<!-- Botón Secundario: Compartir WhatsApp -->
+<button class="w-full min-h-[48px] py-3.5 px-space-md rounded-xl bg-[#006d44] text-white font-label-lg text-label-lg font-bold flex items-center justify-center gap-2 active:scale-98 shadow-sm transition-all" onclick="compartirWhatsApp()" type="button">
+<span class="material-symbols-outlined">send</span>
+<span>Enviar Liquidación por WhatsApp</span>
+</button>
+<!-- Botón Auxiliar: Descargar PDF -->
+<button class="w-full min-h-[48px] py-3 px-space-md rounded-xl bg-surface-container-high text-on-surface font-label-lg text-label-lg font-semibold flex items-center justify-center gap-2 active:scale-98 transition-all" onclick="alert('Generando volante de pesaje digital con código QR de lote...')" type="button">
+<span class="material-symbols-outlined text-outline">picture_as_pdf</span>
+<span>Descargar Volante de Pesaje (PDF)</span>
+</button>
+</section>
+<!-- VISUALIZACIÓN FOTOGRÁFICA / CONTEXTO DE CAMPO -->
+<section class="px-margin mt-space-lg">
+<div class="relative rounded-xl overflow-hidden shadow-sm h-36 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A sunlit wooden workbench in a Colombian coffee farm laboratory showing dried parchment coffee beans being weighed on a precision balance, alongside fresh red coffee cherries and notes written in a leather notebook, warm golden hour natural light, earthy terracotta and green hues, authentic rural agriculture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKZAPXr86uv5Cu0Zgx8l-7UQKmkJiv_DOda1poE5rNbCvX5BztdFo6kyybdqMzD0PTkuCKdeB0-uORzOVi50G7lxmR0eJK4fl-Jr02TwNNQJ39ftIx4DMntYtvIlwauLxsW2m_hPiQrxX_COwF7W0LDhlZV5-9ZtMfyw9-m3xN3y1_4eB0JqFIwTQm8zge9KqrWQraqTqkTTYEf8RzooEOp4rCRpCgsF7ari0Q1no"/>
+<div class="absolute inset-0 bg-gradient-to-t from-inverse-surface/85 via-inverse-surface/40 to-transparent flex items-end p-space-md">
+<div>
+<span class="font-label-md text-label-md text-primary-fixed-dim font-bold uppercase tracking-wider block">Finca La Esperanza · Pitalito</span>
+<p class="font-body-md text-body-md text-inverse-on-surface font-semibold">Toma de muestra y calibración según protocolo Cenicafé 2024</p>
+</div>
+</div>
+</div>
+</section>
+<!-- TARJETA DIDÁCTICA COLAPSABLE: CÓMO SE CALCULA -->
+<section class="px-margin mt-space-md mb-space-lg">
+<details class="group bg-surface-container rounded-xl overflow-hidden transition-all duration-300">
+<summary class="list-none p-space-md flex items-center justify-between cursor-pointer font-headline-md text-headline-md text-on-surface font-bold select-none">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">school</span>
+          ¿Cómo se calcula el Factor FNC?
+        </span>
+<span class="material-symbols-outlined transition-transform duration-300 group-open:rotate-180 text-outline">expand_more</span>
+</summary>
+<div class="px-space-md pb-space-md font-body-md text-body-md text-on-surface-variant space-y-space-sm border-t border-surface-container-high/60 pt-space-sm">
+<p>
+          El <strong>Factor de Rendimiento</strong> expresa la cantidad en kilogramos de café pergamino seco que se necesitan trillar para obtener un saco de <strong>70 kg de café almendra excelso</strong> para exportación.
+        </p>
+<div class="bg-surface-container-lowest p-space-sm rounded-lg font-mono text-sm text-primary font-bold text-center">
+          Factor = (Peso Muestra × 70) ÷ Almendra Sana Obtenida
+        </div>
+<ul class="space-y-1.5 text-sm list-disc list-inside">
+<li><strong>Menor a 88:</strong> Grano muy denso y sano. Genera bonificación económica extra por saco.</li>
+<li><strong>Base FNC (88):</strong> Punto neutral sin descuento ni premio comercial.</li>
+<li><strong>Mayor a 94:</strong> Grano liviano o con alta merma. Conlleva descuento comercial por exceso de grano defectuoso.</li>
+</ul>
+</div>
+</details>
+</section>
+</div>
+<script>
+  let selectedUnit = 'arroba'; // 'arroba', 'kilos', 'cargas'
+  const PRECIO_BASE_CARGA = 1885000;
+  const PRECIO_BASE_KILO = 1885000 / 125; // 15080 COP/kg
+
+  function setUnit(unit) {
+    selectedUnit = unit;
+    
+    // Cambiar estilos de botones
+    ['arroba', 'kilos', 'cargas'].forEach(u => {
+      const btn = document.getElementById('unit-' + u);
+      if (u === unit) {
+        btn.className = "py-2 rounded-lg text-center font-label-lg text-label-lg font-bold bg-primary text-on-primary shadow-sm transition-all";
+      } else {
+        btn.className = "py-2 rounded-lg text-center font-label-lg text-label-lg font-bold text-on-surface-variant hover:text-on-surface transition-all";
+      }
+    });
+
+    // Ajustar valor por defecto sugerido
+    const inputVol = document.getElementById('input-volumen');
+    if (unit === 'arroba') inputVol.value = "40";
+    if (unit === 'kilos') inputVol.value = "500";
+    if (unit === 'cargas') inputVol.value = "4";
+
+    recalculate();
+  }
+
+  function adjustValue(id, delta) {
+    const input = document.getElementById('input-' + id);
+    let val = parseFloat(input.value) || 0;
+    val = Math.max(1, val + delta);
+    input.value = val;
+    recalculate();
+  }
+
+  function adjustVolumen(delta) {
+    const input = document.getElementById('input-volumen');
+    let val = parseFloat(input.value) || 0;
+    val = Math.max(1, val + delta);
+    input.value = val;
+    recalculate();
+  }
+
+  function updateHumedad(val) {
+    const hum = parseFloat(val).toFixed(1);
+    const badge = document.getElementById('badge-humedad');
+    badge.innerText = hum + '%';
+
+    if (hum < 10.0) {
+      badge.className = "font-headline-md text-headline-md text-tertiary font-bold";
+    } else if (hum <= 12.0) {
+      badge.className = "font-headline-md text-headline-md text-secondary font-bold";
+    } else {
+      badge.className = "font-headline-md text-headline-md text-error font-bold";
+    }
+
+    recalculate();
+  }
+
+  function recalculate() {
+    const muestra = parseFloat(document.getElementById('input-muestra').value) || 250;
+    const almendraTotal = parseFloat(document.getElementById('input-almendra').value) || 198;
+    const pasilla = parseFloat(document.getElementById('input-pasilla').value) || 12;
+    const humedad = parseFloat(document.getElementById('range-humedad').value) || 11.2;
+    const volRaw = parseFloat(document.getElementById('input-volumen').value) || 40;
+
+    // Almendra sana en gramos
+    const almendraSana = Math.max(1, almendraTotal - pasilla);
+
+    // Factor oficial FNC = (Muestra * 70) / AlmendraSana
+    const factor = (muestra * 70) / almendraSana;
+    const factorFixed = factor.toFixed(1);
+
+    // Kilos totales según unidad
+    let totalKilos = 0;
+    if (selectedUnit === 'arroba') {
+      totalKilos = volRaw * 12.5;
+    } else if (selectedUnit === 'kilos') {
+      totalKilos = volRaw;
+    } else if (selectedUnit === 'cargas') {
+      totalKilos = volRaw * 125;
+    }
+
+    document.getElementById('label-peso-kilos').innerText = `= ${Math.round(totalKilos)} kg neto`;
+    document.getElementById('res-factor').innerText = factorFixed;
+    document.getElementById('res-factor-text').innerText = factorFixed + ' kg';
+    document.getElementById('res-almendra-sana').innerText = almendraSana.toFixed(1) + ' g';
+    
+    // Porcentaje de merma / pasilla
+    const mermaPct = ((pasilla / muestra) * 100).toFixed(1);
+    document.getElementById('res-merma-pct').innerText = mermaPct + '%';
+
+    // Cálculo financiero de liquidación
+    const cargas = totalKilos / 125;
+    const valorBase = totalKilos * PRECIO_BASE_KILO;
+
+    // Bonificación factor: Cada punto por debajo de 88 premia ~ $26.500 por carga
+    const diffFactor = 88.0 - factor;
+    const premioPorCarga = diffFactor > 0 ? diffFactor * 26500 : diffFactor * 29000;
+    const bonifFactorTotal = Math.round(premioPorCarga * cargas);
+
+    // Bonificación origen / microlote
+    const bonifOrigen = Math.round(15000 * cargas);
+
+    // Descuento por humedad si > 12%
+    let castigoHumedad = 0;
+    if (humedad > 12.0) {
+      const exceso = humedad - 12.0;
+      castigoHumedad = Math.round((valorBase * (exceso / 100)));
+    }
+
+    // Retención cafetera (aprox 0.6% base FNC)
+    const retencionFNC = Math.round(valorBase * 0.006);
+
+    const totalFinal = Math.round(valorBase + bonifFactorTotal + bonifOrigen - castigoHumedad - retencionFNC);
+    const totalArrobas = totalKilos / 12.5;
+    const precioNetoArroba = Math.round(totalFinal / (totalArrobas || 1));
+    const precioNetoKilo = Math.round(totalFinal / (totalKilos || 1));
+
+    // Renderizado en pantalla
+    document.getElementById('val-base').innerText = formatCOP(valorBase);
+    
+    const elemBonif = document.getElementById('val-bonif-factor');
+    if (bonifFactorTotal >= 0) {
+      elemBonif.innerText = `+${formatCOP(bonifFactorTotal)}`;
+      elemBonif.className = "font-bold text-secondary";
+    } else {
+      elemBonif.innerText = `-${formatCOP(Math.abs(bonifFactorTotal))}`;
+      elemBonif.className = "font-bold text-error";
+    }
+
+    document.getElementById('val-bonif-origen').innerText = `+${formatCOP(bonifOrigen)}`;
+    document.getElementById('val-humedad').innerText = castigoHumedad > 0 ? `-${formatCOP(castigoHumedad)}` : '$0 COP';
+    document.getElementById('val-retencion').innerText = `-${formatCOP(retencionFNC)}`;
+    document.getElementById('val-total-final').innerText = `${formatCOP(totalFinal)}`;
+    document.getElementById('val-por-arroba').innerText = formatCOP(precioNetoArroba);
+    document.getElementById('val-por-kilo').innerText = formatCOP(precioNetoKilo);
+  }
+
+  function formatCOP(num) {
+    return '$' + Math.round(num).toLocaleString('es-CO') + ' COP';
+  }
+
+  function guardarLiquidacion() {
+    const factor = document.getElementById('res-factor').innerText;
+    const total = document.getElementById('val-total-final').innerText;
+    alert(`✓ Liquidación guardada en el historial de la finca:\nFactor: ${factor}\nTotal neto estimado: ${total}\nDisponible en modo sin conexión.`);
+  }
+
+  function compartirWhatsApp() {
+    const factor = document.getElementById('res-factor').innerText;
+    const total = document.getElementById('val-total-final').innerText;
+    const arroba = document.getElementById('val-por-arroba').innerText;
+    const texto = encodeURIComponent(`☕ *Liquidación CaféPrecios - Finca La Esperanza*\n` +
+      `• Factor de Rendimiento: *${factor}*\n` +
+      `• Calidad: Excelente (Premio FNC)\n` +
+      `• Neto a recibir: *${total}*\n` +
+      `• Equivalente: ${arroba} / @\n` +
+      `Calculado con fórmula oficial FNC en Pitalito, Huila.`);
+    window.open(`https://api.whatsapp.com/send?text=${texto}`, '_blank');
+  }
+
+  // Ejecutar primer cálculo
+  recalculate();
+</script></main></body></html>
