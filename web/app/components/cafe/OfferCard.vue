@@ -1,20 +1,37 @@
 <script setup lang="ts">
-import type { OfferCardProps } from '~/types'
+import type { OfferCardProps, PriceUnit } from '~/types'
 
-defineProps<OfferCardProps>()
+const props = defineProps<OfferCardProps>()
+
+const unitLabels: Record<PriceUnit, string> = {
+  kg: '/ kg',
+  arroba: '/ @',
+  carga: '/ carga'
+}
+
+const formattedPrice = computed(() => `$ ${Number(props.price).toLocaleString('es-CO')}`)
+
+const formattedDate = computed(() =>
+  new Intl.DateTimeFormat('es-CO', {
+    day: '2-digit',
+    month: 'short',
+    hour: '2-digit',
+    minute: '2-digit'
+  }).format(new Date(props.updatedAt))
+)
 </script>
 
 <template>
   <div class="rounded-2xl p-space-md bg-surface-container-lowest shadow-sm flex flex-col gap-space-sm">
     <div class="flex items-start justify-between gap-space-sm">
       <span class="font-headline-md text-headline-md font-bold text-on-surface truncate">{{ buyerName }}</span>
-      <span class="font-label-md text-label-md text-on-surface-variant shrink-0">{{ updatedAt }}</span>
+      <span class="font-label-md text-label-md text-on-surface-variant shrink-0">{{ formattedDate }}</span>
     </div>
 
     <div class="flex items-baseline justify-between py-space-xs rounded-xl px-space-sm bg-surface-container-low">
       <div class="flex items-baseline gap-1">
-        <span class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary">{{ price }}</span>
-        <span class="font-label-lg text-label-lg font-bold text-on-surface-variant">/ kg</span>
+        <span class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary">{{ formattedPrice }}</span>
+        <span class="font-label-lg text-label-lg font-bold text-on-surface-variant">{{ unitLabels[unit] }}</span>
       </div>
     </div>
 
