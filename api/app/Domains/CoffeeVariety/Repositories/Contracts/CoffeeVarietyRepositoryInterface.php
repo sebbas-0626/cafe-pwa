@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Repositories\Contracts;
+namespace App\Domains\CoffeeVariety\Repositories\Contracts;
 
-use App\Models\CoffeeVariety;
+use App\Domains\CoffeeVariety\Models\CoffeeVariety;
 use Illuminate\Database\Eloquent\Collection;
 
 interface CoffeeVarietyRepositoryInterface

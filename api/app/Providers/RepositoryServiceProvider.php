@@ -2,12 +2,12 @@
 
 namespace App\Providers;
 
-use App\Repositories\Contracts\BuyerRepositoryInterface;
-use App\Repositories\Contracts\CoffeeVarietyRepositoryInterface;
-use App\Repositories\Contracts\PriceOfferRepositoryInterface;
-use App\Repositories\Eloquent\BuyerRepository;
-use App\Repositories\Eloquent\CoffeeVarietyRepository;
-use App\Repositories\Eloquent\PriceOfferRepository;
+use App\Domains\Buyer\Repositories\Contracts\BuyerRepositoryInterface;
+use App\Domains\Buyer\Repositories\Eloquent\BuyerRepository;
+use App\Domains\CoffeeVariety\Repositories\Contracts\CoffeeVarietyRepositoryInterface;
+use App\Domains\CoffeeVariety\Repositories\Eloquent\CoffeeVarietyRepository;
+use App\Domains\PriceOffer\Repositories\Contracts\PriceOfferRepositoryInterface;
+use App\Domains\PriceOffer\Repositories\Eloquent\PriceOfferRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider

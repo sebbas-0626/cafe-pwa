@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Repositories\Contracts;
+namespace App\Domains\Buyer\Repositories\Contracts;
 
-use App\Models\Buyer;
+use App\Domains\Buyer\Models\Buyer;
 use Illuminate\Database\Eloquent\Collection;
 
 interface BuyerRepositoryInterface

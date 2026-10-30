@@ -1,7 +1,9 @@
 <?php
 
-namespace App\Models;
+namespace App\Domains\PriceOffer\Models;
 
+use App\Domains\Buyer\Models\Buyer;
+use App\Domains\CoffeeVariety\Models\CoffeeVariety;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;

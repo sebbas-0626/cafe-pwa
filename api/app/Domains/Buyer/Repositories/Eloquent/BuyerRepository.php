@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Repositories\Eloquent;
+namespace App\Domains\Buyer\Repositories\Eloquent;
 
-use App\Models\Buyer;
-use App\Repositories\Contracts\BuyerRepositoryInterface;
+use App\Domains\Buyer\Models\Buyer;
+use App\Domains\Buyer\Repositories\Contracts\BuyerRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 
 class BuyerRepository implements BuyerRepositoryInterface
