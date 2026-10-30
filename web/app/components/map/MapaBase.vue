@@ -69,7 +69,7 @@ onMounted(async () => {
 
   map.value = new maplibregl.Map({
     container: container.value,
-    style: 'https://tiles.openfreemap.org/styles/liberty',
+    style: 'https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json',
     center: props.center,
     zoom: props.zoom,
     attributionControl: { compact: true }
@@ -82,10 +82,29 @@ onMounted(async () => {
   })
 
   await renderMarkers()
+  focusOnBuyers()
 })
+
+function focusOnBuyers(): void {
+  if (!map.value || props.buyers.length === 0) {
+    return
+  }
+
+  const longitude = Math.min(...props.buyers.map(buyer => Number(buyer.longitude)))
+  const maxLongitude = Math.max(...props.buyers.map(buyer => Number(buyer.longitude)))
+  const latitude = Math.min(...props.buyers.map(buyer => Number(buyer.latitude)))
+  const maxLatitude = Math.max(...props.buyers.map(buyer => Number(buyer.latitude)))
+
+  map.value.fitBounds([[longitude, latitude], [maxLongitude, maxLatitude]], {
+    padding: { top: 120, bottom: 260, left: 60, right: 60 },
+    maxZoom: 11,
+    duration: 0
+  })
+}
 
 watch(() => props.buyers, () => {
   void renderMarkers()
+  focusOnBuyers()
 }, { deep: true })
 
 onBeforeUnmount(() => {
