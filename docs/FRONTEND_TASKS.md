@@ -50,6 +50,7 @@ Setup → Tipos → Componentes → Páginas → Composables API → Conexión A
 ### T0.4 - Cargar fuentes Epilogue y Quicksand
 - Registrar ambas familias en `app.head` de `nuxt.config.ts` con `<link>` a Google Fonts.
 - Pesos: Epilogue 600/700, Quicksand 500/600/700.
+- Incluir también Material Symbols Outlined (iconos del template).
 - NO instalar paquetes. NO crear archivos de estilos globales.
 
 ### T0.5 - Configurar PWA
@@ -84,47 +85,38 @@ Setup → Tipos → Componentes → Páginas → Composables API → Conexión A
 
 ## FASE 2: Componentes Stitch (una tarea por sesión)
 
-### T2.1 - MapaScreen: estructura
-- Leer `template/mapa_de_precios_cafeteros/code.html`.
-- Crear `app/components/stitch/MapaScreen.vue` con el `<body>` envuelto en `<template>`.
-- Zona de mapa como placeholder. Datos hardcodeados.
-- NO aplicar responsive todavía (eso es T2.2). NO conectar API.
-
-### T2.2 - MapaScreen: responsive
-- Añadir prefijos `md:`/`lg:` según la tabla de `docs/FRONTEND_STITCH.md`.
-- Layout web: mapa 2/3, panel 1/3. No eliminar clases móviles.
-
-### T2.3 - OfferCard (reutilizable)
-- Crear `app/components/stitch/OfferCard.vue` a partir de la tarjeta de oferta del template.
-- Props: `buyerName`, `price`, `variety`, `updatedAt`.
+### T2.1 - OfferCard (reutilizable)
+- Leer la tarjeta de oferta de `template/comparaci_n_de_precios_de_caf/code.html`.
+- Crear `app/components/stitch/OfferCard.vue`.
+- Props (`OfferCardProps`): `buyerName`, `price`, `variety`, `updatedAt`.
 - NO conectar API.
 
-### T2.4 - ListaScreen: estructura
+### T2.2 - ListaScreen: estructura
 - Leer `template/comparaci_n_de_precios_de_caf/code.html`.
 - Crear `app/components/stitch/ListaScreen.vue` usando `OfferCard.vue`. Datos hardcodeados.
-- NO aplicar responsive todavía (eso es T2.5).
+- NO aplicar responsive todavía (eso es T2.3).
 
-### T2.5 - ListaScreen: responsive
+### T2.3 - ListaScreen: responsive
 - Grid `grid-cols-1 md:grid-cols-2 lg:grid-cols-3` y contenedor `max-w-7xl`.
 - No eliminar clases móviles.
 
-### T2.6 - PerfilScreen: estructura
+### T2.4 - PerfilScreen: estructura
 - Leer `template/perfil_cooperativa_cadefihuila/code.html`.
 - Crear `app/components/stitch/PerfilScreen.vue`.
 - Props: `cooperativeId` (string). Datos hardcodeados.
-- NO aplicar responsive todavía (eso es T2.7).
+- NO aplicar responsive todavía (eso es T2.5).
 
-### T2.7 - PerfilScreen: responsive
+### T2.5 - PerfilScreen: responsive
 - Añadir prefijos `md:`/`lg:` según `docs/FRONTEND_STITCH.md`.
 - No eliminar clases móviles.
 
-### T2.8 - CalculadoraScreen: estructura
+### T2.6 - CalculadoraScreen: estructura
 - Leer `template/calculadora_de_factor_de_rendimiento_y_merma/code.html`.
 - Crear `app/components/stitch/CalculadoraScreen.vue`.
 - Datos hardcodeados, sin lógica de cálculo.
-- NO aplicar responsive todavía (eso es T2.9).
+- NO aplicar responsive todavía (eso es T2.7).
 
-### T2.9 - CalculadoraScreen: responsive
+### T2.7 - CalculadoraScreen: responsive
 - Añadir prefijos `md:`/`lg:` según `docs/FRONTEND_STITCH.md`.
 - No eliminar clases móviles.
 
@@ -200,21 +192,31 @@ Setup → Tipos → Componentes → Páginas → Composables API → Conexión A
 - Instalar `maplibre-gl` en `web/`.
 - NO crear componente todavía.
 
-### T6.2 - Componente MapaBase
+### T6.2 - MapaScreen: estructura
+- Leer `template/mapa_de_precios_cafeteros/code.html`.
+- Crear `app/components/stitch/MapaScreen.vue` con el `<body>` envuelto en `<template>`.
+- Zona de mapa como placeholder. Datos hardcodeados.
+- NO aplicar responsive todavía (eso es T6.3). NO conectar API.
+
+### T6.3 - MapaScreen: responsive
+- Añadir prefijos `md:`/`lg:` según `docs/FRONTEND_STITCH.md`.
+- Layout web: mapa 2/3, panel 1/3. No eliminar clases móviles.
+
+### T6.4 - Componente MapaBase
 - Crear `app/components/map/MapaBase.vue` con init SSR-safe (`ClientOnly`).
 - Solo renderiza el mapa centrado en Colombia. Sin pines.
 
-### T6.3 - Añadir pines de buyers
+### T6.5 - Añadir pines de buyers
 - Recibir lista de buyers como prop y renderizar un pin por buyer con lat/lng.
 
-### T6.4 - Popup al hacer clic en pin
+### T6.6 - Popup al hacer clic en pin
 - Mostrar nombre, precio y botón de contacto.
 - Usar estilos de Stitch.
 
-### T6.5 - Integrar MapaBase en MapaScreen
+### T6.7 - Integrar MapaBase en MapaScreen
 - Reemplazar el placeholder de mapa por `MapaBase.vue`.
 
-### T6.6 - Alimentar pines con datos de API
+### T6.8 - Alimentar pines con datos de API
 - En `app/pages/index.vue`, usar `fetchBuyers` y pasar los buyers a `MapaScreen`.
 - Loading y error básicos.
 
