@@ -1,14 +1,8 @@
 <script setup lang="ts">
 import type { PerfilScreenProps } from '~/types'
+import { sampleVarietyPrices } from './data'
 
 defineProps<PerfilScreenProps>()
-
-const varietyPrices = [
-  { name: 'Castillo', badge: 'Base 88', description: 'Pergamino Seco estándar de recibo', price: '$ 15.200', arroba: '$190.000 / @', highlight: false },
-  { name: 'Caturra / Colombia', badge: 'Tradicional', description: 'Lotes seleccionados secados al sol', price: '$ 15.150', arroba: '$189.375 / @', highlight: false },
-  { name: 'Bourbon Rosado / Especiales', badge: '+ Calidad', description: 'Taza limpia calificada >84 puntos SCA', price: '$ 17.500', arroba: '$218.750 / @', highlight: true },
-  { name: 'Pasilla / Bajos Factores', badge: 'Despasillado', description: 'Compra directa sin penalidad extra', price: '$ 6.800', arroba: '$85.000 / @', highlight: false }
-]
 </script>
 
 <template>
@@ -123,7 +117,7 @@ const varietyPrices = [
 
         <div class="flex flex-col gap-space-xs md:grid md:grid-cols-2 lg:grid-cols-4">
           <div
-            v-for="variety in varietyPrices"
+            v-for="variety in sampleVarietyPrices"
             :key="variety.name"
             class="rounded-xl p-space-md shadow-sm flex flex-col gap-2"
             :class="variety.highlight ? 'bg-surface-container-high' : 'bg-surface-container-low'"

@@ -1,13 +1,6 @@
 <script setup lang="ts">
-import type { OfferCardProps } from '~/types'
+import { sampleOffers, sortFilters, varietyFilters } from './data'
 import OfferCard from './OfferCard.vue'
-
-const offers: OfferCardProps[] = [
-  { buyerName: 'Cadefihuila', price: '$ 15.200', variety: 'Castillo', updatedAt: 'Hoy 7:30 AM' },
-  { buyerName: 'Café Andino & Exportadores', price: '$ 14.950', variety: 'Caturra', updatedAt: 'Hoy 6:50 AM' },
-  { buyerName: 'Cooperativa Coocentral', price: '$ 14.800', variety: 'Bourbon Rosado', updatedAt: 'Hoy 6:15 AM' },
-  { buyerName: 'Expocafé Huila', price: '$ 14.550', variety: 'Geisha', updatedAt: 'Ayer 5:00 PM' }
-]
 </script>
 
 <template>
@@ -54,39 +47,42 @@ const offers: OfferCardProps[] = [
         </div>
 
         <div class="flex items-center gap-space-xs overflow-x-auto no-scrollbar py-0.5">
-          <button class="shrink-0 px-3.5 py-1.5 rounded-full font-label-md text-label-md font-bold transition-all bg-secondary text-on-secondary shadow-sm flex items-center gap-1" type="button">
-            <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1">star</span> Mejor precio
-          </button>
-          <button class="shrink-0 px-3.5 py-1.5 rounded-full font-label-md text-label-md font-semibold transition-all bg-surface-container text-on-surface hover:bg-surface-container-high" type="button">
-            Más cercano
-          </button>
-          <button class="shrink-0 px-3.5 py-1.5 rounded-full font-label-md text-label-md font-semibold transition-all bg-surface-container text-on-surface hover:bg-surface-container-high" type="button">
-            Mejor factor
+          <button
+            v-for="filter in sortFilters"
+            :key="filter.label"
+            class="shrink-0 px-3.5 py-1.5 rounded-full font-label-md text-label-md transition-all flex items-center gap-1"
+            :class="filter.active
+              ? 'bg-secondary text-on-secondary shadow-sm font-bold'
+              : 'bg-surface-container text-on-surface hover:bg-surface-container-high font-semibold'"
+            type="button"
+          >
+            <span
+              v-if="filter.icon"
+              class="material-symbols-outlined text-sm"
+              style="font-variation-settings: 'FILL' 1"
+            >{{ filter.icon }}</span>
+            {{ filter.label }}
           </button>
         </div>
 
         <div class="flex items-center gap-space-xs overflow-x-auto no-scrollbar py-0.5">
-          <button class="shrink-0 px-3 py-1 rounded-full font-label-md text-label-md font-bold bg-primary text-on-primary" type="button">
-            Todas las variedades
-          </button>
-          <button class="shrink-0 px-3 py-1 rounded-full font-label-md text-label-md font-medium bg-surface-container text-on-surface hover:bg-surface-container-high" type="button">
-            Castillo
-          </button>
-          <button class="shrink-0 px-3 py-1 rounded-full font-label-md text-label-md font-medium bg-surface-container text-on-surface hover:bg-surface-container-high" type="button">
-            Caturra
-          </button>
-          <button class="shrink-0 px-3 py-1 rounded-full font-label-md text-label-md font-medium bg-surface-container text-on-surface hover:bg-surface-container-high" type="button">
-            Bourbon Rosado
-          </button>
-          <button class="shrink-0 px-3 py-1 rounded-full font-label-md text-label-md font-medium bg-surface-container text-on-surface hover:bg-surface-container-high" type="button">
-            Geisha
+          <button
+            v-for="filter in varietyFilters"
+            :key="filter.label"
+            class="shrink-0 px-3 py-1 rounded-full font-label-md text-label-md"
+            :class="filter.active
+              ? 'bg-primary text-on-primary font-bold'
+              : 'bg-surface-container text-on-surface hover:bg-surface-container-high font-medium'"
+            type="button"
+          >
+            {{ filter.label }}
           </button>
         </div>
       </div>
 
       <div class="px-margin flex flex-col gap-space-md pb-space-xl grid-cols-1 md:grid md:grid-cols-2 lg:grid-cols-3">
         <OfferCard
-          v-for="offer in offers"
+          v-for="offer in sampleOffers"
           :key="offer.buyerName"
           :buyer-name="offer.buyerName"
           :price="offer.price"

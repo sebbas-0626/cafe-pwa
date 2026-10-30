@@ -6,6 +6,7 @@
 - No tests, no código de relleno, no refactors no pedidos.
 - Si una tarea requiere más de ~40 líneas, dividirla.
 - El diseño de Stitch (carpeta `template/`) es la fuente de verdad visual.
+- Los datos mock viven en `app/components/cafe/data.ts`, nunca inline en los componentes.
 - `template/` tiene copias espejo en `template/stitch_caf_precios_colombia_pwa/`. Usar siempre la copia de primer nivel.
 - NO inventar estilos, colores, fuentes ni componentes que no estén en Stitch.
 - NO tocar `api/` ni el backend.
