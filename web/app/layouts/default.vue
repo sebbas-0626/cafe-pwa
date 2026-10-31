@@ -2,6 +2,9 @@
 const route = useRoute()
 const isMenuOpen = ref(false)
 
+const { apiBase } = useRuntimeConfig().public
+const adminLoginUrl = `${String(apiBase).replace(/\/api\/?$/, '')}/admin/login`
+
 const links = [
   { label: 'Mapa', to: '/' },
   { label: 'Precios', to: '/lista' },
@@ -47,13 +50,14 @@ const links = [
           >
             <span class="material-symbols-outlined text-body-lg">cloud_done</span>
           </button>
-          <button
+          <a
             class="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full text-on-surface hover:bg-surface-container transition-colors"
-            type="button"
-            aria-label="Perfil caficultor"
+            :href="adminLoginUrl"
+            aria-label="Ingresar al panel de administración"
+            title="Panel de administración"
           >
             <span class="material-symbols-outlined text-headline-md">account_circle</span>
-          </button>
+          </a>
           <button
             class="md:hidden min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full text-on-surface hover:bg-surface-container transition-colors"
             type="button"
