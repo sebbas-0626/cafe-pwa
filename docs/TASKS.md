@@ -172,3 +172,22 @@
 ### T4.4 - [x] Resource PriceOffer
 ### T4.5 - [x] Resource CoffeeVariety (usa T2.5/T2.6)
 ### T4.6 - [x] Dashboard widgets (3 stats: compradores activos, ofertas aprobadas vigentes, variedades activas)
+
+### T4.6 - Scoping por cooperativa en Filament (CRÍTICO para MVP)
+- Policy en PriceOffer: cooperative_admin solo ve/edita ofertas donde buyer_id === su buyer_id.
+- Policy en Buyer: cooperative_admin solo ve su propio buyer (read-only).
+- modifyQueryUsing en ambos Resources para filtrar por buyer_id si el usuario no es super_admin.
+- Asignar buyer_id al cooperative_admin sembrado (o crear un seeder de prueba con buyer_id válido).
+- Verificar: login como cooperative_admin → solo ve sus datos. Login como admin → ve todo.
+## Nota: panel de cooperative_admin
+- En el MVP, cooperative_admin usa Filament (api.tudominio.com/admin), NO la PWA.
+- IMPORTANTE: el scoping por buyer_id (cooperative_admin solo ve sus datos) es
+  requisito del MVP, no post-MVP. Ver T4.6 en TASKS.md del backend.
+- Panel /cooperativa en Nuxt: post-MVP (no ahora).
+
+## Flujo de precios
+- cooperative_admin publica y actualiza precios directamente en Filament.
+- Las ofertas se crean con status = 'approved' (no hay aprobación por oferta).
+- El admin verifica la cooperativa una vez (buyer.is_active = true).
+- El admin puede suspender la cooperativa (is_active = false) para ocultar sus ofertas.
+- NO implementar flujo de aprobación por oferta. Solo verificación de cooperativa.
