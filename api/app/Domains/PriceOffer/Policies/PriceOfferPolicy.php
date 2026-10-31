@@ -25,7 +25,7 @@ class PriceOfferPolicy
 
     public function create(User $user): bool
     {
-        return false;
+        return $user->buyer_id !== null;
     }
 
     public function update(User $user, PriceOffer $priceOffer): bool

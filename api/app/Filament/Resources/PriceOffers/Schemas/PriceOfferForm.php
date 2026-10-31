@@ -2,11 +2,15 @@
 
 namespace App\Filament\Resources\PriceOffers\Schemas;
 
+use App\Enums\UserRole;
+use App\Models\User;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 
 class PriceOfferForm
 {
@@ -15,7 +19,13 @@ class PriceOfferForm
         return $schema
             ->components([
                 Select::make('buyer_id')
-                    ->relationship('buyer', 'name')
+                    ->relationship('buyer', 'name', function (Builder $query) {
+                        $user = Auth::user();
+
+                        if ($user instanceof User && $user->role === UserRole::CooperativeAdmin) {
+                            $query->where('id', $user->buyer_id);
+                        }
+                    })
                     ->required(),
                 Select::make('coffee_variety_id')
                     ->relationship('coffeeVariety', 'name')
@@ -30,9 +40,6 @@ class PriceOfferForm
                     ->required(),
                 DateTimePicker::make('valid_until')
                     ->required(),
-                TextInput::make('status')
-                    ->required()
-                    ->default('pending'),
                 Textarea::make('notes')
                     ->columnSpanFull(),
             ]);
