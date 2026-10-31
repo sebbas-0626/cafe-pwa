@@ -1,18 +1,52 @@
 <script setup lang="ts">
 import type { OfferCardProps } from '~/types'
+import type { CoffeePoint, CoffeeVarietyFilter } from '~/types/coffee'
+import { PITALITO_CENTER } from '~/types/coffee'
+import { distanceInKm, useGeolocation } from '~/composables/useGeolocation'
+import { matchesVariety } from '~/services/coffeeBuyerService'
 import { sortFilters, varietyFilters } from './data'
 import OfferCard from './OfferCard.vue'
 
+interface OfferListItem extends OfferCardProps {
+  distanceKm: number
+}
+
 const { buyers, loading, error, fetchBuyers } = useBuyers()
+const { position } = useGeolocation()
 
-await fetchBuyers()
+fetchBuyers()
 
-const offers = computed<OfferCardProps[]>(() =>
-  buyers.value.flatMap((buyer) => {
+const activeSort = ref<string>('Mejor precio')
+const activeVariety = ref<string>('Todas las variedades')
+
+const varietyFilterMap: Record<string, CoffeeVarietyFilter> = {
+  'Todas las variedades': 'Todas',
+  Castillo: 'Castillo',
+  Caturra: 'Caturra',
+  'Bourbon Rosado': 'Borbón Rosado',
+  Geisha: 'Geisha'
+}
+
+const referencePoint = computed<CoffeePoint>(() =>
+  position.value
+    ? { latitude: position.value.latitude, longitude: position.value.longitude }
+    : { latitude: PITALITO_CENTER[1], longitude: PITALITO_CENTER[0] }
+)
+
+const offers = computed<OfferListItem[]>(() => {
+  const reference = referencePoint.value
+  const varietyFilter = varietyFilterMap[activeVariety.value] ?? 'Todas'
+
+  const list = buyers.value.flatMap((buyer): OfferListItem[] => {
     const offer = buyer.price_offers?.[0]
 
     if (!offer) {
       return []
+    }
+
+    const point: CoffeePoint = {
+      latitude: Number(buyer.latitude),
+      longitude: Number(buyer.longitude)
     }
 
     return [{
@@ -21,10 +55,19 @@ const offers = computed<OfferCardProps[]>(() =>
       price: offer.price_per_kg,
       unit: offer.unit,
       variety: offer.coffee_variety?.name ?? 'Sin variedad',
-      updatedAt: offer.updated_at
+      updatedAt: offer.updated_at,
+      distanceKm: distanceInKm(reference, point)
     }]
+  }).filter(item => matchesVariety(item.variety, varietyFilter))
+
+  return [...list].sort((a, b) => {
+    if (activeSort.value === 'Más cercano') {
+      return a.distanceKm - b.distanceKm
+    }
+
+    return Number(b.price) - Number(a.price)
   })
-)
+})
 </script>
 
 <template>
@@ -75,10 +118,12 @@ const offers = computed<OfferCardProps[]>(() =>
             v-for="filter in sortFilters"
             :key="filter.label"
             class="shrink-0 px-3.5 py-1.5 rounded-full font-label-md text-label-md transition-all flex items-center gap-1"
-            :class="filter.active
+            :class="activeSort === filter.label
               ? 'bg-secondary text-on-secondary shadow-sm font-bold'
               : 'bg-surface-container text-on-surface hover:bg-surface-container-high font-semibold'"
             type="button"
+            :aria-pressed="activeSort === filter.label"
+            @click="activeSort = filter.label"
           >
             <span
               v-if="filter.icon"
@@ -94,10 +139,12 @@ const offers = computed<OfferCardProps[]>(() =>
             v-for="filter in varietyFilters"
             :key="filter.label"
             class="shrink-0 px-3 py-1 rounded-full font-label-md text-label-md"
-            :class="filter.active
+            :class="activeVariety === filter.label
               ? 'bg-primary text-on-primary font-bold'
               : 'bg-surface-container text-on-surface hover:bg-surface-container-high font-medium'"
             type="button"
+            :aria-pressed="activeVariety === filter.label"
+            @click="activeVariety = filter.label"
           >
             {{ filter.label }}
           </button>
@@ -105,10 +152,21 @@ const offers = computed<OfferCardProps[]>(() =>
       </div>
 
       <div class="px-margin flex flex-col gap-space-md pb-space-xl grid-cols-1 md:grid md:grid-cols-2 lg:grid-cols-3">
-        <div v-if="loading" class="flex items-center justify-center gap-2 py-space-xl text-on-surface-variant font-label-lg text-label-lg">
-          <span class="material-symbols-outlined animate-spin">progress_activity</span>
-          Cargando precios…
-        </div>
+        <template v-if="loading">
+          <div
+            v-for="n in 6"
+            :key="`skeleton-${n}`"
+            class="rounded-2xl p-space-md bg-surface-container-lowest shadow-sm flex flex-col gap-space-sm animate-pulse"
+          >
+            <div class="flex items-start justify-between gap-space-sm">
+              <div class="h-5 rounded-md bg-surface-container-high w-2/3" />
+              <div class="h-4 rounded-md bg-surface-container-high w-16" />
+            </div>
+            <div class="h-12 rounded-xl bg-surface-container-high" />
+            <div class="h-5 rounded-full bg-surface-container-high w-24" />
+            <div class="h-12 rounded-xl bg-surface-container-high" />
+          </div>
+        </template>
 
         <div v-else-if="error" class="rounded-xl bg-error-container text-on-error-container p-space-md flex flex-col gap-space-sm md:col-span-2 lg:col-span-3">
           <p class="font-label-lg text-label-lg font-bold">No pudimos cargar los precios</p>
