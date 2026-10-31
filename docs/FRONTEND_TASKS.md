@@ -258,3 +258,38 @@ Setup → Tipos → Componentes → Páginas → Composables API → Conexión A
 - El cooperative_admin actualiza precios directamente en Filament (sin aprobación del admin).
 - La PWA solo muestra ofertas con status = 'approved' y valid_until > now().
 - Si una cooperativa es suspendida (is_active = false), sus ofertas no aparecen en la PWA.
+
+## FASE 1: Onboarding y Layout (NUEVO ORDEN)
+
+### T1.1 - Layout Principal Centrado (Mobile-First Web)
+- Crear `app/layouts/default.vue`.
+- Envolver el `<slot />` en un contenedor: `max-w-md mx-auto min-h-screen bg-cream shadow-xl`.
+- En desktop, esto hará que la app se vea centrada como un celular.
+
+### T1.2 - Pantalla de Bienvenida y Selección de Rol
+- Crear `app/components/stitch/WelcomeScreen.vue` (basado en el diseño de Stitch "Selección de Rol").
+- Implementar lógica:
+  - Botón "Soy Caficultor": `navigateTo('/mapa')`.
+  - Botón "Soy Cooperativa": `navigateTo('/login')`.
+  - Enlace inferior: `navigateTo('/mapa')`.
+
+### T1.3 - Pantalla de Onboarding (Carrusel)
+- Crear `app/components/stitch/OnboardingScreen.vue` (basado en el diseño "Bienvenida y Onboarding").
+- Botón "Empezar ahora" -> va a la pantalla de selección de rol.
+
+### T2.1 - Página de Inicio
+- Configurar `app/pages/index.vue` para que muestre el Onboarding la primera vez (usando `localStorage`), y si ya se vio, que muestre la Selección de Rol.
+
+### T2.2 - Página Mapa (Pública)
+- Crear `app/pages/mapa.vue`. (Accesible para invitados).
+
+### T2.3 - Página Lista (Pública)
+- Crear `app/pages/lista.vue`. (Accesible para invitados).
+
+### T2.4 - Página Perfil (Protegida)
+- Crear `app/pages/perfil.vue` (basado en el diseño "Perfil de Caficultor" de Stitch).
+- Aplicar middleware `auth` (si no hay usuario, redirige a `/login`).
+
+### T3.1 - Middleware de Autenticación
+- Crear `app/middleware/auth.ts` en Nuxt.
+- Verificar si existe el token (localStorage o cookie). Si no, redirigir a `/login`.

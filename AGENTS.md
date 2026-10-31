@@ -79,3 +79,12 @@ Backend expone API REST JSON. Admin usa Filament (se instalará después).
 - El admin verifica la cooperativa una vez (buyer.is_active = true).
 - El admin puede suspender la cooperativa (is_active = false) para ocultar sus ofertas.
 - NO implementar flujo de aprobación por oferta. Solo verificación de cooperativa.
+
+## Flujo de Autenticación y Vistas Responsive
+- **Acceso de Invitado**: Las rutas `/` (bienvenida), `/mapa` y `/lista` son públicas.
+- **Rutas Protegidas**: `/perfil`, `/favoritos` y `/finca` requieren autenticación (middleware auth en Nuxt).
+- **Pantalla de Selección de Rol**:
+  - Botón "Soy Caficultor" -> Redirige a `/mapa` (sin login).
+  - Botón "Soy Cooperativa" -> Redirige a `/login` (o panel Filament).
+  - Enlace "Explorar como visitante" -> Redirige a `/mapa`.
+- **Responsive Web**: El diseño de Stitch es mobile-first. En web (desktop), la app se mostrará centrada en un contenedor (max-w-md) con fondo neutro, para mantener la apariencia de app móvil. No reescribir el diseño para desktop en esta fase.
