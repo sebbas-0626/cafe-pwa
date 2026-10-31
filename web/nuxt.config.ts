@@ -8,7 +8,8 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      apiBase: process.env.NUXT_PUBLIC_API_BASE || 'http://localhost:8000/api'
+      apiBase: process.env.NUXT_PUBLIC_API_BASE || 'http://localhost:8000/api',
+      useMockCoffeeData: process.env.NUXT_PUBLIC_USE_MOCK_COFFEE_DATA === 'true'
     }
   },
   app: {
@@ -24,6 +25,7 @@ export default defineNuxtConfig({
           rel: 'stylesheet',
           href: 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200'
         },
+        { rel: 'apple-touch-icon', href: '/icons/icon-192.png' },
         { rel: 'manifest', href: '/manifest.webmanifest' }
       ],
       meta: [{ name: 'theme-color', content: '#702506' }]
@@ -32,19 +34,43 @@ export default defineNuxtConfig({
   pwa: {
     registerType: 'autoUpdate',
     manifest: {
-      name: 'Café Precios',
+      id: '/',
+      name: 'CaféPrecios Colombia',
       short_name: 'CaféPrecios',
       description: 'Precios del café en Colombia para caficultores',
       lang: 'es-CO',
+      dir: 'ltr',
+      start_url: '/',
+      scope: '/',
+      display: 'standalone',
+      orientation: 'portrait',
       theme_color: '#702506',
       background_color: '#fff8f6',
-      display: 'standalone',
-      start_url: '/',
+      categories: ['finance', 'food', 'utilities'],
       icons: [
+        {
+          src: '/icons/icon-192.png',
+          sizes: '192x192',
+          type: 'image/png',
+          purpose: 'any'
+        },
+        {
+          src: '/icons/icon-512.png',
+          sizes: '512x512',
+          type: 'image/png',
+          purpose: 'any'
+        },
+        {
+          src: '/icons/icon-512.png',
+          sizes: '512x512',
+          type: 'image/png',
+          purpose: 'maskable'
+        },
         {
           src: '/favicon.ico',
           sizes: '48x48',
-          type: 'image/x-icon'
+          type: 'image/x-icon',
+          purpose: 'any'
         }
       ]
     }

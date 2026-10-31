@@ -1,172 +1,229 @@
 <script setup lang="ts">
-import type { Buyer } from '~/types'
-import { mapFilters } from './data'
-import MapaBase from '~/components/map/MapaBase.vue'
+import CoffeeMap from '~/components/coffee-map/CoffeeMap.vue'
+import CoffeeMapHeader from '~/components/coffee-map/CoffeeMapHeader.vue'
+import CoffeeMapControls from '~/components/coffee-map/CoffeeMapControls.vue'
+import CoffeeMapDetails from '~/components/coffee-map/CoffeeMapDetails.vue'
+import CoffeeMapLegend from '~/components/coffee-map/CoffeeMapLegend.vue'
+import CoffeeMapList from '~/components/coffee-map/CoffeeMapList.vue'
 
-const { buyers, fetchBuyers } = useBuyers()
+const {
+  selectedVarieties,
+  selectedBuyerId,
+  viewMode,
+  radiusKm,
+  showLabels,
+  showWater,
+  toast,
+  userLocation,
+  locating,
+  center,
+  locationLabel,
+  toggleVariety,
+  resetVarieties,
+  selectBuyer,
+  clearSelection,
+  setRadius,
+  toggleLabels,
+  toggleWater,
+  toggleViewMode,
+  locate
+} = useCoffeeMap()
 
-await fetchBuyers()
+const {
+  source,
+  loading,
+  error,
+  loaded,
+  mapPoints,
+  selectedPoint,
+  loadBuyers
+} = useCoffeeBuyers()
 
-const selected = ref<Buyer | null>(buyers.value.find(buyer => (buyer.price_offers?.length ?? 0) > 0) ?? buyers.value[0] ?? null)
+const mapRef = ref<{ zoomIn: () => void; zoomOut: () => void } | null>(null)
 
-const dateFormatter = new Intl.DateTimeFormat('es-CO', {
-  day: '2-digit',
-  month: 'short',
-  hour: '2-digit',
-  minute: '2-digit'
+onMounted(() => {
+  void loadBuyers()
 })
 
-const sheet = computed(() => {
-  const buyer = selected.value
+function handleListSelect(buyerId: number): void {
+  selectBuyer(buyerId)
+  viewMode.value = 'map'
+}
 
-  if (!buyer) {
-    return null
-  }
+function expandRadius(): void {
+  setRadius(1000)
+}
 
-  const offers = buyer.price_offers ?? []
-  const offer = offers[0]
-  const phone = (buyer.phone ?? '').replace(/\D/g, '')
-
-  return {
-    name: buyer.name,
-    location: buyer.address ?? 'Dirección no disponible',
-    badge: offer ? 'Oferta vigente' : 'Sin oferta vigente',
-    price: offer ? `$ ${Number(offer.price_per_kg).toLocaleString('es-CO')}` : '—',
-    unit: offer ? `/ ${offer.unit}` : '',
-    varieties: offers.map(item => item.coffee_variety?.name ?? 'Sin variedad'),
-    updated: offer ? dateFormatter.format(new Date(offer.updated_at)) : 'Sin actualización',
-    phone,
-    whatsapp: phone ? `https://wa.me/${phone}` : '',
-    call: phone ? `tel:${phone}` : '',
-    maps: `https://maps.google.com/?q=${buyer.latitude},${buyer.longitude}`,
-    detail: `/cooperativa/${buyer.id}`
-  }
-})
+function retry(): void {
+  void loadBuyers(true)
+}
 </script>
 
 <template>
-  <main class="flex flex-col relative w-full pt-16 pb-28 bg-background min-h-screen">
-    <div class="flex flex-col w-full relative select-none lg:grid lg:grid-cols-3 lg:gap-space-md lg:max-w-7xl lg:mx-auto lg:items-start">
-      <div class="relative w-full h-[742px] overflow-hidden bg-[#e8ded1] flex items-center justify-center lg:col-span-2 lg:rounded-2xl">
-        <MapaBase :buyers="buyers" @select="selected = $event" />
+  <main class="fixed inset-0 overflow-hidden bg-[#E9DFD0] font-body-md text-[#402318]">
+    <ClientOnly>
+      <CoffeeMap
+        ref="mapRef"
+        :points="mapPoints"
+        :selected-buyer-id="selectedBuyerId"
+        :center="center"
+        :user-location="userLocation"
+        :show-labels="showLabels"
+        :show-water="showWater"
+        @select="selectBuyer"
+      />
 
-        <div class="absolute top-3 left-0 right-0 px-margin z-20 flex flex-col gap-space-xs pointer-events-auto">
-          <div class="bg-surface/95 backdrop-blur-md rounded-xl p-space-xs shadow-[0_8px_20px_-4px_rgba(68,21,10,0.12)] flex items-center justify-between gap-space-xs">
-            <button class="flex items-center gap-space-xs min-h-[44px] px-space-sm rounded-lg hover:bg-surface-container transition-colors text-left flex-1 min-w-0" type="button">
-              <span class="material-symbols-outlined text-primary text-headline-md shrink-0" style="font-variation-settings: 'FILL' 1">my_location</span>
-              <div class="flex flex-col min-w-0">
-                <span class="font-headline-md text-headline-md text-on-surface font-bold truncate">Pitalito, Huila</span>
-                <span class="font-label-md text-label-md text-on-surface-variant truncate">Cooperativas en 25 km</span>
-              </div>
-            </button>
-            <button class="min-h-[44px] min-w-[44px] px-space-xs flex items-center justify-center rounded-lg bg-surface-container-high text-on-surface hover:bg-primary hover:text-on-primary transition-all" type="button" aria-label="Filtro de variedades">
-              <span class="material-symbols-outlined text-body-lg">tune</span>
-            </button>
-          </div>
+      <template #fallback>
+        <div class="h-full w-full bg-[#E9DFD0]" />
+      </template>
+    </ClientOnly>
 
-          <div class="flex items-center gap-space-xs overflow-x-auto pb-1 no-scrollbar">
-            <button
-              v-for="filter in mapFilters"
-              :key="filter.label"
-              class="px-3 py-1 rounded-full font-label-md text-label-md shrink-0 flex items-center gap-1"
-              :class="filter.active ? 'bg-primary text-on-primary shadow-sm' : 'bg-surface/90 text-on-surface shadow-sm hover:bg-surface-container'"
-              type="button"
-            >
-              <span v-if="filter.icon" class="material-symbols-outlined text-label-md">{{ filter.icon }}</span>
-              {{ filter.label }}
-            </button>
-          </div>
-        </div>
+    <CoffeeMapHeader
+      :count="mapPoints.length"
+      :radius-km="radiusKm"
+      :loading="locating"
+      :source="source"
+      :location-label="locationLabel"
+      :selected-varieties="selectedVarieties"
+      @locate="locate"
+      @toggle-variety="toggleVariety"
+    />
 
-        <div class="absolute right-margin top-28 z-20 flex flex-col gap-space-sm pointer-events-auto">
-          <button class="min-h-[48px] min-w-[48px] rounded-xl bg-surface/95 text-primary shadow-[0_4px_16px_rgba(68,21,10,0.14)] backdrop-blur-md flex items-center justify-center hover:bg-primary hover:text-on-primary active:scale-95 transition-all" type="button" aria-label="Centrar en mi ubicación">
-            <span class="material-symbols-outlined text-headline-md" style="font-variation-settings: 'FILL' 1">gps_fixed</span>
-          </button>
-          <button class="min-h-[48px] min-w-[48px] rounded-xl bg-surface/95 text-on-surface shadow-[0_4px_16px_rgba(68,21,10,0.14)] backdrop-blur-md flex items-center justify-center hover:bg-surface-container active:scale-95 transition-all" type="button" aria-label="Capas del mapa">
-            <span class="material-symbols-outlined text-headline-md">layers</span>
-          </button>
-          <button class="min-h-[48px] min-w-[48px] rounded-xl bg-surface/95 text-on-surface-variant shadow-[0_4px_16px_rgba(68,21,10,0.14)] backdrop-blur-md flex items-center justify-center hover:bg-surface-container active:scale-95 transition-all" type="button" aria-label="Ver lista de precios">
-            <span class="material-symbols-outlined text-headline-md">format_list_bulleted</span>
-          </button>
-        </div>
+    <div class="absolute right-3 top-[9.5rem] z-20 md:right-4 md:top-[9.75rem]">
+      <CoffeeMapControls
+        :view-mode="viewMode"
+        :show-labels="showLabels"
+        :show-water="showWater"
+        :locating="locating"
+        @locate="locate"
+        @zoom-in="mapRef?.zoomIn()"
+        @zoom-out="mapRef?.zoomOut()"
+        @toggle-list="toggleViewMode"
+        @toggle-labels="toggleLabels"
+        @toggle-water="toggleWater"
+      />
+    </div>
+
+    <div
+      class="absolute bottom-[max(1rem,env(safe-area-inset-bottom))] left-3 z-20 md:bottom-6 md:left-6"
+      :class="selectedPoint ? 'hidden md:block' : 'block'"
+    >
+      <CoffeeMapLegend />
+    </div>
+
+    <div
+      v-if="viewMode === 'list'"
+      class="absolute inset-0 z-30 bg-[#402318]/10 backdrop-blur-[1px]"
+      @click="toggleViewMode"
+    />
+
+    <div
+      v-if="viewMode === 'list'"
+      class="absolute inset-y-3 left-3 z-40 w-[calc(100%-1.5rem)] max-w-sm md:inset-y-4 md:left-4"
+    >
+      <CoffeeMapList
+        :points="mapPoints"
+        :selected-id="selectedBuyerId"
+        :source="source"
+        :loading="loading"
+        :error="error"
+        @select="handleListSelect"
+        @close="toggleViewMode"
+        @retry="retry"
+      />
+    </div>
+
+    <div
+      v-if="selectedPoint"
+      class="absolute inset-x-0 bottom-0 z-40 px-2 pb-2 md:inset-x-auto md:bottom-6 md:right-6 md:px-0 md:pb-0"
+    >
+      <CoffeeMapDetails
+        :point="selectedPoint"
+        :origin="userLocation"
+        @close="clearSelection"
+      />
+    </div>
+
+    <div v-if="loading" class="pointer-events-none absolute inset-0 z-20 flex items-center justify-center px-4">
+      <div class="flex items-center gap-2.5 rounded-full border border-white/70 bg-[#FFFAF6]/95 px-4 py-2.5 shadow-[0_14px_34px_-12px_rgba(64,35,24,0.4)] backdrop-blur-md">
+        <span class="material-symbols-outlined animate-spin text-[18px] text-[#783719]">progress_activity</span>
+        <span class="font-label-lg text-label-lg font-semibold text-[#402318]">Buscando los mejores precios…</span>
       </div>
+    </div>
 
-      <div class="w-full -mt-20 z-30 px-margin pb-6 flex flex-col lg:col-span-1 lg:mt-0 lg:px-0 lg:sticky lg:top-20">
-        <div v-if="sheet" class="w-full bg-surface rounded-3xl shadow-[0_-8px_32px_rgba(68,21,10,0.16)] p-space-md flex flex-col gap-space-md">
-          <div class="flex flex-col items-center w-full gap-space-xs">
-            <div class="w-12 h-1.5 bg-outline-variant/60 rounded-full" />
-            <div class="w-full flex items-center justify-between mt-1">
-              <div class="flex items-center gap-1.5">
-                <span class="px-2.5 py-0.5 rounded-full bg-secondary/10 text-secondary font-label-md text-label-md font-bold flex items-center gap-1">
-                  <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1">verified</span>
-                  {{ sheet?.badge }}
-                </span>
-              </div>
-              <div class="flex items-center gap-1 text-secondary font-label-md text-label-md font-semibold">
-                <span class="w-2 h-2 rounded-full bg-secondary animate-pulse" />
-                {{ sheet?.updated }}
-              </div>
-            </div>
+    <div
+      v-else-if="error"
+      class="absolute inset-0 z-20 flex items-center justify-center px-4"
+    >
+      <div class="pointer-events-auto flex w-full max-w-md flex-col items-center gap-3 rounded-3xl border border-white/70 bg-[#FFFAF6] p-6 text-center shadow-[0_22px_60px_-18px_rgba(64,35,24,0.45)]">
+        <span class="material-symbols-outlined text-[34px] text-[#B4552F]">cloud_off</span>
+        <h2 class="font-headline-md text-[18px] font-bold text-[#402318]">No pudimos cargar los compradores</h2>
+        <p class="font-label-md text-[11px] text-[#7A6558]">{{ error }}</p>
+        <button
+          class="min-h-11 rounded-xl bg-[#783719] px-5 font-label-lg text-label-lg font-bold text-[#FFFAF6] transition-colors hover:bg-[#5E2B14] active:scale-95"
+          type="button"
+          @click="retry"
+        >
+          Reintentar
+        </button>
+      </div>
+    </div>
 
-            <div class="flex flex-col">
-              <h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-bold leading-tight">{{ sheet?.name }}</h2>
-              <div class="flex items-center gap-2 mt-1 text-on-surface-variant font-body-md text-body-md">
-                <span class="material-symbols-outlined text-primary text-base">near_me</span>
-                <span>{{ sheet?.location }}</span>
-              </div>
-            </div>
-
-            <div class="w-full bg-surface-container rounded-2xl p-space-md flex flex-col gap-space-xs mt-space-xs">
-              <div class="flex items-center justify-between">
-                <span class="font-label-md text-label-md uppercase tracking-wider text-primary font-bold">Precio hoy</span>
-                <span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-md text-[11px] font-bold">Mejor de la zona</span>
-              </div>
-              <div class="flex items-baseline gap-space-xs flex-wrap">
-                <span class="font-price-hero-mobile text-price-hero-mobile text-primary font-bold tracking-tight">{{ sheet?.price }}</span>
-                <span class="font-body-md text-body-md text-on-surface-variant font-semibold">{{ sheet?.unit }}</span>
-              </div>
-              <div class="flex items-center gap-2 flex-wrap pt-1">
-                <span
-                  v-for="variety in sheet?.varieties ?? []"
-                  :key="variety"
-                  class="px-3 py-1 rounded-xl bg-surface-container-high text-on-surface font-label-md text-label-md font-semibold"
-                >{{ variety }}</span>
-              </div>
-            </div>
-
-            <div class="w-full grid grid-cols-12 gap-space-xs pt-1">
-              <a class="col-span-5 min-h-[48px] px-3 rounded-2xl bg-primary text-on-primary font-headline-md text-headline-md flex items-center justify-center gap-2 shadow-[0_4px_16px_rgba(112,37,6,0.25)] active:scale-95 transition-all" :href="sheet?.call || undefined">
-                <span class="material-symbols-outlined text-headline-md" style="font-variation-settings: 'FILL' 1">call</span>
-                <span class="truncate">Llamar</span>
-              </a>
-              <a class="col-span-4 min-h-[48px] px-2 rounded-2xl bg-secondary text-on-secondary font-headline-md text-headline-md flex items-center justify-center gap-1.5 shadow-[0_4px_14px_rgba(0,109,68,0.2)] active:scale-95 transition-all" :href="sheet?.whatsapp || undefined" rel="noopener noreferrer" target="_blank">
-                <span class="material-symbols-outlined text-headline-md">chat</span>
-                <span class="truncate">WhatsApp</span>
-              </a>
-              <NuxtLink class="col-span-3 min-h-[48px] px-2 rounded-2xl bg-surface-container-high text-on-surface font-headline-md text-headline-md flex items-center justify-center gap-1 hover:bg-surface-container-highest active:scale-95 transition-all" :to="sheet?.detail ?? '/lista'">
-                <span class="material-symbols-outlined text-headline-md text-primary">arrow_forward</span>
-              </NuxtLink>
-            </div>
-          </div>
+    <div
+      v-else-if="loaded && mapPoints.length === 0"
+      class="absolute inset-0 z-20 flex items-center justify-center px-4"
+    >
+      <div class="pointer-events-auto flex w-full max-w-md flex-col items-center gap-3 rounded-3xl border border-white/70 bg-[#FFFAF6] p-6 text-center shadow-[0_22px_60px_-18px_rgba(64,35,24,0.45)]">
+        <span class="material-symbols-outlined text-[34px] text-[#B9A99B]">location_off</span>
+        <h2 class="font-headline-md text-[18px] font-bold text-[#402318]">
+          No hay compradores en {{ radiusKm }} km
+        </h2>
+        <p class="font-label-md text-[11px] text-[#7A6558]">
+          Prueba con otra variedad, quita los filtros o amplía el radio de búsqueda.
+        </p>
+        <div class="flex flex-wrap justify-center gap-2">
+          <button
+            v-if="selectedVarieties.length > 0"
+            class="min-h-10 rounded-xl bg-[#F3E3D8] px-4 font-label-lg text-label-lg font-bold text-[#783719] transition-colors hover:bg-[#EBD6C8]"
+            type="button"
+            @click="resetVarieties"
+          >
+            Quitar filtros
+          </button>
+          <button
+            v-if="radiusKm < 1000"
+            class="min-h-10 rounded-xl bg-[#783719] px-4 font-label-lg text-label-lg font-bold text-[#FFFAF6] transition-colors hover:bg-[#5E2B14]"
+            type="button"
+            @click="expandRadius"
+          >
+            Ampliar radio
+          </button>
         </div>
       </div>
     </div>
+
+    <Transition name="toast">
+      <div
+        v-if="toast"
+        class="absolute bottom-24 left-1/2 z-50 flex max-w-[92vw] -translate-x-1/2 items-center gap-2 rounded-full bg-[#402318] px-4 py-2.5 text-[#FFFAF6] shadow-[0_14px_34px_-10px_rgba(64,35,24,0.6)]"
+        role="status"
+      >
+        <span class="material-symbols-outlined text-[17px] text-[#9AF5C0]">my_location</span>
+        <span class="truncate font-label-md text-[11px] font-semibold">{{ toast }}</span>
+      </div>
+    </Transition>
   </main>
-
-  <nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/90 backdrop-blur-xl shadow-[0_-4px_16px_rgba(68,21,10,0.06)]">
-    <div class="flex justify-around items-center h-20 px-space-sm max-w-md mx-auto">
-      <a class="flex flex-col items-center justify-center gap-space-xs min-h-[48px] min-w-[64px] rounded-xl text-primary font-bold transition-all" aria-current="page" href="/">
-        <span class="material-symbols-outlined text-headline-md">explore</span>
-        <span class="font-label-md text-label-md">Mapa</span>
-      </a>
-      <a class="flex flex-col items-center justify-center gap-space-xs min-h-[48px] min-w-[64px] rounded-xl text-on-surface-variant hover:text-on-surface transition-all" href="/lista">
-        <span class="material-symbols-outlined text-headline-md">trending_up</span>
-        <span class="font-label-md text-label-md">Precios</span>
-      </a>
-      <a class="flex flex-col items-center justify-center gap-space-xs min-h-[48px] min-w-[64px] rounded-xl text-on-surface-variant hover:text-on-surface transition-all" href="/lista">
-        <span class="material-symbols-outlined text-headline-md">store</span>
-        <span class="font-label-md text-label-md">Cooperativas</span>
-      </a>
-    </div>
-  </nav>
 </template>
+
+<style scoped>
+.toast-enter-active,
+.toast-leave-active {
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.toast-enter-from,
+.toast-leave-to {
+  opacity: 0;
+  transform: translate(-50%, 8px);
+}
+</style>
