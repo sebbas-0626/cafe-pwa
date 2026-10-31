@@ -233,7 +233,7 @@ const offers = computed<OfferListItem[]>(() => {
     </div>
   </main>
 
-  <nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/90 backdrop-blur-xl shadow-[0_-4px_16px_rgba(68,21,10,0.06)]">
+  <nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md z-50 pb-safe bg-surface/90 backdrop-blur-xl shadow-[0_-4px_16px_rgba(68,21,10,0.06)]">
     <div class="flex justify-around items-center h-20 px-space-sm max-w-md mx-auto">
       <a class="flex flex-col items-center justify-center gap-space-xs min-h-[48px] min-w-[64px] rounded-xl text-on-surface-variant hover:text-on-surface transition-all" href="/">
         <span class="material-symbols-outlined text-headline-md">explore</span>
