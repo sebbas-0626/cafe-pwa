@@ -72,3 +72,10 @@ Backend expone API REST JSON. Admin usa Filament (se instalará después).
 - NO commitear cambios en `template/` (es fuente de verdad, solo lectura).
 - Si una tarea toca tanto `api/` como `web/`, dividir en dos ramas separadas.
 - Mensaje de commit: `feat(web): <descripción corta>` o `fix(web): <descripción corta>`.
+
+## Flujo de precios
+- cooperative_admin publica y actualiza precios directamente en Filament.
+- Las ofertas se crean con status = 'approved' (no hay aprobación por oferta).
+- El admin verifica la cooperativa una vez (buyer.is_active = true).
+- El admin puede suspender la cooperativa (is_active = false) para ocultar sus ofertas.
+- NO implementar flujo de aprobación por oferta. Solo verificación de cooperativa.

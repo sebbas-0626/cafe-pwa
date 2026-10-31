@@ -184,3 +184,10 @@
 - IMPORTANTE: el scoping por buyer_id (cooperative_admin solo ve sus datos) es
   requisito del MVP, no post-MVP. Ver T4.6 en TASKS.md del backend.
 - Panel /cooperativa en Nuxt: post-MVP (no ahora).
+
+## Flujo de precios
+- cooperative_admin publica y actualiza precios directamente en Filament.
+- Las ofertas se crean con status = 'approved' (no hay aprobación por oferta).
+- El admin verifica la cooperativa una vez (buyer.is_active = true).
+- El admin puede suspender la cooperativa (is_active = false) para ocultar sus ofertas.
+- NO implementar flujo de aprobación por oferta. Solo verificación de cooperativa.

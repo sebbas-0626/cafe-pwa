@@ -254,3 +254,7 @@ Setup → Tipos → Componentes → Páginas → Composables API → Conexión A
 - Todas las pantallas (mapa, lista, perfil) son públicas.
 - NO crear pantallas de login/registro para farmers.
 - La autenticación solo existe para admin y cooperative_admin (panel Filament, no PWA).
+## Nota: actualización de precios
+- El cooperative_admin actualiza precios directamente en Filament (sin aprobación del admin).
+- La PWA solo muestra ofertas con status = 'approved' y valid_until > now().
+- Si una cooperativa es suspendida (is_active = false), sus ofertas no aparecen en la PWA.
