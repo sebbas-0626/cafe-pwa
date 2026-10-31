@@ -19,7 +19,7 @@ const emit = defineEmits<{
 const menuOpen = ref(false)
 
 const menuLinks = [
-  { label: 'Mapa de precios', icon: 'explore', to: '/' },
+  { label: 'Mapa de precios', icon: 'explore', to: '/mapa' },
   { label: 'Comparar precios', icon: 'trending_up', to: '/lista' },
   { label: 'Calculadora de lote', icon: 'calculate', to: '/calculadora' }
 ]

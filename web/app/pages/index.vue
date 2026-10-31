@@ -1,15 +1,34 @@
 <script setup lang="ts">
-import MapaScreen from '~/components/cafe/MapaScreen.vue'
+import OnboardingScreen from '~/components/stitch/OnboardingScreen.vue'
+import WelcomeScreen from '~/components/stitch/WelcomeScreen.vue'
 
 definePageMeta({
   layout: false
 })
 
+const ONBOARDING_KEY = 'cafeprecios-onboarding-seen'
+
+const isFirstVisit = ref<boolean | null>(null)
+
+onMounted(() => {
+  isFirstVisit.value = localStorage.getItem(ONBOARDING_KEY) === null
+})
+
+const finishOnboarding = (): void => {
+  localStorage.setItem(ONBOARDING_KEY, '1')
+  isFirstVisit.value = false
+}
+
 useHead({
-  title: 'Café Huila · Mapa de precios'
+  title: 'CaféPrecios · Bienvenida'
 })
 </script>
 
 <template>
-  <MapaScreen />
+  <OnboardingScreen
+    v-if="isFirstVisit === true"
+    @finish="finishOnboarding"
+  />
+  <WelcomeScreen v-else-if="isFirstVisit === false" />
+  <div v-else class="min-h-screen bg-surface" />
 </template>
