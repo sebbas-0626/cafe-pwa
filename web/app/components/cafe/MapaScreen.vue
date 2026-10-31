@@ -60,7 +60,7 @@ function retry(): void {
 </script>
 
 <template>
-  <main class="absolute inset-0 overflow-hidden bg-[#E9DFD0] font-body-md text-[#402318]">
+  <main class="fixed inset-0 overflow-hidden bg-[#E9DFD0] font-body-md text-[#402318]">
     <ClientOnly>
       <CoffeeMap
         ref="mapRef"

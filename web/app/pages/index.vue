@@ -7,10 +7,16 @@ definePageMeta({
 })
 
 const ONBOARDING_KEY = 'cafeprecios-onboarding-seen'
+const MOBILE_BREAKPOINT = 768
 
 const isFirstVisit = ref<boolean | null>(null)
 
 onMounted(() => {
+  if (window.innerWidth >= MOBILE_BREAKPOINT) {
+    navigateTo('/mapa', { replace: true })
+    return
+  }
+
   isFirstVisit.value = localStorage.getItem(ONBOARDING_KEY) === null
 })
 

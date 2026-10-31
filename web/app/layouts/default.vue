@@ -14,9 +14,8 @@ const links = [
 </script>
 
 <template>
-  <div class="min-h-screen bg-surface-dim flex justify-center">
-    <div class="w-full max-w-md min-h-screen bg-background shadow-xl flex flex-col relative font-body-md text-body-md text-on-surface antialiased selection:bg-primary-fixed">
-      <header class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-md z-50 pt-safe bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(68,21,10,0.04)]">
+  <div class="min-h-screen w-full bg-background flex flex-col relative font-body-md text-body-md text-on-surface antialiased selection:bg-primary-fixed">
+    <header class="fixed top-0 inset-x-0 w-full z-50 pt-safe bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(68,21,10,0.04)]">
       <div class="h-16 px-margin max-w-7xl mx-auto flex items-center justify-between gap-space-sm">
         <NuxtLink class="flex items-center gap-space-sm min-w-0" to="/">
           <span class="material-symbols-outlined text-headline-md text-primary">coffee</span>
@@ -85,9 +84,8 @@ const links = [
           {{ link.label }}
         </NuxtLink>
       </nav>
-      </header>
+    </header>
 
-      <slot />
-    </div>
+    <slot />
   </div>
 </template>
