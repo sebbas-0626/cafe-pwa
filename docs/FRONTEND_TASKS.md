@@ -248,3 +248,9 @@ Setup → Tipos → Componentes → Páginas → Composables API → Conexión A
 ### T8.1 - Filtros (mejor precio / más cercano)
 ### T8.2 - Loading skeletons
 ### T8.3 - Manejo de errores visual
+
+## Nota: autenticación
+- En el MVP, el caficultor NO se registra ni inicia sesión.
+- Todas las pantallas (mapa, lista, perfil) son públicas.
+- NO crear pantallas de login/registro para farmers.
+- La autenticación solo existe para admin y cooperative_admin (panel Filament, no PWA).
