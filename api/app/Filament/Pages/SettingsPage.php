@@ -23,6 +23,8 @@ class SettingsPage extends Page
 
     protected static ?string $navigationLabel = 'Settings';
 
+    protected static string|\UnitEnum|null $navigationGroup = 'Sistema';
+
     protected static ?string $title = 'Settings';
 
     protected static ?int $navigationSort = 10;
