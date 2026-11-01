@@ -4,14 +4,16 @@ namespace App\Domains\PriceOffer\Repositories\Eloquent;
 
 use App\Domains\PriceOffer\Models\PriceOffer;
 use App\Domains\PriceOffer\Repositories\Contracts\PriceOfferRepositoryInterface;
+use App\Enums\CoffeeState;
 use Illuminate\Database\Eloquent\Collection;
 
 class PriceOfferRepository implements PriceOfferRepositoryInterface
 {
-    public function findApprovedByVariety(int $varietyId): Collection
+    public function findApprovedByVariety(int $varietyId, CoffeeState $coffeeState): Collection
     {
         return PriceOffer::query()
             ->where('coffee_variety_id', $varietyId)
+            ->where('coffee_state', $coffeeState->value)
             ->approvedAndValid()
             ->with(['buyer', 'coffeeVariety'])
             ->orderBy('price_per_kg')

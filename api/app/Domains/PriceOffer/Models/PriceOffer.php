@@ -4,6 +4,7 @@ namespace App\Domains\PriceOffer\Models;
 
 use App\Domains\Buyer\Models\Buyer;
 use App\Domains\CoffeeVariety\Models\CoffeeVariety;
+use App\Enums\CoffeeState;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -12,7 +13,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 #[Fillable([
     'buyer_id',
     'coffee_variety_id',
+    'coffee_state',
     'price_per_kg',
+    'moisture_required',
+    'yield_factor',
     'unit',
     'valid_from',
     'valid_until',
@@ -24,7 +28,10 @@ class PriceOffer extends Model
     protected function casts(): array
     {
         return [
+            'coffee_state' => CoffeeState::class,
             'price_per_kg' => 'decimal:2',
+            'moisture_required' => 'decimal:2',
+            'yield_factor' => 'decimal:2',
             'valid_from' => 'datetime',
             'valid_until' => 'datetime',
         ];

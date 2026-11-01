@@ -3,6 +3,7 @@
 namespace App\Domains\PriceOffer\Repositories\Contracts;
 
 use App\Domains\PriceOffer\Models\PriceOffer;
+use App\Enums\CoffeeState;
 use Illuminate\Database\Eloquent\Collection;
 
 interface PriceOfferRepositoryInterface
@@ -10,7 +11,7 @@ interface PriceOfferRepositoryInterface
     /**
      * @return Collection<int, PriceOffer>
      */
-    public function findApprovedByVariety(int $varietyId): Collection;
+    public function findApprovedByVariety(int $varietyId, CoffeeState $coffeeState): Collection;
 
     /**
      * @return Collection<int, PriceOffer>

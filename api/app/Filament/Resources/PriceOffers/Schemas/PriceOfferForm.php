@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\PriceOffers\Schemas;
 
+use App\Enums\CoffeeState;
 use App\Enums\UserRole;
 use App\Models\User;
 use Filament\Forms\Components\DateTimePicker;
@@ -30,8 +31,20 @@ class PriceOfferForm
                 Select::make('coffee_variety_id')
                     ->relationship('coffeeVariety', 'name')
                     ->required(),
+                Select::make('coffee_state')
+                    ->label('Estado del café')
+                    ->options(CoffeeState::class)
+                    ->default(CoffeeState::PergaminoSeco->value)
+                    ->required(),
                 TextInput::make('price_per_kg')
                     ->required()
+                    ->numeric(),
+                TextInput::make('moisture_required')
+                    ->label('Humedad exigida')
+                    ->numeric()
+                    ->suffix('%'),
+                TextInput::make('yield_factor')
+                    ->label('Factor de rendimiento')
                     ->numeric(),
                 TextInput::make('unit')
                     ->required()
