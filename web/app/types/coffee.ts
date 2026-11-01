@@ -17,6 +17,23 @@ export type CoffeeMapViewMode = 'map' | 'list'
 
 export type CoffeeBuyerSource = 'api' | 'mock'
 
+export type CoffeeState =
+  | 'cereza'
+  | 'pergamino_humedo'
+  | 'pergamino_seco'
+  | 'verde_almendra'
+  | 'pasilla'
+
+export const DEFAULT_COFFEE_STATE: CoffeeState = 'pergamino_seco'
+
+export const COFFEE_STATE_OPTIONS: { value: CoffeeState; label: string }[] = [
+  { value: 'cereza', label: 'Cereza' },
+  { value: 'pergamino_humedo', label: 'Pergamino húmedo' },
+  { value: 'pergamino_seco', label: 'Pergamino seco' },
+  { value: 'verde_almendra', label: 'Verde / almendra' },
+  { value: 'pasilla', label: 'Pasilla' }
+]
+
 export const COFFEE_VARIETY_FILTERS: CoffeeVarietyFilter[] = [
   'Todas',
   'Castillo',
@@ -56,6 +73,9 @@ export interface CoffeeBuyerApiOffer {
   id: number
   price_per_kg: string | number
   unit?: string
+  coffee_state?: string
+  moisture_required?: string | number | null
+  yield_factor?: string | number | null
   valid_from?: string
   valid_until: string
   status?: string
@@ -80,6 +100,7 @@ export interface CoffeeBuyerApi {
 export interface CoffeeBuyerOffer {
   id: number
   variety: string
+  coffeeState: CoffeeState
   pricePerKg: number
   unit: string
   validUntil: string

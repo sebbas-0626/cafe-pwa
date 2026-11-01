@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { CoffeeBuyerSource, CoffeeVarietyFilter } from '~/types/coffee'
+import type { CoffeeBuyerSource, CoffeeState, CoffeeVarietyFilter } from '~/types/coffee'
 import CoffeeMapFilters from './CoffeeMapFilters.vue'
 
 defineProps<{
@@ -9,26 +9,27 @@ defineProps<{
   source: CoffeeBuyerSource | null
   locationLabel: string
   selectedVarieties: CoffeeVarietyFilter[]
+  coffeeState: CoffeeState
 }>()
 
 const emit = defineEmits<{
   locate: []
   toggleVariety: [variety: CoffeeVarietyFilter]
+  selectCoffeeState: [coffeeState: CoffeeState]
 }>()
 
 const menuOpen = ref(false)
 
 const menuLinks = [
   { label: 'Mapa de precios', icon: 'explore', to: '/mapa' },
-  { label: 'Comparar precios', icon: 'trending_up', to: '/lista' },
-  { label: 'Calculadora de lote', icon: 'calculate', to: '/calculadora' }
+  { label: 'Comparar precios', icon: 'trending_up', to: '/lista' }
 ]
 </script>
 
 <template>
   <header class="pointer-events-none absolute inset-x-3 top-[max(0.75rem,env(safe-area-inset-top))] z-30 flex flex-col gap-2 md:inset-x-4 md:top-4">
     <div class="pointer-events-auto relative flex items-center gap-2 rounded-2xl border border-white/70 bg-[#FFFAF6]/95 px-2.5 py-2 shadow-[0_10px_30px_-8px_rgba(64,35,24,0.28)] backdrop-blur-md md:gap-4 md:px-5 md:py-3">
-      <NuxtLink class="flex min-w-0 items-center gap-2.5 md:gap-3" to="/" aria-label="Café Huila, ir al mapa">
+      <NuxtLink class="flex min-w-0 items-center gap-2.5 md:gap-3" to="/mapa" aria-label="Café Huila, ir al mapa">
         <span class="relative grid h-10 w-10 shrink-0 place-items-center rounded-full bg-[#F3E3D8] text-[#783719] md:h-11 md:w-11">
           <span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'FILL' 1">local_cafe</span>
           <span class="material-symbols-outlined absolute -right-1 -top-1 rounded-full bg-[#FFFAF6] text-[15px] text-[#087D50]" style="font-variation-settings: 'FILL' 1">eco</span>
@@ -112,7 +113,9 @@ const menuLinks = [
     <CoffeeMapFilters
       class="pointer-events-auto pl-0.5"
       :selected="selectedVarieties"
+      :coffee-state="coffeeState"
       @toggle="emit('toggleVariety', $event)"
+      @select-state="emit('selectCoffeeState', $event)"
     />
   </header>
 </template>

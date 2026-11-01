@@ -1,15 +1,17 @@
 import type {
   CoffeeMapViewMode,
+  CoffeeState,
   CoffeeUserLocation,
   CoffeeVarietyFilter
 } from '~/types/coffee'
-import { DEFAULT_RADIUS_KM, PITALITO_CENTER } from '~/types/coffee'
+import { DEFAULT_COFFEE_STATE, DEFAULT_RADIUS_KM, PITALITO_CENTER } from '~/types/coffee'
 import { useGeolocation } from './useGeolocation'
 
 let toastTimer: ReturnType<typeof setTimeout> | null = null
 
 export function useCoffeeMap() {
   const selectedVarieties = useState<CoffeeVarietyFilter[]>('coffee-map:varieties', () => [])
+  const coffeeState = useState<CoffeeState>('coffee-map:coffee-state', () => DEFAULT_COFFEE_STATE)
   const selectedBuyerId = useState<number | null>('coffee-map:selected-buyer', () => null)
   const viewMode = useState<CoffeeMapViewMode>('coffee-map:view-mode', () => 'map')
   const radiusKm = useState<number>('coffee-map:radius', () => DEFAULT_RADIUS_KM)
@@ -62,6 +64,11 @@ export function useCoffeeMap() {
     selectedVarieties.value = []
   }
 
+  function setCoffeeState(value: CoffeeState): void {
+    coffeeState.value = value
+    selectedBuyerId.value = null
+  }
+
   function selectBuyer(id: number | null): void {
     selectedBuyerId.value = id
   }
@@ -101,6 +108,7 @@ export function useCoffeeMap() {
 
   return {
     selectedVarieties,
+    coffeeState,
     selectedBuyerId,
     viewMode,
     radiusKm,
@@ -113,6 +121,7 @@ export function useCoffeeMap() {
     locationLabel,
     toggleVariety,
     resetVarieties,
+    setCoffeeState,
     selectBuyer,
     clearSelection,
     setRadius,

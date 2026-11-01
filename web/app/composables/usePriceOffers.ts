@@ -1,4 +1,6 @@
 import type { PriceOffer } from '~/types'
+import type { CoffeeState } from '~/types/coffee'
+import { DEFAULT_COFFEE_STATE } from '~/types/coffee'
 import { type ApiError, toApiError } from './useApi'
 
 export function usePriceOffers() {
@@ -7,12 +9,17 @@ export function usePriceOffers() {
   const loading = ref(false)
   const error = ref<ApiError | null>(null)
 
-  async function fetchByVariety(varietyId: number): Promise<PriceOffer[]> {
+  async function fetchByVariety(
+    varietyId: number,
+    coffeeState: CoffeeState = DEFAULT_COFFEE_STATE
+  ): Promise<PriceOffer[]> {
     loading.value = true
     error.value = null
 
     try {
-      const { data } = await api.get<PriceOffer[]>(`/price-offers/variety/${varietyId}`)
+      const { data } = await api.get<PriceOffer[]>(`/price-offers/variety/${varietyId}`, {
+        params: { coffee_state: coffeeState }
+      })
       offers.value = data
 
       return data

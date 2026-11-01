@@ -8,7 +8,6 @@ const adminLoginUrl = `${String(apiBase).replace(/\/api\/?$/, '')}/admin/login`
 const links = [
   { label: 'Mapa', to: '/mapa' },
   { label: 'Precios', to: '/lista' },
-  { label: 'Calculadora', to: '/calculadora' },
   { label: 'Cooperativas', to: '/lista' }
 ]
 </script>

@@ -1,3 +1,5 @@
+import type { CoffeeState } from './coffee'
+
 export type BuyerType = 'cooperative' | 'private_buyer' | 'exporter'
 
 export type PriceUnit = 'kg' | 'arroba' | 'carga'
@@ -31,7 +33,10 @@ export interface PriceOffer {
   id: number
   buyer_id: number
   coffee_variety_id: number
+  coffee_state: CoffeeState
   price_per_kg: string
+  moisture_required: string | null
+  yield_factor: string | null
   unit: PriceUnit
   valid_from: string
   valid_until: string

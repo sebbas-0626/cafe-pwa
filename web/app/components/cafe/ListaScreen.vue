@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { OfferCardProps } from '~/types'
 import type { CoffeePoint, CoffeeVarietyFilter } from '~/types/coffee'
-import { PITALITO_CENTER } from '~/types/coffee'
+import { COFFEE_STATE_OPTIONS, PITALITO_CENTER } from '~/types/coffee'
 import { distanceInKm, useGeolocation } from '~/composables/useGeolocation'
 import { matchesVariety } from '~/services/coffeeBuyerService'
 import { sortFilters, varietyFilters } from './data'
@@ -11,10 +11,23 @@ interface OfferListItem extends OfferCardProps {
   distanceKm: number
 }
 
+const props = withDefaults(defineProps<{ selectable?: boolean }>(), {
+  selectable: false
+})
+
+const emit = defineEmits<{
+  select: [buyerId: number]
+}>()
+
 const { buyers, loading, error, fetchBuyers } = useBuyers()
 const { position } = useGeolocation()
+const { coffeeState, setCoffeeState } = useCoffeeMap()
 
-fetchBuyers()
+fetchBuyers(coffeeState.value)
+
+watch(coffeeState, () => {
+  void fetchBuyers(coffeeState.value)
+})
 
 const activeSort = ref<string>('Mejor precio')
 const activeVariety = ref<string>('Todas las variedades')
@@ -71,7 +84,7 @@ const offers = computed<OfferListItem[]>(() => {
 </script>
 
 <template>
-  <main class="flex flex-col relative w-full pt-16 pb-28 bg-background min-h-screen">
+  <main class="flex flex-col relative w-full pt-4 pb-28 bg-background min-h-screen md:min-h-0 md:pb-6">
     <div class="flex flex-col w-full max-w-7xl mx-auto lg:px-8">
       <div class="px-margin pt-space-sm pb-space-xs flex items-center justify-between">
         <div class="flex items-center gap-space-xs">
@@ -81,6 +94,25 @@ const offers = computed<OfferListItem[]>(() => {
         <div class="flex items-center gap-space-xs px-2.5 py-1 rounded-full bg-surface-container shadow-sm">
           <span class="material-symbols-outlined text-label-md text-secondary" style="font-variation-settings: 'FILL' 1">verified</span>
           <span class="font-label-md text-label-md text-on-surface-variant font-bold">4 Puntos activos</span>
+        </div>
+      </div>
+
+      <div class="mx-margin mb-space-md flex flex-col gap-1.5">
+        <span class="font-label-md text-label-md text-on-surface-variant font-bold uppercase tracking-wider">Estado del café</span>
+        <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
+          <button
+            v-for="state in COFFEE_STATE_OPTIONS"
+            :key="state.value"
+            class="shrink-0 px-3.5 py-1.5 rounded-full font-label-md text-label-md transition-all"
+            :class="coffeeState === state.value
+              ? 'bg-secondary text-on-secondary shadow-sm font-bold'
+              : 'bg-surface-container text-on-surface hover:bg-surface-container-high font-semibold'"
+            type="button"
+            :aria-pressed="coffeeState === state.value"
+            @click="setCoffeeState(state.value)"
+          >
+            {{ state.label }}
+          </button>
         </div>
       </div>
 
@@ -151,7 +183,7 @@ const offers = computed<OfferListItem[]>(() => {
         </div>
       </div>
 
-      <div class="px-margin flex flex-col gap-space-md pb-space-xl grid-cols-1 md:grid md:grid-cols-2 lg:grid-cols-3">
+      <div class="px-margin flex flex-col gap-space-md pb-space-xl">
         <template v-if="loading">
           <div
             v-for="n in 6"
@@ -174,7 +206,7 @@ const offers = computed<OfferListItem[]>(() => {
           <button
             class="self-start min-h-[44px] px-space-md rounded-lg bg-primary text-on-primary font-label-lg text-label-lg font-bold active:scale-95 transition-all"
             type="button"
-            @click="fetchBuyers()"
+            @click="fetchBuyers(coffeeState)"
           >
             Reintentar
           </button>
@@ -188,39 +220,9 @@ const offers = computed<OfferListItem[]>(() => {
           v-for="offer in offers"
           :key="offer.buyerName"
           v-bind="offer"
+          :selectable="props.selectable"
+          @select="emit('select', $event)"
         />
-
-        <div class="rounded-2xl p-space-md bg-surface-container shadow-md flex flex-col gap-space-sm md:col-span-2 lg:col-span-3">
-          <div class="flex items-center gap-space-sm">
-            <div class="w-12 h-12 rounded-xl bg-primary text-on-primary flex items-center justify-center shrink-0 shadow-sm">
-              <span class="material-symbols-outlined text-2xl">calculate</span>
-            </div>
-            <div class="flex flex-col">
-              <span class="font-headline-md text-headline-md font-bold text-on-surface">Calculadora de Lote</span>
-              <span class="font-label-md text-label-md text-on-surface-variant">Liquida arrobas o kilos con el mejor precio</span>
-            </div>
-          </div>
-          <div class="grid grid-cols-2 gap-space-sm pt-space-xs">
-            <div class="flex flex-col gap-1">
-              <label class="font-label-md text-label-md text-on-surface-variant font-bold" for="input-arrobas">Tus Arrobas (@)</label>
-              <div class="flex items-center bg-surface-container-lowest rounded-xl p-1 shadow-sm">
-                <button class="w-10 h-10 rounded-lg flex items-center justify-center bg-surface-container hover:bg-surface-container-high text-on-surface font-bold text-lg active:scale-90 transition-all" type="button">-</button>
-                <input id="input-arrobas" class="w-full text-center bg-transparent font-headline-md text-headline-md font-bold text-on-surface focus:outline-none" type="number" value="20">
-                <button class="w-10 h-10 rounded-lg flex items-center justify-center bg-surface-container hover:bg-surface-container-high text-on-surface font-bold text-lg active:scale-90 transition-all" type="button">+</button>
-              </div>
-            </div>
-            <div class="flex flex-col gap-1 justify-end">
-              <label class="font-label-md text-label-md text-secondary font-bold">Valor Estimado</label>
-              <div class="h-12 bg-secondary-container rounded-xl px-space-sm flex items-center justify-center shadow-sm">
-                <span class="font-headline-md text-headline-md font-bold text-on-secondary-container truncate">$ 3.800.000</span>
-              </div>
-            </div>
-          </div>
-          <button class="w-full mt-1 min-h-[48px] rounded-xl bg-primary text-on-primary font-label-lg text-label-lg font-bold flex items-center justify-center gap-space-xs shadow-sm active:scale-98 transition-all" type="button">
-            <span class="material-symbols-outlined text-body-lg">receipt_long</span>
-            <span>Simular con factor de rendimiento</span>
-          </button>
-        </div>
       </div>
 
       <div class="mx-margin mb-space-lg p-space-sm rounded-xl bg-primary text-on-primary flex items-center justify-between shadow-sm md:col-span-2 lg:col-span-3">
@@ -232,24 +234,4 @@ const offers = computed<OfferListItem[]>(() => {
       </div>
     </div>
   </main>
-
-  <nav class="fixed bottom-0 inset-x-0 w-full z-50 pb-safe bg-surface/90 backdrop-blur-xl shadow-[0_-4px_16px_rgba(68,21,10,0.06)]">
-    <div class="flex justify-around items-center h-20 px-space-sm w-full">
-      <a class="flex flex-col items-center justify-center gap-space-xs min-h-[48px] min-w-[64px] rounded-xl text-on-surface-variant hover:text-on-surface transition-all" href="/">
-        <span class="material-symbols-outlined text-headline-md">explore</span>
-        <span class="font-label-md text-label-md">Mapa</span>
-      </a>
-      <a class="flex flex-col items-center justify-center gap-space-xs min-h-[48px] min-w-[64px] rounded-xl transition-all relative text-primary font-bold" aria-current="page" href="/lista">
-        <div class="relative flex items-center justify-center">
-          <span class="material-symbols-outlined text-headline-md">trending_up</span>
-          <span class="absolute -top-1 -right-3 px-1.5 py-0.2 rounded-full bg-secondary text-on-secondary font-label-md text-[10px] leading-tight font-bold tracking-tight uppercase">En vivo</span>
-        </div>
-        <span class="font-label-md text-label-md">Precios</span>
-      </a>
-      <a class="flex flex-col items-center justify-center gap-space-xs min-h-[48px] min-w-[64px] rounded-xl text-on-surface-variant hover:text-on-surface transition-all" href="/lista">
-        <span class="material-symbols-outlined text-headline-md">store</span>
-        <span class="font-label-md text-label-md">Cooperativas</span>
-      </a>
-    </div>
-  </nav>
 </template>

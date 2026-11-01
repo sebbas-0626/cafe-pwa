@@ -3,6 +3,9 @@ const emit = defineEmits<{
   finish: []
 }>()
 
+const { apiBase } = useRuntimeConfig().public
+const loginUrl = `${String(apiBase).replace(/\/api\/?$/, '')}/admin`
+
 interface OnboardingSlide {
   icon: string
   title: string
@@ -55,10 +58,8 @@ const nextSlide = (): void => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-surface-dim flex justify-center">
-    <div class="w-full max-w-md min-h-screen bg-surface shadow-xl flex flex-col">
-      <main class="flex flex-col relative w-full min-h-screen bg-surface">
-        <div class="relative w-full overflow-hidden shadow-2xl flex flex-col justify-between" style="min-height: 100dvh">
+  <main class="flex flex-col relative w-full min-h-screen overflow-hidden bg-surface md:hidden">
+    <div class="relative w-full overflow-hidden shadow-2xl flex flex-col justify-between" style="min-height: 100dvh">
           <img
             alt="Manos trabajadoras campesinas sosteniendo cerezas maduras de café en el campo colombiano"
             class="absolute inset-0 w-full h-full object-cover object-center z-0"
@@ -177,13 +178,15 @@ const nextSlide = (): void => {
                     <span>Ver siguiente</span>
                     <span class="material-symbols-outlined text-[16px]">chevron_right</span>
                   </button>
-                  <button
-                    class="font-label-lg text-label-lg text-outline-variant hover:text-surface-container-low transition-colors py-2 focus:outline-none"
-                    type="button"
-                    @click="navigateTo('/login')"
+                  <a
+                    class="font-label-lg text-label-lg text-outline-variant hover:text-surface-container-low transition-colors py-2 flex items-center gap-1"
+                    :href="loginUrl"
+                    rel="noopener noreferrer"
+                    target="_blank"
                   >
-                    Ya tengo cuenta • Entrar
-                  </button>
+                    <span class="material-symbols-outlined text-[16px]">login</span>
+                    <span>Iniciar sesión</span>
+                  </a>
                 </div>
               </div>
             </div>
@@ -195,8 +198,6 @@ const nextSlide = (): void => {
               </p>
             </div>
           </div>
-        </div>
-      </main>
     </div>
-  </div>
+  </main>
 </template>

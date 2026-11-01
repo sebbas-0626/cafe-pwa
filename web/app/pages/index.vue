@@ -3,16 +3,15 @@ import OnboardingScreen from '~/components/stitch/OnboardingScreen.vue'
 import WelcomeScreen from '~/components/stitch/WelcomeScreen.vue'
 
 definePageMeta({
-  layout: false
+  layout: 'mobile'
 })
 
 const ONBOARDING_KEY = 'cafeprecios-onboarding-seen'
-const MOBILE_BREAKPOINT = 768
 
 const isFirstVisit = ref<boolean | null>(null)
 
 onMounted(() => {
-  if (window.innerWidth >= MOBILE_BREAKPOINT) {
+  if (window.matchMedia('(min-width: 768px)').matches) {
     navigateTo('/mapa', { replace: true })
     return
   }
@@ -31,10 +30,12 @@ useHead({
 </script>
 
 <template>
-  <OnboardingScreen
-    v-if="isFirstVisit === true"
-    @finish="finishOnboarding"
-  />
-  <WelcomeScreen v-else-if="isFirstVisit === false" />
-  <div v-else class="min-h-screen bg-surface" />
+  <div class="md:hidden">
+    <OnboardingScreen
+      v-if="isFirstVisit === true"
+      @finish="finishOnboarding"
+    />
+    <WelcomeScreen v-else-if="isFirstVisit === false" />
+    <div v-else class="min-h-screen bg-surface" />
+  </div>
 </template>

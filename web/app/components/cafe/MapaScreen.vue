@@ -8,6 +8,7 @@ import CoffeeMapList from '~/components/coffee-map/CoffeeMapList.vue'
 
 const {
   selectedVarieties,
+  coffeeState,
   selectedBuyerId,
   viewMode,
   radiusKm,
@@ -20,6 +21,7 @@ const {
   locationLabel,
   toggleVariety,
   resetVarieties,
+  setCoffeeState,
   selectBuyer,
   clearSelection,
   setRadius,
@@ -60,7 +62,7 @@ function retry(): void {
 </script>
 
 <template>
-  <main class="fixed inset-0 overflow-hidden bg-[#E9DFD0] font-body-md text-[#402318]">
+  <main class="absolute inset-0 overflow-hidden bg-[#E9DFD0] font-body-md text-[#402318]">
     <ClientOnly>
       <CoffeeMap
         ref="mapRef"
@@ -85,8 +87,10 @@ function retry(): void {
       :source="source"
       :location-label="locationLabel"
       :selected-varieties="selectedVarieties"
+      :coffee-state="coffeeState"
       @locate="locate"
       @toggle-variety="toggleVariety"
+      @select-coffee-state="setCoffeeState"
     />
 
     <div class="absolute right-3 top-[9.5rem] z-20 md:right-4 md:top-[9.75rem]">
@@ -105,7 +109,7 @@ function retry(): void {
     </div>
 
     <div
-      class="absolute bottom-[max(1rem,env(safe-area-inset-bottom))] left-3 z-20 md:bottom-6 md:left-6"
+      class="absolute bottom-20 left-3 z-20 md:bottom-6 md:left-6"
       :class="selectedPoint ? 'hidden md:block' : 'block'"
     >
       <CoffeeMapLegend />
@@ -135,7 +139,7 @@ function retry(): void {
 
     <div
       v-if="selectedPoint"
-      class="absolute inset-x-0 bottom-0 z-40 px-2 pb-2 md:inset-x-auto md:bottom-6 md:right-6 md:px-0 md:pb-0"
+      class="absolute inset-x-0 bottom-16 z-40 px-2 pb-2 md:inset-x-auto md:bottom-6 md:right-6 md:px-0 md:pb-0"
     >
       <CoffeeMapDetails
         :point="selectedPoint"
