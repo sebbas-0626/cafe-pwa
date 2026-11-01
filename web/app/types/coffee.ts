@@ -42,7 +42,7 @@ export const COFFEE_VARIETY_FILTERS: CoffeeVarietyFilter[] = [
 
 export const PITALITO_CENTER: [number, number] = [-76.0508, 1.8537]
 
-export const DEFAULT_RADIUS_KM = 25
+export const DEFAULT_RADIUS_KM = 1000
 
 export const BUYER_TYPE_META: Record<CoffeeBuyerType, { label: string; icon: string }> = {
   cooperative: { label: 'Cooperativa', icon: 'handshake' },

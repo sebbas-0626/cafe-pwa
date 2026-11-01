@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { OfferCardProps } from '~/types'
+import type { OfferCardProps, PriceUnit } from '~/types'
 import type { CoffeePoint, CoffeeVarietyFilter } from '~/types/coffee'
 import { COFFEE_STATE_OPTIONS, PITALITO_CENTER } from '~/types/coffee'
 import { distanceInKm, useGeolocation } from '~/composables/useGeolocation'
@@ -31,6 +31,7 @@ watch(coffeeState, () => {
 
 const activeSort = ref<string>('Mejor precio')
 const activeVariety = ref<string>('Todas las variedades')
+const activeUnit = ref<Extract<PriceUnit, 'kg' | 'arroba'>>('kg')
 
 const varietyFilterMap: Record<string, CoffeeVarietyFilter> = {
   'Todas las variedades': 'Todas',
@@ -49,28 +50,31 @@ const referencePoint = computed<CoffeePoint>(() =>
 const offers = computed<OfferListItem[]>(() => {
   const reference = referencePoint.value
   const varietyFilter = varietyFilterMap[activeVariety.value] ?? 'Todas'
+  const unit = activeUnit.value
 
   const list = buyers.value.flatMap((buyer): OfferListItem[] => {
-    const offer = buyer.price_offers?.[0]
-
-    if (!offer) {
-      return []
-    }
-
     const point: CoffeePoint = {
       latitude: Number(buyer.latitude),
       longitude: Number(buyer.longitude)
     }
 
-    return [{
-      buyerId: buyer.id,
-      buyerName: buyer.name,
-      price: offer.price_per_kg,
-      unit: offer.unit,
-      variety: offer.coffee_variety?.name ?? 'Sin variedad',
-      updatedAt: offer.updated_at,
-      distanceKm: distanceInKm(reference, point)
-    }]
+    return (buyer.price_offers ?? []).map((offer) => {
+      const pricePerKg = Number(offer.price_per_kg)
+      const price = unit === 'arroba' ? pricePerKg * 12.5 : pricePerKg
+
+      return {
+        buyerId: buyer.id,
+        buyerName: buyer.name,
+        price: price.toFixed(2),
+        unit,
+        variety: offer.coffee_variety?.name ?? 'Sin variedad',
+        coffeeState: offer.coffee_state ?? coffeeState.value,
+        moistureRequired: offer.moisture_required,
+        yieldFactor: offer.yield_factor,
+        updatedAt: offer.updated_at,
+        distanceKm: distanceInKm(reference, point)
+      }
+    })
   }).filter(item => matchesVariety(item.variety, varietyFilter))
 
   return [...list].sort((a, b) => {
@@ -81,6 +85,11 @@ const offers = computed<OfferListItem[]>(() => {
     return Number(b.price) - Number(a.price)
   })
 })
+
+const activeBuyerCount = computed(() => new Set(offers.value.map(offer => offer.buyerId)).size)
+const activeStateLabel = computed(() =>
+  COFFEE_STATE_OPTIONS.find(option => option.value === coffeeState.value)?.label ?? ''
+)
 </script>
 
 <template>
@@ -93,7 +102,9 @@ const offers = computed<OfferListItem[]>(() => {
         </div>
         <div class="flex items-center gap-space-xs px-2.5 py-1 rounded-full bg-surface-container shadow-sm">
           <span class="material-symbols-outlined text-label-md text-secondary" style="font-variation-settings: 'FILL' 1">verified</span>
-          <span class="font-label-md text-label-md text-on-surface-variant font-bold">4 Puntos activos</span>
+          <span class="font-label-md text-label-md text-on-surface-variant font-bold">
+            {{ activeBuyerCount }} {{ activeBuyerCount === 1 ? 'punto activo' : 'puntos activos' }}
+          </span>
         </div>
       </div>
 
@@ -116,30 +127,30 @@ const offers = computed<OfferListItem[]>(() => {
         </div>
       </div>
 
-      <div class="mx-margin mb-space-md p-space-sm rounded-xl bg-surface-container-high shadow-sm flex flex-col gap-space-xs">
-        <div class="flex items-center justify-between">
-          <div class="flex items-center gap-space-xs">
-            <span class="material-symbols-outlined text-body-md text-primary">analytics</span>
-            <span class="font-label-md text-label-md font-bold uppercase tracking-wider text-primary">Indicadores FNC Hoy</span>
-          </div>
-          <span class="px-2 py-0.5 rounded-full bg-secondary text-on-secondary font-label-md text-label-md font-bold flex items-center gap-0.5">
-            <span class="material-symbols-outlined text-xs">arrow_upward</span> +2.4% NY
-          </span>
-        </div>
-        <div class="flex flex-wrap items-baseline gap-x-space-sm gap-y-0.5">
-          <span class="font-body-md text-body-md font-bold text-on-surface">Base FNC Carga (125kg): <span class="text-primary">$1.885.000</span></span>
-          <span class="font-label-md text-label-md text-on-surface-variant">· TRM: $4.180 COP</span>
-        </div>
-      </div>
-
       <div class="px-margin flex flex-col gap-space-sm mb-space-md">
         <div class="flex items-center justify-between bg-surface-container p-1 rounded-xl shadow-sm">
           <span class="font-label-md text-label-md text-on-surface-variant pl-space-xs font-bold">Unidad visualizada:</span>
           <div class="flex items-center gap-1 bg-surface-container-lowest p-0.5 rounded-lg shadow-sm">
-            <button class="px-3 py-1.5 rounded-md font-label-lg text-label-lg transition-all bg-primary text-on-primary font-bold shadow-sm" type="button">
+            <button
+              class="px-3 py-1.5 rounded-md font-label-lg text-label-lg transition-all"
+              :class="activeUnit === 'kg'
+                ? 'bg-primary text-on-primary font-bold shadow-sm'
+                : 'text-on-surface-variant hover:text-on-surface font-semibold'"
+              type="button"
+              :aria-pressed="activeUnit === 'kg'"
+              @click="activeUnit = 'kg'"
+            >
               $ / Kilo (kg)
             </button>
-            <button class="px-3 py-1.5 rounded-md font-label-lg text-label-lg transition-all text-on-surface-variant hover:text-on-surface font-semibold" type="button">
+            <button
+              class="px-3 py-1.5 rounded-md font-label-lg text-label-lg transition-all"
+              :class="activeUnit === 'arroba'
+                ? 'bg-primary text-on-primary font-bold shadow-sm'
+                : 'text-on-surface-variant hover:text-on-surface font-semibold'"
+              type="button"
+              :aria-pressed="activeUnit === 'arroba'"
+              @click="activeUnit = 'arroba'"
+            >
               $ / Arroba (@)
             </button>
           </div>
@@ -213,12 +224,12 @@ const offers = computed<OfferListItem[]>(() => {
         </div>
 
         <p v-else-if="offers.length === 0" class="font-label-lg text-label-lg text-on-surface-variant py-space-xl md:col-span-2 lg:col-span-3">
-          No hay ofertas vigentes por ahora.
+          No hay ofertas vigentes para {{ activeStateLabel }}.
         </p>
 
         <OfferCard
           v-for="offer in offers"
-          :key="offer.buyerName"
+          :key="`${offer.buyerId}-${offer.variety}-${offer.price}`"
           v-bind="offer"
           :selectable="props.selectable"
           @select="emit('select', $event)"
@@ -228,9 +239,9 @@ const offers = computed<OfferListItem[]>(() => {
       <div class="mx-margin mb-space-lg p-space-sm rounded-xl bg-primary text-on-primary flex items-center justify-between shadow-sm md:col-span-2 lg:col-span-3">
         <div class="flex items-center gap-space-xs min-w-0">
           <span class="w-2.5 h-2.5 rounded-full bg-secondary-fixed shrink-0" />
-          <span class="font-label-md text-label-md truncate">Precios locales actualizados · Modo offline sincronizado</span>
+          <span class="font-label-md text-label-md truncate">Precios publicados por las cooperativas · {{ activeStateLabel }}</span>
         </div>
-        <span class="material-symbols-outlined text-body-md shrink-0">wifi_off</span>
+        <span class="material-symbols-outlined text-body-md shrink-0">verified</span>
       </div>
     </div>
   </main>

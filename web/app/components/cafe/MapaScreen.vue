@@ -5,6 +5,7 @@ import CoffeeMapControls from '~/components/coffee-map/CoffeeMapControls.vue'
 import CoffeeMapDetails from '~/components/coffee-map/CoffeeMapDetails.vue'
 import CoffeeMapLegend from '~/components/coffee-map/CoffeeMapLegend.vue'
 import CoffeeMapList from '~/components/coffee-map/CoffeeMapList.vue'
+import { COFFEE_STATE_OPTIONS } from '~/types/coffee'
 
 const {
   selectedVarieties,
@@ -41,6 +42,10 @@ const {
 } = useCoffeeBuyers()
 
 const mapRef = ref<{ zoomIn: () => void; zoomOut: () => void } | null>(null)
+
+const coffeeStateLabel = computed(() =>
+  COFFEE_STATE_OPTIONS.find(option => option.value === coffeeState.value)?.label ?? ''
+)
 
 onMounted(() => {
   void loadBuyers()
@@ -177,10 +182,10 @@ function retry(): void {
       <div class="pointer-events-auto flex w-full max-w-md flex-col items-center gap-3 rounded-3xl border border-white/70 bg-[#FFFAF6] p-6 text-center shadow-[0_22px_60px_-18px_rgba(64,35,24,0.45)]">
         <span class="material-symbols-outlined text-[34px] text-[#B9A99B]">location_off</span>
         <h2 class="font-headline-md text-[18px] font-bold text-[#402318]">
-          No hay compradores en {{ radiusKm }} km
+          {{ radiusKm >= 1000 ? `No hay compradores para ${coffeeStateLabel}` : `No hay compradores en ${radiusKm} km` }}
         </h2>
         <p class="font-label-md text-[11px] text-[#7A6558]">
-          Prueba con otra variedad, quita los filtros o amplía el radio de búsqueda.
+          Prueba con otra variedad, cambia el estado del café o amplía el radio de búsqueda.
         </p>
         <div class="flex flex-wrap justify-center gap-2">
           <button
