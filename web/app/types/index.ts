@@ -54,6 +54,9 @@ export interface OfferCardProps {
   price: string
   unit: PriceUnit
   variety: string
+  coffeeState: CoffeeState
+  moistureRequired?: string | null
+  yieldFactor?: string | null
   updatedAt: string
 }
 

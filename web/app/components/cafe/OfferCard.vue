@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { NuxtLink } from '#components'
 import type { OfferCardProps, PriceUnit } from '~/types'
+import { COFFEE_STATE_OPTIONS } from '~/types/coffee'
 
 const props = withDefaults(defineProps<OfferCardProps & { selectable?: boolean }>(), {
   selectable: false
@@ -11,6 +12,10 @@ const emit = defineEmits<{
 }>()
 
 const componentTag = computed(() => props.selectable ? 'button' : NuxtLink)
+
+const stateLabel = computed(() =>
+  COFFEE_STATE_OPTIONS.find(option => option.value === props.coffeeState)?.label ?? props.coffeeState
+)
 
 const handleClick = (): void => {
   if (props.selectable) {
@@ -57,7 +62,14 @@ const formattedDate = computed(() =>
     </div>
 
     <div class="flex flex-wrap items-center gap-space-xs">
+      <span class="px-2.5 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-md text-label-md font-bold">{{ stateLabel }}</span>
       <span class="px-2.5 py-0.5 rounded-full bg-surface-container-high text-on-surface font-label-md text-label-md font-bold">{{ variety }}</span>
+      <span v-if="moistureRequired" class="px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-md text-label-md font-semibold">
+        Humedad {{ moistureRequired }}%
+      </span>
+      <span v-if="yieldFactor" class="px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-md text-label-md font-semibold">
+        Factor {{ yieldFactor }}
+      </span>
     </div>
 
     <span class="min-h-[48px] w-full rounded-xl bg-primary text-on-primary font-label-lg text-label-lg font-bold flex items-center justify-center gap-1 shadow-sm">

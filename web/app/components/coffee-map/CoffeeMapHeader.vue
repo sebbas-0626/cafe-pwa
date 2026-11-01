@@ -46,8 +46,8 @@ const menuLinks = [
         <div class="flex min-w-0 flex-col">
           <span class="truncate font-headline-md text-[13px] font-bold leading-tight text-[#402318] md:text-[17px]">{{ locationLabel }}</span>
           <span class="flex min-w-0 items-center gap-1 truncate font-label-md text-[9px] text-[#7A6558] md:text-[11px]">
-            <span class="hidden md:inline">Radio {{ radiusKm }} km</span>
-            <span class="md:hidden">{{ radiusKm }} km</span>
+            <span class="hidden md:inline">{{ radiusKm >= 1000 ? 'Todo el país' : `Radio ${radiusKm} km` }}</span>
+            <span class="md:hidden">{{ radiusKm >= 1000 ? 'País' : `${radiusKm} km` }}</span>
             <span aria-hidden="true">·</span>
             <span>{{ count }} {{ count === 1 ? 'punto' : 'puntos' }}</span>
           </span>

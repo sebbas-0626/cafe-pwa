@@ -6,8 +6,7 @@ export interface FilterChip {
 
 export const sortFilters: FilterChip[] = [
   { label: 'Mejor precio', active: true, icon: 'star' },
-  { label: 'Más cercano', active: false },
-  { label: 'Mejor factor', active: false }
+  { label: 'Más cercano', active: false }
 ]
 
 export const varietyFilters: FilterChip[] = [
