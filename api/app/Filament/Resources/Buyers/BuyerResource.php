@@ -24,6 +24,10 @@ class BuyerResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
+    protected static string|\UnitEnum|null $navigationGroup = 'Operación';
+
+    protected static ?int $navigationSort = 3;
+
     public static function getEloquentQuery(): Builder
     {
         $query = parent::getEloquentQuery();

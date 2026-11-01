@@ -18,6 +18,10 @@ class AuditLogResource extends Resource
 
     protected static ?string $navigationLabel = 'Audit Logs';
 
+    protected static string|\UnitEnum|null $navigationGroup = 'Sistema';
+
+    protected static ?int $navigationSort = 6;
+
     public static function table(Table $table): Table
     {
         return AuditLogsTable::configure($table);
