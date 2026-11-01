@@ -23,6 +23,7 @@ export function useCoffeeMap() {
     position: userLocation,
     loading: locating,
     error: locationError,
+    locationName,
     requestLocation
   } = useGeolocation()
 
@@ -33,7 +34,7 @@ export function useCoffeeMap() {
   ))
 
   const locationLabel = computed(() => (
-    userLocation.value ? 'Mi ubicación' : 'Pitalito, Huila'
+    userLocation.value ? (locationName.value ?? 'Mi ubicación') : 'Colombia'
   ))
 
   function showToast(message: string): void {
