@@ -3,15 +3,12 @@ import type {
   CoffeeBuyerApi,
   CoffeeBuyerApiOffer,
   CoffeeBuyerOffer,
-  CoffeeBuyerSource,
   CoffeeBuyerType,
-  CoffeeBuyersResult,
   CoffeeState,
   CoffeeVarietyFilter
 } from '~/types/coffee'
 import { BUYER_TYPE_META, COFFEE_STATE_OPTIONS, DEFAULT_COFFEE_STATE } from '~/types/coffee'
 import { toApiError, useApi } from '~/composables/useApi'
-import { createMockCoffeeBuyers } from './coffeeBuyerMock'
 
 const priceFormatter = new Intl.NumberFormat('es-CO', {
   maximumFractionDigits: 0
@@ -77,7 +74,7 @@ function normalizeOffer(offer: CoffeeBuyerApiOffer, coffeeState: CoffeeState): C
   }
 }
 
-function normalizeBuyer(buyer: CoffeeBuyerApi, isMock: boolean, coffeeState: CoffeeState): CoffeeBuyer | null {
+function normalizeBuyer(buyer: CoffeeBuyerApi, coffeeState: CoffeeState): CoffeeBuyer | null {
   const latitude = Number(buyer.latitude)
   const longitude = Number(buyer.longitude)
 
@@ -106,16 +103,15 @@ function normalizeBuyer(buyer: CoffeeBuyerApi, isMock: boolean, coffeeState: Cof
     address: buyer.address ?? null,
     phone: buyer.phone ?? null,
     isActive: true,
-    isMock,
     offers,
     varieties,
     pricePerKg: offers[0]!.pricePerKg
   }
 }
 
-function normalizeBuyers(payload: CoffeeBuyerApi[], isMock: boolean, coffeeState: CoffeeState): CoffeeBuyer[] {
+function normalizeBuyers(payload: CoffeeBuyerApi[], coffeeState: CoffeeState): CoffeeBuyer[] {
   return payload
-    .map(buyer => normalizeBuyer(buyer, isMock, coffeeState))
+    .map(buyer => normalizeBuyer(buyer, coffeeState))
     .filter((buyer): buyer is CoffeeBuyer => buyer !== null)
 }
 
@@ -174,26 +170,14 @@ export function formatPriceUpdatedAt(value: string): string {
 
 export async function fetchCoffeeBuyers(
   coffeeState: CoffeeState = DEFAULT_COFFEE_STATE
-): Promise<CoffeeBuyersResult> {
-  const config = useRuntimeConfig()
-
-  if (import.meta.dev && config.public.useMockCoffeeData) {
-    return {
-      buyers: normalizeBuyers(createMockCoffeeBuyers(), true, coffeeState),
-      source: 'mock' satisfies CoffeeBuyerSource
-    }
-  }
-
+): Promise<CoffeeBuyer[]> {
   try {
     const { data } = await useApi().get<CoffeeBuyerApi[] | { data: CoffeeBuyerApi[] }>('/buyers', {
       params: { coffee_state: coffeeState }
     })
     const payload = Array.isArray(data) ? data : data.data ?? []
 
-    return {
-      buyers: normalizeBuyers(payload, false, coffeeState),
-      source: 'api'
-    }
+    return normalizeBuyers(payload, coffeeState)
   } catch (caught) {
     throw toApiError(caught)
   }

@@ -1,7 +1,6 @@
 import type {
   CoffeeBuyer,
   CoffeeBuyerOffer,
-  CoffeeBuyerSource,
   CoffeeMapPoint,
   CoffeePoint,
   CoffeeVarietyFilter
@@ -13,7 +12,6 @@ import { useCoffeeMap } from './useCoffeeMap'
 
 export function useCoffeeBuyers() {
   const buyers = useState<CoffeeBuyer[]>('coffee-map:buyers', () => [])
-  const source = useState<CoffeeBuyerSource | null>('coffee-map:source', () => null)
   const loading = useState<boolean>('coffee-map:loading', () => false)
   const error = useState<string | null>('coffee-map:error', () => null)
   const loaded = useState<boolean>('coffee-map:loaded', () => false)
@@ -95,8 +93,7 @@ export function useCoffeeBuyers() {
 
     try {
       const result = await fetchCoffeeBuyers(coffeeState.value)
-      buyers.value = result.buyers
-      source.value = result.source
+      buyers.value = result
       loaded.value = true
     } catch (caught) {
       error.value = (caught as ApiError).message ?? 'No pudimos cargar los compradores.'
@@ -119,7 +116,6 @@ export function useCoffeeBuyers() {
   })
 
   return {
-    source,
     loading,
     error,
     loaded,

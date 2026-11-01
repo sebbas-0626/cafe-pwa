@@ -15,8 +15,6 @@ export type CoffeeVarietyFilter =
 
 export type CoffeeMapViewMode = 'map' | 'list'
 
-export type CoffeeBuyerSource = 'api' | 'mock'
-
 export type CoffeeState =
   | 'cereza'
   | 'pergamino_humedo'
@@ -117,7 +115,6 @@ export interface CoffeeBuyer {
   address: string | null
   phone: string | null
   isActive: boolean
-  isMock: boolean
   offers: CoffeeBuyerOffer[]
   varieties: string[]
   pricePerKg: number
@@ -129,9 +126,4 @@ export interface CoffeeMapPoint {
   pricePerKg: number
   distanceKm: number | null
   isBest: boolean
-}
-
-export interface CoffeeBuyersResult {
-  buyers: CoffeeBuyer[]
-  source: CoffeeBuyerSource
 }
