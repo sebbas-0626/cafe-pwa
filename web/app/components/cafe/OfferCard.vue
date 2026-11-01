@@ -1,7 +1,22 @@
 <script setup lang="ts">
+import { NuxtLink } from '#components'
 import type { OfferCardProps, PriceUnit } from '~/types'
 
-const props = defineProps<OfferCardProps>()
+const props = withDefaults(defineProps<OfferCardProps & { selectable?: boolean }>(), {
+  selectable: false
+})
+
+const emit = defineEmits<{
+  select: [buyerId: number]
+}>()
+
+const componentTag = computed(() => props.selectable ? 'button' : NuxtLink)
+
+const handleClick = (): void => {
+  if (props.selectable) {
+    emit('select', props.buyerId)
+  }
+}
 
 const unitLabels: Record<PriceUnit, string> = {
   kg: '/ kg',
@@ -22,9 +37,12 @@ const formattedDate = computed(() =>
 </script>
 
 <template>
-  <NuxtLink
-    class="rounded-2xl p-space-md bg-surface-container-lowest shadow-sm flex flex-col gap-space-sm hover:shadow-md transition-shadow"
-    :to="`/cooperativa/${buyerId}`"
+  <component
+    :is="componentTag"
+    class="w-full text-left rounded-2xl p-space-md bg-surface-container-lowest shadow-sm flex flex-col gap-space-sm hover:shadow-md transition-shadow"
+    :type="selectable ? 'button' : undefined"
+    :to="selectable ? undefined : `/cooperativa/${buyerId}`"
+    @click="handleClick"
   >
     <div class="flex items-start justify-between gap-space-sm">
       <span class="font-headline-md text-headline-md font-bold text-on-surface truncate">{{ buyerName }}</span>
@@ -46,5 +64,5 @@ const formattedDate = computed(() =>
       <span>Ver detalle</span>
       <span class="material-symbols-outlined text-body-md">arrow_forward</span>
     </span>
-  </NuxtLink>
+  </component>
 </template>

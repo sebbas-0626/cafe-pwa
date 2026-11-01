@@ -18,7 +18,7 @@ export function useCoffeeBuyers() {
   const error = useState<string | null>('coffee-map:error', () => null)
   const loaded = useState<boolean>('coffee-map:loaded', () => false)
 
-  const { selectedVarieties, selectedBuyerId, radiusKm, center } = useCoffeeMap()
+  const { selectedVarieties, coffeeState, selectedBuyerId, radiusKm, center } = useCoffeeMap()
 
   const referencePoint = computed<CoffeePoint>(() => ({
     latitude: center.value[1],
@@ -94,7 +94,7 @@ export function useCoffeeBuyers() {
     error.value = null
 
     try {
-      const result = await fetchCoffeeBuyers()
+      const result = await fetchCoffeeBuyers(coffeeState.value)
       buyers.value = result.buyers
       source.value = result.source
       loaded.value = true
@@ -106,6 +106,11 @@ export function useCoffeeBuyers() {
       loading.value = false
     }
   }
+
+  watch(coffeeState, () => {
+    loaded.value = false
+    void loadBuyers(true)
+  })
 
   watch(mapPoints, (points) => {
     if (selectedBuyerId.value !== null && !points.some(point => point.buyer.id === selectedBuyerId.value)) {

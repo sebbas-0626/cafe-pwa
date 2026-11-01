@@ -1,11 +1,23 @@
 <script setup lang="ts">
 import type { BuyerType, PerfilScreenProps } from '~/types'
+import { COFFEE_STATE_OPTIONS } from '~/types/coffee'
 
-const props = defineProps<PerfilScreenProps>()
+const props = withDefaults(defineProps<PerfilScreenProps & { embedded?: boolean }>(), {
+  embedded: false
+})
+
+const emit = defineEmits<{
+  close: []
+}>()
 
 const { buyer, loading, error, fetchBuyerById } = useBuyers()
+const { coffeeState } = useCoffeeMap()
 
-await fetchBuyerById(Number(props.cooperativeId))
+const coffeeStateLabel = computed(() =>
+  COFFEE_STATE_OPTIONS.find(option => option.value === coffeeState.value)?.label ?? ''
+)
+
+await fetchBuyerById(Number(props.cooperativeId), coffeeState.value)
 
 const typeLabels: Record<BuyerType, string> = {
   cooperative: 'Cooperativa',
@@ -27,10 +39,23 @@ const wazeUrl = computed(() => `https://waze.com/ul?ll=${buyer.value?.latitude},
 </script>
 
 <template>
-  <main class="flex flex-col relative w-full pt-16 pb-safe bg-background min-h-screen">
+  <main class="flex flex-col relative w-full pt-4 pb-24 bg-background min-h-screen md:min-h-0 md:pb-8">
     <div class="flex flex-col w-full pb-12 max-w-7xl mx-auto lg:px-8">
       <div class="px-margin pt-space-sm pb-space-xs flex items-center justify-between">
-        <NuxtLink class="flex items-center gap-space-xs py-space-xs px-space-sm rounded-full bg-surface-container text-on-surface font-label-lg text-label-lg active:scale-95 transition-transform" to="/lista">
+        <button
+          v-if="embedded"
+          class="flex items-center gap-space-xs py-space-xs px-space-sm rounded-full bg-surface-container text-on-surface font-label-lg text-label-lg active:scale-95 transition-transform"
+          type="button"
+          @click="emit('close')"
+        >
+          <span class="material-symbols-outlined text-headline-md">arrow_back</span>
+          <span>Volver a precios</span>
+        </button>
+        <NuxtLink
+          v-else
+          class="flex items-center gap-space-xs py-space-xs px-space-sm rounded-full bg-surface-container text-on-surface font-label-lg text-label-lg active:scale-95 transition-transform"
+          to="/lista"
+        >
           <span class="material-symbols-outlined text-headline-md">arrow_back</span>
           <span>Volver a precios</span>
         </NuxtLink>
@@ -51,7 +76,7 @@ const wazeUrl = computed(() => `https://waze.com/ul?ll=${buyer.value?.latitude},
         <button
           class="self-start min-h-[44px] px-space-md rounded-lg bg-primary text-on-primary font-label-lg text-label-lg font-bold active:scale-95 transition-all"
           type="button"
-          @click="fetchBuyerById(Number(props.cooperativeId))"
+          @click="fetchBuyerById(Number(props.cooperativeId), coffeeState)"
         >
           Reintentar
         </button>
@@ -138,7 +163,9 @@ const wazeUrl = computed(() => `https://waze.com/ul?ll=${buyer.value?.latitude},
         <div class="px-margin mt-space-lg flex flex-col gap-space-sm">
           <div class="flex items-center justify-between px-space-xs">
             <h4 class="font-headline-md text-headline-md text-on-surface">Precios de Hoy</h4>
-            <span class="material-symbols-outlined text-primary text-[24px]">coffee</span>
+            <span class="px-2.5 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-md text-label-md font-bold">
+              {{ coffeeStateLabel }}
+            </span>
           </div>
 
           <p v-if="priceOffers.length === 0" class="font-label-lg text-label-lg text-on-surface-variant">Esta cooperativa no tiene ofertas vigentes.</p>
@@ -178,50 +205,6 @@ const wazeUrl = computed(() => `https://waze.com/ul?ll=${buyer.value?.latitude},
                 <p class="text-on-surface-variant">Factor Ref.</p>
                 <p class="font-bold text-on-surface mt-0.5">88 base</p>
               </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="px-margin mt-space-lg flex flex-col gap-space-sm">
-          <div class="flex items-center justify-between px-space-xs">
-            <h4 class="font-headline-md text-headline-md text-on-surface">Calculadora de Liquidación</h4>
-            <span class="material-symbols-outlined text-primary text-[22px]">calculate</span>
-          </div>
-          <div class="bg-surface-container-low rounded-xl p-space-md shadow-sm flex flex-col gap-space-md">
-            <div class="flex flex-col gap-1">
-              <label class="font-label-md text-label-md text-on-surface-variant" for="variety-select">Variedad a liquidar:</label>
-              <select id="variety-select" class="w-full bg-surface text-on-surface font-body-md text-body-md py-3 px-3 rounded-lg focus:outline-none">
-                <option v-for="offer in priceOffers" :key="offer.id">
-                  {{ offer.coffee_variety?.name ?? 'Sin variedad' }} - {{ formatCurrency(offer.price_per_kg) }} / kg
-                </option>
-              </select>
-            </div>
-
-            <div class="flex bg-surface-container p-1 rounded-lg">
-              <button class="flex-1 py-2 font-label-lg text-label-lg rounded-md bg-primary-container text-on-primary font-bold shadow-sm transition-all text-center" type="button">Arrobas (@)</button>
-              <button class="flex-1 py-2 font-label-lg text-label-lg rounded-md text-on-surface font-medium transition-all text-center" type="button">Kilos (kg)</button>
-            </div>
-
-            <div class="flex flex-col gap-1.5">
-              <label class="font-label-md text-label-md text-on-surface-variant" for="coffee-qty">Cantidad de Arrobas (@):</label>
-              <div class="flex items-center gap-space-sm">
-                <button class="w-14 h-14 bg-surface-container hover:bg-surface-container-high rounded-xl text-on-surface flex items-center justify-center active:scale-90 transition-transform" type="button">
-                  <span class="material-symbols-outlined text-[28px]">remove</span>
-                </button>
-                <input id="coffee-qty" class="flex-1 h-14 bg-surface text-center font-price-hero-mobile text-price-hero-mobile text-primary rounded-xl focus:outline-none" type="number" inputmode="numeric" min="1" step="1" value="20">
-                <button class="w-14 h-14 bg-surface-container hover:bg-surface-container-high rounded-xl text-on-surface flex items-center justify-center active:scale-90 transition-transform" type="button">
-                  <span class="material-symbols-outlined text-[28px]">add</span>
-                </button>
-              </div>
-            </div>
-
-            <div class="bg-secondary text-on-secondary rounded-xl p-space-md flex flex-col gap-1 shadow-md">
-              <div class="flex items-center justify-between text-secondary-fixed text-label-md font-label-md">
-                <span>VALOR ESTIMADO A RECIBIR</span>
-                <span class="material-symbols-outlined text-[18px]">payments</span>
-              </div>
-              <p class="font-price-hero text-price-hero text-on-secondary tracking-tight my-0.5">$ 3.800.000</p>
-              <p class="font-label-md text-label-md text-secondary-fixed-dim">Pago de contado hoy en efectivo o transferencia bancaria inmediata.</p>
             </div>
           </div>
         </div>

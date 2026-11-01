@@ -18,6 +18,7 @@ function createOffer(
     id,
     price_per_kg: price,
     unit: 'kg',
+    coffee_state: 'pergamino_seco',
     valid_until: validUntil,
     status: 'approved',
     updated_at: updatedAt,
