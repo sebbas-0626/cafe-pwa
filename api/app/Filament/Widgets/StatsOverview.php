@@ -22,12 +22,9 @@ class StatsOverview extends StatsOverviewWidget
 
         $approvedQuery = PriceOffer::query()->approvedAndValid();
 
-        $pendingQuery = PriceOffer::query()->where('status', 'pending');
-
         if ($isCooperativeAdmin) {
             $buyersQuery->where('id', $user->buyer_id);
             $approvedQuery->where('buyer_id', $user->buyer_id);
-            $pendingQuery->where('buyer_id', $user->buyer_id);
         }
 
         return [
@@ -41,12 +38,7 @@ class StatsOverview extends StatsOverviewWidget
                 ->descriptionIcon(Heroicon::OutlinedCheckCircle)
                 ->color('primary')
                 ->icon(Heroicon::OutlinedCurrencyDollar),
-            Stat::make('Ofertas pendientes', $pendingQuery->count())
-                ->description($isCooperativeAdmin ? 'De su cooperativa' : 'Requieren revisión')
-                ->descriptionIcon(Heroicon::OutlinedClock)
-                ->color('warning')
-                ->icon(Heroicon::OutlinedClipboardDocumentList),
-            Stat::make('Caficultores registrados', $isCooperativeAdmin ? '—' : User::query()->where('role', UserRole::Farmer)->count())
+            Stat::make('Caficultores registrados', $isCooperativeAdmin ? '-' : User::query()->where('role', UserRole::Farmer)->count())
                 ->description($isCooperativeAdmin ? 'No aplica a su cooperativa' : 'Usuarios con rol farmer')
                 ->descriptionIcon(Heroicon::OutlinedUsers)
                 ->color('info')
