@@ -15,7 +15,22 @@ export type CoffeeVarietyFilter =
 
 export type CoffeeMapViewMode = 'map' | 'list'
 
-export type CoffeeBuyerSource = 'api' | 'mock'
+export type CoffeeState =
+  | 'cereza'
+  | 'pergamino_humedo'
+  | 'pergamino_seco'
+  | 'verde_almendra'
+  | 'pasilla'
+
+export const DEFAULT_COFFEE_STATE: CoffeeState = 'pergamino_seco'
+
+export const COFFEE_STATE_OPTIONS: { value: CoffeeState; label: string }[] = [
+  { value: 'cereza', label: 'Cereza' },
+  { value: 'pergamino_humedo', label: 'Pergamino húmedo' },
+  { value: 'pergamino_seco', label: 'Pergamino seco' },
+  { value: 'verde_almendra', label: 'Verde / almendra' },
+  { value: 'pasilla', label: 'Pasilla' }
+]
 
 export const COFFEE_VARIETY_FILTERS: CoffeeVarietyFilter[] = [
   'Todas',
@@ -27,7 +42,7 @@ export const COFFEE_VARIETY_FILTERS: CoffeeVarietyFilter[] = [
 
 export const PITALITO_CENTER: [number, number] = [-76.0508, 1.8537]
 
-export const DEFAULT_RADIUS_KM = 25
+export const DEFAULT_RADIUS_KM = 1000
 
 export const BUYER_TYPE_META: Record<CoffeeBuyerType, { label: string; icon: string }> = {
   cooperative: { label: 'Cooperativa', icon: 'handshake' },
@@ -56,6 +71,9 @@ export interface CoffeeBuyerApiOffer {
   id: number
   price_per_kg: string | number
   unit?: string
+  coffee_state?: string
+  moisture_required?: string | number | null
+  yield_factor?: string | number | null
   valid_from?: string
   valid_until: string
   status?: string
@@ -80,6 +98,7 @@ export interface CoffeeBuyerApi {
 export interface CoffeeBuyerOffer {
   id: number
   variety: string
+  coffeeState: CoffeeState
   pricePerKg: number
   unit: string
   validUntil: string
@@ -96,7 +115,6 @@ export interface CoffeeBuyer {
   address: string | null
   phone: string | null
   isActive: boolean
-  isMock: boolean
   offers: CoffeeBuyerOffer[]
   varieties: string[]
   pricePerKg: number
@@ -108,9 +126,4 @@ export interface CoffeeMapPoint {
   pricePerKg: number
   distanceKm: number | null
   isBest: boolean
-}
-
-export interface CoffeeBuyersResult {
-  buyers: CoffeeBuyer[]
-  source: CoffeeBuyerSource
 }

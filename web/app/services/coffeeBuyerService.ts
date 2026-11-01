@@ -3,14 +3,12 @@ import type {
   CoffeeBuyerApi,
   CoffeeBuyerApiOffer,
   CoffeeBuyerOffer,
-  CoffeeBuyerSource,
   CoffeeBuyerType,
-  CoffeeBuyersResult,
+  CoffeeState,
   CoffeeVarietyFilter
 } from '~/types/coffee'
-import { BUYER_TYPE_META } from '~/types/coffee'
+import { BUYER_TYPE_META, COFFEE_STATE_OPTIONS, DEFAULT_COFFEE_STATE } from '~/types/coffee'
 import { toApiError, useApi } from '~/composables/useApi'
-import { createMockCoffeeBuyers } from './coffeeBuyerMock'
 
 const priceFormatter = new Intl.NumberFormat('es-CO', {
   maximumFractionDigits: 0
@@ -48,19 +46,27 @@ function normalizeType(value: string): CoffeeBuyerType {
   return keys.includes(value as CoffeeBuyerType) ? value as CoffeeBuyerType : 'private_buyer'
 }
 
-function normalizeOffer(offer: CoffeeBuyerApiOffer): CoffeeBuyerOffer | null {
+function normalizeCoffeeState(value: string | undefined): CoffeeState {
+  const states = COFFEE_STATE_OPTIONS.map(option => option.value)
+
+  return states.includes(value as CoffeeState) ? value as CoffeeState : DEFAULT_COFFEE_STATE
+}
+
+function normalizeOffer(offer: CoffeeBuyerApiOffer, coffeeState: CoffeeState): CoffeeBuyerOffer | null {
   const price = Number(offer.price_per_kg)
   const validUntil = new Date(offer.valid_until)
+  const state = normalizeCoffeeState(offer.coffee_state)
   const isValid = offer.status === undefined || offer.status === 'approved'
   const isExpired = Number.isNaN(validUntil.getTime()) || validUntil.getTime() <= Date.now()
 
-  if (!Number.isFinite(price) || price <= 0 || !isValid || isExpired) {
+  if (!Number.isFinite(price) || price <= 0 || !isValid || isExpired || state !== coffeeState) {
     return null
   }
 
   return {
     id: offer.id,
     variety: offer.coffee_variety?.name ?? 'Sin variedad',
+    coffeeState: state,
     pricePerKg: price,
     unit: offer.unit ?? 'kg',
     validUntil: offer.valid_until,
@@ -68,7 +74,7 @@ function normalizeOffer(offer: CoffeeBuyerApiOffer): CoffeeBuyerOffer | null {
   }
 }
 
-function normalizeBuyer(buyer: CoffeeBuyerApi, isMock: boolean): CoffeeBuyer | null {
+function normalizeBuyer(buyer: CoffeeBuyerApi, coffeeState: CoffeeState): CoffeeBuyer | null {
   const latitude = Number(buyer.latitude)
   const longitude = Number(buyer.longitude)
 
@@ -77,7 +83,7 @@ function normalizeBuyer(buyer: CoffeeBuyerApi, isMock: boolean): CoffeeBuyer | n
   }
 
   const offers = (buyer.price_offers ?? [])
-    .map(normalizeOffer)
+    .map(offer => normalizeOffer(offer, coffeeState))
     .filter((offer): offer is CoffeeBuyerOffer => offer !== null)
     .sort((left, right) => right.pricePerKg - left.pricePerKg)
 
@@ -97,16 +103,15 @@ function normalizeBuyer(buyer: CoffeeBuyerApi, isMock: boolean): CoffeeBuyer | n
     address: buyer.address ?? null,
     phone: buyer.phone ?? null,
     isActive: true,
-    isMock,
     offers,
     varieties,
     pricePerKg: offers[0]!.pricePerKg
   }
 }
 
-function normalizeBuyers(payload: CoffeeBuyerApi[], isMock: boolean): CoffeeBuyer[] {
+function normalizeBuyers(payload: CoffeeBuyerApi[], coffeeState: CoffeeState): CoffeeBuyer[] {
   return payload
-    .map(buyer => normalizeBuyer(buyer, isMock))
+    .map(buyer => normalizeBuyer(buyer, coffeeState))
     .filter((buyer): buyer is CoffeeBuyer => buyer !== null)
 }
 
@@ -163,24 +168,16 @@ export function formatPriceUpdatedAt(value: string): string {
   return dateFormatter.format(date)
 }
 
-export async function fetchCoffeeBuyers(): Promise<CoffeeBuyersResult> {
-  const config = useRuntimeConfig()
-
-  if (import.meta.dev && config.public.useMockCoffeeData) {
-    return {
-      buyers: normalizeBuyers(createMockCoffeeBuyers(), true),
-      source: 'mock' satisfies CoffeeBuyerSource
-    }
-  }
-
+export async function fetchCoffeeBuyers(
+  coffeeState: CoffeeState = DEFAULT_COFFEE_STATE
+): Promise<CoffeeBuyer[]> {
   try {
-    const { data } = await useApi().get<CoffeeBuyerApi[] | { data: CoffeeBuyerApi[] }>('/buyers')
+    const { data } = await useApi().get<CoffeeBuyerApi[] | { data: CoffeeBuyerApi[] }>('/buyers', {
+      params: { coffee_state: coffeeState }
+    })
     const payload = Array.isArray(data) ? data : data.data ?? []
 
-    return {
-      buyers: normalizeBuyers(payload, false),
-      source: 'api'
-    }
+    return normalizeBuyers(payload, coffeeState)
   } catch (caught) {
     throw toApiError(caught)
   }

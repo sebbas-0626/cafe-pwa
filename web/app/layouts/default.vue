@@ -6,16 +6,15 @@ const { apiBase } = useRuntimeConfig().public
 const adminLoginUrl = `${String(apiBase).replace(/\/api\/?$/, '')}/admin/login`
 
 const links = [
-  { label: 'Mapa', to: '/' },
+  { label: 'Mapa', to: '/mapa' },
   { label: 'Precios', to: '/lista' },
-  { label: 'Calculadora', to: '/calculadora' },
   { label: 'Cooperativas', to: '/lista' }
 ]
 </script>
 
 <template>
-  <div class="bg-background font-body-md text-body-md text-on-surface antialiased flex flex-col min-h-screen selection:bg-primary-fixed">
-    <header class="fixed top-0 w-full z-50 pt-safe bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(68,21,10,0.04)]">
+  <div class="min-h-screen w-full bg-background flex flex-col relative font-body-md text-body-md text-on-surface antialiased selection:bg-primary-fixed">
+    <header class="fixed top-0 inset-x-0 w-full z-50 pt-safe bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(68,21,10,0.04)]">
       <div class="h-16 px-margin max-w-7xl mx-auto flex items-center justify-between gap-space-sm">
         <NuxtLink class="flex items-center gap-space-sm min-w-0" to="/">
           <span class="material-symbols-outlined text-headline-md text-primary">coffee</span>

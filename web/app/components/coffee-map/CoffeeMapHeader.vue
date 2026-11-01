@@ -1,34 +1,40 @@
 <script setup lang="ts">
-import type { CoffeeBuyerSource, CoffeeVarietyFilter } from '~/types/coffee'
+import type { CoffeeState, CoffeeVarietyFilter } from '~/types/coffee'
 import CoffeeMapFilters from './CoffeeMapFilters.vue'
+
+defineOptions({ inheritAttrs: false })
 
 defineProps<{
   count: number
   radiusKm: number
   loading: boolean
-  source: CoffeeBuyerSource | null
-  locationLabel: string
   selectedVarieties: CoffeeVarietyFilter[]
+  coffeeState: CoffeeState
 }>()
 
 const emit = defineEmits<{
   locate: []
   toggleVariety: [variety: CoffeeVarietyFilter]
+  selectCoffeeState: [coffeeState: CoffeeState]
 }>()
 
+const locationLabel = ref('Todo Colombia')
 const menuOpen = ref(false)
 
 const menuLinks = [
-  { label: 'Mapa de precios', icon: 'explore', to: '/' },
-  { label: 'Comparar precios', icon: 'trending_up', to: '/lista' },
-  { label: 'Calculadora de lote', icon: 'calculate', to: '/calculadora' }
+  { label: 'Mapa de precios', icon: 'explore', to: '/mapa' },
+  { label: 'Comparar precios', icon: 'trending_up', to: '/lista' }
 ]
+
+function setCurrentLocation(): void {
+  locationLabel.value = 'Mi ubicación'
+}
 </script>
 
 <template>
   <header class="pointer-events-none absolute inset-x-3 top-[max(0.75rem,env(safe-area-inset-top))] z-30 flex flex-col gap-2 md:inset-x-4 md:top-4">
     <div class="pointer-events-auto relative flex items-center gap-2 rounded-2xl border border-white/70 bg-[#FFFAF6]/95 px-2.5 py-2 shadow-[0_10px_30px_-8px_rgba(64,35,24,0.28)] backdrop-blur-md md:gap-4 md:px-5 md:py-3">
-      <NuxtLink class="flex min-w-0 items-center gap-2.5 md:gap-3" to="/" aria-label="Café Huila, ir al mapa">
+      <NuxtLink class="flex min-w-0 items-center gap-2.5 md:gap-3" to="/mapa" aria-label="Café Huila, ir al mapa">
         <span class="relative grid h-10 w-10 shrink-0 place-items-center rounded-full bg-[#F3E3D8] text-[#783719] md:h-11 md:w-11">
           <span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'FILL' 1">local_cafe</span>
           <span class="material-symbols-outlined absolute -right-1 -top-1 rounded-full bg-[#FFFAF6] text-[15px] text-[#087D50]" style="font-variation-settings: 'FILL' 1">eco</span>
@@ -36,7 +42,6 @@ const menuLinks = [
         <span class="flex min-w-0 flex-col">
           <span class="truncate font-headline-md text-[16px] font-bold leading-tight text-[#402318] md:text-[20px]">Café Huila</span>
           <span class="hidden truncate font-label-md text-[10px] text-[#7A6558] md:block">Conectando el campo con mejores precios</span>
-          <span v-if="source === 'mock'" class="mt-0.5 w-fit rounded-full bg-[#F3E3D8] px-1.5 py-0.5 font-label-md text-[8px] font-bold text-[#783719] md:hidden" title="Datos de demostración. No representan precios reales.">Demo</span>
         </span>
       </NuxtLink>
 
@@ -47,15 +52,10 @@ const menuLinks = [
         <div class="flex min-w-0 flex-col">
           <span class="truncate font-headline-md text-[13px] font-bold leading-tight text-[#402318] md:text-[17px]">{{ locationLabel }}</span>
           <span class="flex min-w-0 items-center gap-1 truncate font-label-md text-[9px] text-[#7A6558] md:text-[11px]">
-            <span class="hidden md:inline">Radio {{ radiusKm }} km</span>
-            <span class="md:hidden">{{ radiusKm }} km</span>
+            <span class="hidden md:inline">{{ radiusKm >= 1000 ? 'Todo el país' : `Radio ${radiusKm} km` }}</span>
+            <span class="md:hidden">{{ radiusKm >= 1000 ? 'País' : `${radiusKm} km` }}</span>
             <span aria-hidden="true">·</span>
             <span>{{ count }} {{ count === 1 ? 'punto' : 'puntos' }}</span>
-            <span
-              v-if="source === 'mock'"
-              class="hidden rounded-full bg-[#F3E3D8] px-1.5 py-0.5 text-[9px] font-bold text-[#783719] md:inline"
-              title="Datos de demostración. No representan precios reales."
-            >Demo</span>
           </span>
         </div>
       </div>
@@ -66,7 +66,7 @@ const menuLinks = [
           type="button"
           :disabled="loading"
           aria-label="Usar mi ubicación"
-          @click="emit('locate')"
+          @click="setCurrentLocation"
         >
           <span class="material-symbols-outlined text-[18px]">{{ loading ? 'progress_activity' : 'my_location' }}</span>
           <span class="hidden font-label-lg text-label-lg font-bold sm:inline">Mi ubicación</span>
@@ -112,7 +112,9 @@ const menuLinks = [
     <CoffeeMapFilters
       class="pointer-events-auto pl-0.5"
       :selected="selectedVarieties"
+      :coffee-state="coffeeState"
       @toggle="emit('toggleVariety', $event)"
+      @select-state="emit('selectCoffeeState', $event)"
     />
   </header>
 </template>

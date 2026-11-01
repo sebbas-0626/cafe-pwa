@@ -111,16 +111,6 @@ Setup → Tipos → Componentes → Páginas → Composables API → Conexión A
 - Añadir prefijos `md:`/`lg:` según `docs/FRONTEND_STITCH.md`.
 - No eliminar clases móviles.
 
-### T2.6 - CalculadoraScreen: estructura
-- Leer `template/calculadora_de_factor_de_rendimiento_y_merma/code.html`.
-- Crear `app/components/cafe/CalculadoraScreen.vue`.
-- Datos hardcodeados, sin lógica de cálculo.
-- NO aplicar responsive todavía (eso es T2.7).
-
-### T2.7 - CalculadoraScreen: responsive
-- Añadir prefijos `md:`/`lg:` según `docs/FRONTEND_STITCH.md`.
-- No eliminar clases móviles.
-
 ---
 
 ## FASE 3: Navegación y páginas (una tarea por sesión)
@@ -143,9 +133,6 @@ Setup → Tipos → Componentes → Páginas → Composables API → Conexión A
 ### T3.5 - Página Perfil
 - Crear `app/pages/cooperativa/[id].vue` que use `PerfilScreen.vue`.
 - Pasar `id` de la ruta como prop `cooperativeId`.
-
-### T3.6 - Página Calculadora
-- Crear `app/pages/calculadora.vue` que use `CalculadoraScreen.vue`.
 
 ### T3.7 - Navegación Lista → Perfil
 - Envolver `OfferCard` en `NuxtLink` a `/cooperativa/{id}`.
@@ -258,3 +245,55 @@ Setup → Tipos → Componentes → Páginas → Composables API → Conexión A
 - El cooperative_admin actualiza precios directamente en Filament (sin aprobación del admin).
 - La PWA solo muestra ofertas con status = 'approved' y valid_until > now().
 - Si una cooperativa es suspendida (is_active = false), sus ofertas no aparecen en la PWA.
+
+## FASE 1: Onboarding y Layout (NUEVO ORDEN)
+
+### T1.1 - Layout Principal Centrado (Mobile-First Web)
+- Crear `app/layouts/default.vue`.
+- Envolver el `<slot />` en un contenedor: `max-w-md mx-auto min-h-screen bg-cream shadow-xl`.
+- En desktop, esto hará que la app se vea centrada como un celular.
+
+### T1.2 - Pantalla de Bienvenida y Selección de Rol
+- Crear `app/components/stitch/WelcomeScreen.vue` (basado en el diseño de Stitch "Selección de Rol").
+- Implementar lógica:
+  - Botón "Soy Caficultor": `navigateTo('/mapa')`.
+  - Botón "Soy Cooperativa": `navigateTo('/login')`.
+  - Enlace inferior: `navigateTo('/mapa')`.
+
+### T1.3 - Pantalla de Onboarding (Carrusel)
+- Crear `app/components/stitch/OnboardingScreen.vue` (basado en el diseño "Bienvenida y Onboarding").
+- Botón "Empezar ahora" -> va a la pantalla de selección de rol.
+
+### T2.1 - Página de Inicio
+- Configurar `app/pages/index.vue` para que muestre el Onboarding la primera vez (usando `localStorage`), y si ya se vio, que muestre la Selección de Rol.
+
+### T2.2 - Página Mapa (Pública)
+- Crear `app/pages/mapa.vue`. (Accesible para invitados).
+
+### T2.3 - Página Lista (Pública)
+- Crear `app/pages/lista.vue`. (Accesible para invitados).
+
+## FASE 1: Onboarding y Vistas Públicas
+
+### T1.1 - Layout Principal Centrado (Mobile-First Web)
+- Crear `app/layouts/default.vue` con contenedor `max-w-md mx-auto` para que se vea bien en desktop.
+
+### T1.2 - Pantalla de Bienvenida y Selección de Rol
+- Crear `app/components/stitch/WelcomeScreen.vue`.
+- Botón principal: "Ver Precios del Café" -> `navigateTo('/mapa')`.
+- Enlace secundario inferior: "Acceso Cooperativas" -> enlace a `api.tudominio.com/admin` (o el dominio que uses).
+
+### T1.3 - Pantalla de Onboarding (Carrusel)
+- Crear `app/components/stitch/OnboardingScreen.vue`.
+- Botón "Empezar ahora" -> va a la pantalla de bienvenida.
+
+## FASE 2: Vistas de Datos (Públicas)
+
+### T2.1 - Página Mapa
+- Crear `app/pages/mapa.vue`.
+
+### T2.2 - Página Lista
+- Crear `app/pages/lista.vue`.
+
+### T2.3 - Página Perfil de la Cooperativa
+- Crear `app/pages/cooperativa/[id].vue`.

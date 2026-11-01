@@ -1,7 +1,27 @@
 <script setup lang="ts">
+import { NuxtLink } from '#components'
 import type { OfferCardProps, PriceUnit } from '~/types'
+import { COFFEE_STATE_OPTIONS } from '~/types/coffee'
 
-const props = defineProps<OfferCardProps>()
+const props = withDefaults(defineProps<OfferCardProps & { selectable?: boolean }>(), {
+  selectable: false
+})
+
+const emit = defineEmits<{
+  select: [buyerId: number]
+}>()
+
+const componentTag = computed(() => props.selectable ? 'button' : NuxtLink)
+
+const stateLabel = computed(() =>
+  COFFEE_STATE_OPTIONS.find(option => option.value === props.coffeeState)?.label ?? props.coffeeState
+)
+
+const handleClick = (): void => {
+  if (props.selectable) {
+    emit('select', props.buyerId)
+  }
+}
 
 const unitLabels: Record<PriceUnit, string> = {
   kg: '/ kg',
@@ -22,9 +42,12 @@ const formattedDate = computed(() =>
 </script>
 
 <template>
-  <NuxtLink
-    class="rounded-2xl p-space-md bg-surface-container-lowest shadow-sm flex flex-col gap-space-sm hover:shadow-md transition-shadow"
-    :to="`/cooperativa/${buyerId}`"
+  <component
+    :is="componentTag"
+    class="w-full text-left rounded-2xl p-space-md bg-surface-container-lowest shadow-sm flex flex-col gap-space-sm hover:shadow-md transition-shadow"
+    :type="selectable ? 'button' : undefined"
+    :to="selectable ? undefined : `/cooperativa/${buyerId}`"
+    @click="handleClick"
   >
     <div class="flex items-start justify-between gap-space-sm">
       <span class="font-headline-md text-headline-md font-bold text-on-surface truncate">{{ buyerName }}</span>
@@ -39,12 +62,19 @@ const formattedDate = computed(() =>
     </div>
 
     <div class="flex flex-wrap items-center gap-space-xs">
+      <span class="px-2.5 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-md text-label-md font-bold">{{ stateLabel }}</span>
       <span class="px-2.5 py-0.5 rounded-full bg-surface-container-high text-on-surface font-label-md text-label-md font-bold">{{ variety }}</span>
+      <span v-if="moistureRequired" class="px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-md text-label-md font-semibold">
+        Humedad {{ moistureRequired }}%
+      </span>
+      <span v-if="yieldFactor" class="px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-md text-label-md font-semibold">
+        Factor {{ yieldFactor }}
+      </span>
     </div>
 
     <span class="min-h-[48px] w-full rounded-xl bg-primary text-on-primary font-label-lg text-label-lg font-bold flex items-center justify-center gap-1 shadow-sm">
       <span>Ver detalle</span>
       <span class="material-symbols-outlined text-body-md">arrow_forward</span>
     </span>
-  </NuxtLink>
+  </component>
 </template>

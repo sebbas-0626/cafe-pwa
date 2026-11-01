@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import type { CoffeeBuyerSource, CoffeeMapPoint } from '~/types/coffee'
+import type { CoffeeMapPoint } from '~/types/coffee'
 import { BUYER_TYPE_META } from '~/types/coffee'
 import { formatDistance, formatPricePerKg, formatPriceUpdatedAt } from '~/services/coffeeBuyerService'
 
 const props = defineProps<{
   points: CoffeeMapPoint[]
   selectedId: number | null
-  source: CoffeeBuyerSource | null
   loading: boolean
   error: string | null
 }>()
@@ -29,7 +28,6 @@ const sortedPoints = computed(() => (
         <span class="font-headline-md text-[18px] font-bold leading-tight text-[#402318]">Compradores cerca</span>
         <span class="mt-0.5 flex items-center gap-1.5 font-label-md text-[11px] text-[#7A6558]">
           {{ sortedPoints.length }} {{ sortedPoints.length === 1 ? 'punto activo' : 'puntos activos' }}
-          <span v-if="source === 'mock'" class="rounded-full bg-[#F3E3D8] px-1.5 py-0.5 text-[9px] font-bold text-[#783719]">Demo</span>
         </span>
       </div>
       <button

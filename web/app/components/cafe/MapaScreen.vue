@@ -5,9 +5,11 @@ import CoffeeMapControls from '~/components/coffee-map/CoffeeMapControls.vue'
 import CoffeeMapDetails from '~/components/coffee-map/CoffeeMapDetails.vue'
 import CoffeeMapLegend from '~/components/coffee-map/CoffeeMapLegend.vue'
 import CoffeeMapList from '~/components/coffee-map/CoffeeMapList.vue'
+import { COFFEE_STATE_OPTIONS } from '~/types/coffee'
 
 const {
   selectedVarieties,
+  coffeeState,
   selectedBuyerId,
   viewMode,
   radiusKm,
@@ -20,6 +22,7 @@ const {
   locationLabel,
   toggleVariety,
   resetVarieties,
+  setCoffeeState,
   selectBuyer,
   clearSelection,
   setRadius,
@@ -30,7 +33,6 @@ const {
 } = useCoffeeMap()
 
 const {
-  source,
   loading,
   error,
   loaded,
@@ -40,6 +42,10 @@ const {
 } = useCoffeeBuyers()
 
 const mapRef = ref<{ zoomIn: () => void; zoomOut: () => void } | null>(null)
+
+const coffeeStateLabel = computed(() =>
+  COFFEE_STATE_OPTIONS.find(option => option.value === coffeeState.value)?.label ?? ''
+)
 
 onMounted(() => {
   void loadBuyers()
@@ -60,7 +66,7 @@ function retry(): void {
 </script>
 
 <template>
-  <main class="fixed inset-0 overflow-hidden bg-[#E9DFD0] font-body-md text-[#402318]">
+  <main class="absolute inset-0 overflow-hidden bg-[#E9DFD0] font-body-md text-[#402318]">
     <ClientOnly>
       <CoffeeMap
         ref="mapRef"
@@ -82,11 +88,12 @@ function retry(): void {
       :count="mapPoints.length"
       :radius-km="radiusKm"
       :loading="locating"
-      :source="source"
       :location-label="locationLabel"
       :selected-varieties="selectedVarieties"
+      :coffee-state="coffeeState"
       @locate="locate"
       @toggle-variety="toggleVariety"
+      @select-coffee-state="setCoffeeState"
     />
 
     <div class="absolute right-3 top-[9.5rem] z-20 md:right-4 md:top-[9.75rem]">
@@ -105,7 +112,7 @@ function retry(): void {
     </div>
 
     <div
-      class="absolute bottom-[max(1rem,env(safe-area-inset-bottom))] left-3 z-20 md:bottom-6 md:left-6"
+      class="absolute bottom-20 left-3 z-20 md:bottom-6 md:left-6"
       :class="selectedPoint ? 'hidden md:block' : 'block'"
     >
       <CoffeeMapLegend />
@@ -124,7 +131,6 @@ function retry(): void {
       <CoffeeMapList
         :points="mapPoints"
         :selected-id="selectedBuyerId"
-        :source="source"
         :loading="loading"
         :error="error"
         @select="handleListSelect"
@@ -135,7 +141,7 @@ function retry(): void {
 
     <div
       v-if="selectedPoint"
-      class="absolute inset-x-0 bottom-0 z-40 px-2 pb-2 md:inset-x-auto md:bottom-6 md:right-6 md:px-0 md:pb-0"
+      class="absolute inset-x-0 bottom-16 z-40 px-2 pb-2 md:inset-x-auto md:bottom-6 md:right-6 md:px-0 md:pb-0"
     >
       <CoffeeMapDetails
         :point="selectedPoint"
@@ -176,10 +182,10 @@ function retry(): void {
       <div class="pointer-events-auto flex w-full max-w-md flex-col items-center gap-3 rounded-3xl border border-white/70 bg-[#FFFAF6] p-6 text-center shadow-[0_22px_60px_-18px_rgba(64,35,24,0.45)]">
         <span class="material-symbols-outlined text-[34px] text-[#B9A99B]">location_off</span>
         <h2 class="font-headline-md text-[18px] font-bold text-[#402318]">
-          No hay compradores en {{ radiusKm }} km
+          {{ radiusKm >= 1000 ? `No hay compradores para ${coffeeStateLabel}` : `No hay compradores en ${radiusKm} km` }}
         </h2>
         <p class="font-label-md text-[11px] text-[#7A6558]">
-          Prueba con otra variedad, quita los filtros o amplía el radio de búsqueda.
+          Prueba con otra variedad, cambia el estado del café o amplía el radio de búsqueda.
         </p>
         <div class="flex flex-wrap justify-center gap-2">
           <button

@@ -79,3 +79,15 @@ Backend expone API REST JSON. Admin usa Filament (se instalará después).
 - El admin verifica la cooperativa una vez (buyer.is_active = true).
 - El admin puede suspender la cooperativa (is_active = false) para ocultar sus ofertas.
 - NO implementar flujo de aprobación por oferta. Solo verificación de cooperativa.
+
+## Arquitectura de Roles y Autenticación (DEFINITIVO)
+- **PWA (web/)**: Es 100% PÚBLICA. Los caficultores NO se registran ni se loguean. NO construir vistas de login, registro, perfil de usuario ni favoritos en Nuxt.
+- **Admin/Cooperativas (api/)**: Usan el panel de Filament (`/admin`). El login para ellos ya existe en Filament.
+- **Flujo en la PWA**: Bienvenida -> Mapa -> Lista -> Perfil de Cooperativa (solo lectura).
+- Si la pantalla de bienvenida tiene un botón para cooperativas, este debe ser un enlace externo que apunte a la URL de Filament.
+
+## Regla de Layouts (Responsive)
+- La app tiene dos layouts en `app/layouts/`: `mobile.vue` (centrado, max-w-md) y `desktop.vue` (grid de 3 columnas).
+- Las vistas de Onboarding y Selección de Rol son EXCLUSIVAS para móvil (`md:hidden`).
+- En Desktop, el usuario debe ir directo a la vista de datos (Mapa/Lista).
+- Nunca uses estilos fijos de ancho (ej. `w-[375px]`) en el layout de escritorio. Usa Grid o Flexbox responsivo.
