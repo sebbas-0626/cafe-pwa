@@ -111,16 +111,6 @@ Setup → Tipos → Componentes → Páginas → Composables API → Conexión A
 - Añadir prefijos `md:`/`lg:` según `docs/FRONTEND_STITCH.md`.
 - No eliminar clases móviles.
 
-### T2.6 - CalculadoraScreen: estructura
-- Leer `template/calculadora_de_factor_de_rendimiento_y_merma/code.html`.
-- Crear `app/components/cafe/CalculadoraScreen.vue`.
-- Datos hardcodeados, sin lógica de cálculo.
-- NO aplicar responsive todavía (eso es T2.7).
-
-### T2.7 - CalculadoraScreen: responsive
-- Añadir prefijos `md:`/`lg:` según `docs/FRONTEND_STITCH.md`.
-- No eliminar clases móviles.
-
 ---
 
 ## FASE 3: Navegación y páginas (una tarea por sesión)
@@ -143,9 +133,6 @@ Setup → Tipos → Componentes → Páginas → Composables API → Conexión A
 ### T3.5 - Página Perfil
 - Crear `app/pages/cooperativa/[id].vue` que use `PerfilScreen.vue`.
 - Pasar `id` de la ruta como prop `cooperativeId`.
-
-### T3.6 - Página Calculadora
-- Crear `app/pages/calculadora.vue` que use `CalculadoraScreen.vue`.
 
 ### T3.7 - Navegación Lista → Perfil
 - Envolver `OfferCard` en `NuxtLink` a `/cooperativa/{id}`.
@@ -286,10 +273,27 @@ Setup → Tipos → Componentes → Páginas → Composables API → Conexión A
 ### T2.3 - Página Lista (Pública)
 - Crear `app/pages/lista.vue`. (Accesible para invitados).
 
-### T2.4 - Página Perfil (Protegida)
-- Crear `app/pages/perfil.vue` (basado en el diseño "Perfil de Caficultor" de Stitch).
-- Aplicar middleware `auth` (si no hay usuario, redirige a `/login`).
+## FASE 1: Onboarding y Vistas Públicas
 
-### T3.1 - Middleware de Autenticación
-- Crear `app/middleware/auth.ts` en Nuxt.
-- Verificar si existe el token (localStorage o cookie). Si no, redirigir a `/login`.
+### T1.1 - Layout Principal Centrado (Mobile-First Web)
+- Crear `app/layouts/default.vue` con contenedor `max-w-md mx-auto` para que se vea bien en desktop.
+
+### T1.2 - Pantalla de Bienvenida y Selección de Rol
+- Crear `app/components/stitch/WelcomeScreen.vue`.
+- Botón principal: "Ver Precios del Café" -> `navigateTo('/mapa')`.
+- Enlace secundario inferior: "Acceso Cooperativas" -> enlace a `api.tudominio.com/admin` (o el dominio que uses).
+
+### T1.3 - Pantalla de Onboarding (Carrusel)
+- Crear `app/components/stitch/OnboardingScreen.vue`.
+- Botón "Empezar ahora" -> va a la pantalla de bienvenida.
+
+## FASE 2: Vistas de Datos (Públicas)
+
+### T2.1 - Página Mapa
+- Crear `app/pages/mapa.vue`.
+
+### T2.2 - Página Lista
+- Crear `app/pages/lista.vue`.
+
+### T2.3 - Página Perfil de la Cooperativa
+- Crear `app/pages/cooperativa/[id].vue`.
