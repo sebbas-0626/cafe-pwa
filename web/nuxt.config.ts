@@ -32,6 +32,26 @@ export default defineNuxtConfig({
   },
   pwa: {
     registerType: 'autoUpdate',
+    workbox: {
+      globPatterns: ['**/*.{js,css,html,png,svg,ico,webmanifest}'],
+      cleanupOutdatedCaches: true,
+      runtimeCaching: [
+        {
+          urlPattern: ({ request }) => request.mode === 'navigate',
+          handler: 'NetworkFirst',
+          options: {
+            cacheName: 'pages',
+            networkTimeoutSeconds: 3,
+            expiration: {
+              maxEntries: 20
+            },
+            precacheFallback: {
+              fallbackURL: '/offline.html'
+            }
+          }
+        }
+      ]
+    },
     manifest: {
       id: '/',
       name: 'CaféPrecios Colombia',
