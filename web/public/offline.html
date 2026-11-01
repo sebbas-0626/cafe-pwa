@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#702506">
+    <title>CaféPrecios · Sin conexión</title>
+    <style>
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        background: #ffcfc4;
+        color: #380c04;
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      }
+      .card {
+        width: min(100%, 420px);
+        border-radius: 24px;
+        background: #fff8f6;
+        padding: 32px 24px;
+        box-shadow: 0 24px 60px -20px rgba(64, 35, 24, 0.45);
+        text-align: center;
+      }
+      .icon {
+        display: grid;
+        place-items: center;
+        width: 64px;
+        height: 64px;
+        margin: 0 auto 16px;
+        border-radius: 18px;
+        background: #8f3b1c;
+        color: #fff;
+        font-size: 32px;
+      }
+      h1 { margin: 0 0 8px; font-size: 25px; line-height: 1.2; }
+      p { margin: 0 0 24px; color: #55423c; font-size: 15px; line-height: 1.5; }
+      button, a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 52px;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+      }
+      button {
+        width: 100%;
+        border: 0;
+        background: #702506;
+        color: #fff;
+        cursor: pointer;
+        margin-bottom: 12px;
+      }
+      a { color: #55423c; text-decoration: underline; text-underline-offset: 4px; }
+    </style>
+  </head>
+  <body>
+    <main class="card">
+      <div class="icon">☕</div>
+      <h1>Sin conexión</h1>
+      <p>No pudimos cargar CaféPrecios porque no hay internet. Revisa tu conexión e intenta de nuevo.</p>
+      <button type="button" onclick="location.reload()">Reintentar</button>
+      <a href="/mapa">Ir al mapa</a>
+    </main>
+  </body>
+</html>

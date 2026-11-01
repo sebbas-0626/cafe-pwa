@@ -50,8 +50,12 @@ class PriceOfferForm
                     ->required()
                     ->default('kg'),
                 DateTimePicker::make('valid_from')
+                    ->native(false)
+                    ->firstDayOfWeek(7)
                     ->required(),
                 DateTimePicker::make('valid_until')
+                    ->native(false)
+                    ->firstDayOfWeek(7)
                     ->required(),
                 Textarea::make('notes')
                     ->columnSpanFull(),

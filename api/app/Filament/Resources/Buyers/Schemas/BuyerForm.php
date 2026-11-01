@@ -10,6 +10,7 @@ use Filament\Notifications\Notification;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
+use Filament\Schemas\Components\View;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Illuminate\Support\Facades\Http;
@@ -106,12 +107,20 @@ class BuyerForm
                 Grid::make(2)
                     ->schema([
                         TextInput::make('latitude')
-                            ->required()
-                            ->numeric(),
+                            ->numeric()
+                            ->rules(['required'])
+                            ->validationMessages([
+                                'required' => 'Debes obtener las coordenadas antes de guardar',
+                            ]),
                         TextInput::make('longitude')
-                            ->required()
-                            ->numeric(),
+                            ->numeric()
+                            ->rules(['required'])
+                            ->validationMessages([
+                                'required' => 'Debes obtener las coordenadas antes de guardar',
+                            ]),
                     ]),
+                View::make('filament.forms.components.buyer-location-map')
+                    ->columnSpanFull(),
                 TextInput::make('phone')
                     ->tel(),
                 Toggle::make('is_active')
