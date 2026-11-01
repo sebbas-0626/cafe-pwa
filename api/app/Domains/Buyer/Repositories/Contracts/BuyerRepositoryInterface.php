@@ -3,6 +3,7 @@
 namespace App\Domains\Buyer\Repositories\Contracts;
 
 use App\Domains\Buyer\Models\Buyer;
+use App\Enums\CoffeeState;
 use Illuminate\Database\Eloquent\Collection;
 
 interface BuyerRepositoryInterface
@@ -10,7 +11,7 @@ interface BuyerRepositoryInterface
     /**
      * @return Collection<int, Buyer>
      */
-    public function findActiveWithApprovedOffers(): Collection;
+    public function findActiveWithApprovedOffers(CoffeeState $coffeeState): Collection;
 
     public function findById(int $id): ?Buyer;
 
