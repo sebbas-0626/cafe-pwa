@@ -32,7 +32,6 @@ const {
 } = useCoffeeMap()
 
 const {
-  source,
   loading,
   error,
   loaded,
@@ -84,7 +83,6 @@ function retry(): void {
       :count="mapPoints.length"
       :radius-km="radiusKm"
       :loading="locating"
-      :source="source"
       :location-label="locationLabel"
       :selected-varieties="selectedVarieties"
       :coffee-state="coffeeState"
@@ -128,7 +126,6 @@ function retry(): void {
       <CoffeeMapList
         :points="mapPoints"
         :selected-id="selectedBuyerId"
-        :source="source"
         :loading="loading"
         :error="error"
         @select="handleListSelect"

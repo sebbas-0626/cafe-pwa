@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import type { CoffeeBuyerSource, CoffeeState, CoffeeVarietyFilter } from '~/types/coffee'
+import type { CoffeeState, CoffeeVarietyFilter } from '~/types/coffee'
 import CoffeeMapFilters from './CoffeeMapFilters.vue'
 
 defineProps<{
   count: number
   radiusKm: number
   loading: boolean
-  source: CoffeeBuyerSource | null
   locationLabel: string
   selectedVarieties: CoffeeVarietyFilter[]
   coffeeState: CoffeeState
@@ -37,7 +36,6 @@ const menuLinks = [
         <span class="flex min-w-0 flex-col">
           <span class="truncate font-headline-md text-[16px] font-bold leading-tight text-[#402318] md:text-[20px]">Café Huila</span>
           <span class="hidden truncate font-label-md text-[10px] text-[#7A6558] md:block">Conectando el campo con mejores precios</span>
-          <span v-if="source === 'mock'" class="mt-0.5 w-fit rounded-full bg-[#F3E3D8] px-1.5 py-0.5 font-label-md text-[8px] font-bold text-[#783719] md:hidden" title="Datos de demostración. No representan precios reales.">Demo</span>
         </span>
       </NuxtLink>
 
@@ -52,11 +50,6 @@ const menuLinks = [
             <span class="md:hidden">{{ radiusKm }} km</span>
             <span aria-hidden="true">·</span>
             <span>{{ count }} {{ count === 1 ? 'punto' : 'puntos' }}</span>
-            <span
-              v-if="source === 'mock'"
-              class="hidden rounded-full bg-[#F3E3D8] px-1.5 py-0.5 text-[9px] font-bold text-[#783719] md:inline"
-              title="Datos de demostración. No representan precios reales."
-            >Demo</span>
           </span>
         </div>
       </div>

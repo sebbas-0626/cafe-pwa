@@ -8,8 +8,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      apiBase: process.env.NUXT_PUBLIC_API_BASE || 'http://localhost:8000/api',
-      useMockCoffeeData: process.env.NUXT_PUBLIC_USE_MOCK_COFFEE_DATA === 'true'
+      apiBase: process.env.NUXT_PUBLIC_API_BASE || 'http://localhost:8000/api'
     }
   },
   app: {
