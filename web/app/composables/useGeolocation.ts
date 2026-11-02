@@ -2,10 +2,29 @@ import type { CoffeePoint, CoffeeUserLocation } from '~/types/coffee'
 
 const EARTH_RADIUS_KM = 6371
 
+async function reverseGeocode(latitude: number, longitude: number): Promise<string | null> {
+  try {
+    const response = await fetch(
+      `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`,
+      { headers: { 'Accept-Language': 'es' } }
+    )
+    const data = await response.json() as { address?: { city?: string; town?: string; village?: string; county?: string; state?: string } }
+    const address = data.address
+    if (!address) return null
+    const city = address.city ?? address.town ?? address.village ?? address.county
+    const state = address.state
+    if (city && state) return `${city}/${state}`
+    return city ?? state ?? null
+  } catch {
+    return null
+  }
+}
+
 export function useGeolocation() {
   const position = useState<CoffeeUserLocation | null>('coffee-geo:position', () => null)
   const loading = useState<boolean>('coffee-geo:loading', () => false)
   const error = useState<string | null>('coffee-geo:error', () => null)
+  const locationName = useState<string | null>('coffee-geo:location-name', () => null)
 
   function requestLocation(): Promise<CoffeeUserLocation | null> {
     if (!import.meta.client) {
@@ -32,6 +51,9 @@ export function useGeolocation() {
 
           position.value = location
           loading.value = false
+          void reverseGeocode(location.latitude, location.longitude).then((name) => {
+            locationName.value = name
+          })
           resolve(location)
         },
         (caught) => {
@@ -52,7 +74,7 @@ export function useGeolocation() {
     })
   }
 
-  return { position, loading, error, requestLocation }
+  return { position, loading, error, locationName, requestLocation }
 }
 
 export function distanceInKm(from: CoffeePoint, to: CoffeePoint): number {
