@@ -25,7 +25,9 @@ export default defineNuxtConfig({
           href: 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200'
         },
         { rel: 'apple-touch-icon', href: '/icons/icon-192.png' },
-        { rel: 'manifest', href: '/manifest.webmanifest' }
+        ...(process.env.NODE_ENV === 'production'
+          ? [{ rel: 'manifest' as const, href: '/manifest.webmanifest' }]
+          : [])
       ],
       meta: [{ name: 'theme-color', content: '#702506' }]
     }
