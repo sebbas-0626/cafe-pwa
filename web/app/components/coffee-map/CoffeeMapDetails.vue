@@ -11,13 +11,7 @@ const props = defineProps<{
 const emit = defineEmits<{ close: [] }>()
 
 const typeMeta = computed(() => BUYER_TYPE_META[props.point.buyer.type] ?? BUYER_TYPE_META.private_buyer)
-
-const directionsUrl = computed(() => {
-  const destination = `${props.point.buyer.latitude},${props.point.buyer.longitude}`
-  const from = props.origin ? `${props.origin.latitude},${props.origin.longitude}` : ''
-
-  return `https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=${from};${destination}`
-})
+const mapsUrl = computed(() => `https://maps.google.com/?q=${props.point.buyer.latitude},${props.point.buyer.longitude}`)
 
 const distanceHint = computed(() => (
   props.origin ? 'desde tu ubicación' : 'desde Pitalito'
@@ -102,21 +96,31 @@ const distanceHint = computed(() => (
         </div>
       </div>
 
-      <div class="mt-3 flex items-center justify-between gap-3">
+      <div class="mt-3 flex flex-wrap items-center justify-between gap-3">
         <div class="flex min-w-0 items-center gap-1.5 font-label-md text-[10px] text-[#7A6558]">
           <span class="material-symbols-outlined text-[14px] text-[#087D50]">near_me</span>
           <span class="truncate">A {{ formatDistance(point.distanceKm) }} {{ distanceHint }}</span>
         </div>
 
-        <a
-          class="flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-xl bg-[#783719] px-4 font-label-lg text-label-lg font-bold text-[#FFFAF6] shadow-[0_6px_16px_-6px_rgba(120,55,25,0.6)] transition-colors hover:bg-[#5E2B14] active:scale-95"
-          :href="directionsUrl"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <span class="material-symbols-outlined text-[17px]" style="font-variation-settings: 'FILL' 1">navigation</span>
-          Cómo llegar
-        </a>
+        <div class="flex w-full gap-2 md:w-auto">
+          <a
+            class="flex min-h-11 flex-1 items-center justify-center gap-2 rounded-xl bg-[#783719] px-3 font-label-lg text-label-lg font-bold text-[#FFFAF6] shadow-[0_6px_16px_-6px_rgba(120,55,25,0.6)] transition-colors hover:bg-[#5E2B14] active:scale-95 md:flex-none md:px-4"
+            :href="mapsUrl"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span class="material-symbols-outlined text-[17px]" style="font-variation-settings: 'FILL' 1">navigation</span>
+            Cómo llegar
+          </a>
+
+          <NuxtLink
+            class="flex min-h-11 flex-1 items-center justify-center gap-2 rounded-xl border border-[#783719] px-3 font-label-lg text-label-lg font-bold text-[#783719] transition-colors hover:bg-[#F3E3D8] active:scale-95 md:flex-none md:px-4"
+            :to="`/cooperativa/${point.buyer.id}`"
+          >
+            <span class="material-symbols-outlined text-[17px]">storefront</span>
+            Ver cooperativa
+          </NuxtLink>
+        </div>
       </div>
     </div>
   </aside>
