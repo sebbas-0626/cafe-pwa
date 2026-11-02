@@ -8,6 +8,7 @@ defineProps<{
   count: number
   radiusKm: number
   loading: boolean
+  locationLabel: string
   selectedVarieties: CoffeeVarietyFilter[]
   coffeeState: CoffeeState
 }>()
@@ -18,17 +19,12 @@ const emit = defineEmits<{
   selectCoffeeState: [coffeeState: CoffeeState]
 }>()
 
-const locationLabel = ref('Todo Colombia')
 const menuOpen = ref(false)
 
 const menuLinks = [
   { label: 'Mapa de precios', icon: 'explore', to: '/mapa' },
   { label: 'Comparar precios', icon: 'trending_up', to: '/lista' }
 ]
-
-function setCurrentLocation(): void {
-  locationLabel.value = 'Mi ubicación'
-}
 </script>
 
 <template>
@@ -66,10 +62,10 @@ function setCurrentLocation(): void {
           type="button"
           :disabled="loading"
           aria-label="Usar mi ubicación"
-          @click="setCurrentLocation"
+          @click="emit('locate')"
         >
           <span class="material-symbols-outlined text-[18px]">{{ loading ? 'progress_activity' : 'my_location' }}</span>
-          <span class="hidden font-label-lg text-label-lg font-bold sm:inline">Mi ubicación</span>
+          <span class="hidden font-label-lg text-label-lg font-bold sm:inline">{{ locationLabel }}</span>
         </button>
 
         <button

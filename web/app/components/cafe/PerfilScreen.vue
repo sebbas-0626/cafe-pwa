@@ -170,14 +170,14 @@ const wazeUrl = computed(() => `https://waze.com/ul?ll=${buyer.value?.latitude},
 
           <p v-if="priceOffers.length === 0" class="font-label-lg text-label-lg text-on-surface-variant">Esta cooperativa no tiene ofertas vigentes.</p>
 
-          <div class="flex flex-col gap-space-xs md:grid md:grid-cols-2 lg:grid-cols-4">
+          <div class="flex flex-col gap-space-xs md:grid md:grid-cols-1">
             <div v-for="offer in priceOffers" :key="offer.id" class="bg-surface-container-low rounded-xl p-space-md shadow-sm flex flex-col gap-2">
-              <div class="flex items-center justify-between">
-                <span class="font-headline-md text-headline-md text-on-surface font-bold">{{ offer.coffee_variety?.name ?? 'Sin variedad' }}</span>
-                <span class="text-label-md font-label-md px-2 py-0.5 rounded-full bg-surface-container text-on-surface">{{ offer.unit }}</span>
+              <div class="flex items-center justify-between md:gap-3">
+                <span class="font-headline-md text-headline-md text-on-surface font-bold md:min-w-0 md:break-words">{{ offer.coffee_variety?.name ?? 'Sin variedad' }}</span>
+                <span class="text-label-md font-label-md px-2 py-0.5 rounded-full bg-surface-container text-on-surface md:shrink-0">{{ offer.unit }}</span>
               </div>
-              <p class="font-label-md text-label-md text-on-surface-variant">Vigente hasta {{ offer.valid_until }}</p>
-              <div class="flex items-baseline justify-between mt-space-xs pt-space-xs">
+              <p class="font-label-md text-label-md text-on-surface-variant md:break-words">Vigente hasta {{ offer.valid_until }}</p>
+              <div class="flex items-baseline justify-between mt-space-xs pt-space-xs md:flex-wrap md:gap-3">
                 <div>
                   <span class="font-price-hero-mobile text-price-hero-mobile text-primary">{{ formatCurrency(offer.price_per_kg) }}</span>
                   <span class="font-label-lg text-label-lg text-on-surface-variant"> / kg</span>
